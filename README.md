@@ -33,5 +33,5 @@ You don't necessarily need the backend files in order to use the client source c
    Navigate to the actual Angular project: `cd lab-platorm`. Then we can start our development server provided by Angular:
    `ng serve`.
    
-   This will load the client code on your default browser. Now when you alter the content, the changes will reflect on the page, as it normally would in any Angular project
+   This will load the client code on your default browser. Now when you alter the content, the changes will reflect on the page, as it normally would in any Angular project. And that should be it!
  
