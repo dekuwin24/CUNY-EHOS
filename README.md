@@ -24,14 +24,16 @@ The process flow of the the MEAN stack is shown in the photo below:
 ![alt text](https://excellentwebworld.com/wp-content/uploads/2017/09/images-3.jpg "MEAN Process - Anchal Malik")
 
 ## Prerequisites
-As we can see from the diagram above, knowledge of **JavaScript** is essential in order to follow this. 
-You don't necessarily need the backend files in order to use the client source code, but if you do, you need the **npm** utility, as you need to download certain NodeJS modules that will aid with the backend side of things. As just mentioned, the client code is stored inside the *client/* folder. 
+As we can see from the diagram above, knowledge of **JavaScript** and **Angular2** is essential in order to follow this. 
+You don't necessarily need the backend files in order to use the client source code, but if you do, you need the **npm** utility, as you need to download certain NodeJS modules that will aid with the backend side of things. 
+
+As just mentioned, the client code is stored inside the */client/lab-platform/src* folder. For front end development purposes, Angular provdides a development server for you to test out your components and what not, but here I included my NodeJS script that would deploy and serve the front end. 
+>The script is super basic and only is there for me. I will continously update this repository, and whatever is done on the backend with the .NET platform, I will be mimicking with Node for my own enhancement and development in my node skills.
 
 ##  Front End Development
-1. Download Angular 2, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
-2. Clone this repository, then navigate to it through your terminal/console. You should be somewhere that looks like: ` ~/../client/`.
-   Navigate to the actual Angular project: `cd lab-platorm`. Then we can start our development server provided by Angular:
+ 1. Download Angular 2, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
+ 2. Clone this repository, then navigate to it through your terminal/console. You should be somewhere that looks like: ` ~/../client/`. Navigate to the actual Angular project: `cd lab-platorm`. Then we can start our development server provided by Angular:
    `ng serve`.
-   
-   This will load the client code on your default browser. Now when you alter the content, the changes will reflect on the page, as it normally would in any Angular project. And that should be it!
+
+This will load the client code on your default browser. Now when you alter the content, the changes will reflect on the page, as it normally would in any Angular project. And that should be it!
  
