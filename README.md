@@ -7,7 +7,7 @@ This includes but is not limited to:
 * Safety training 
 * Distribution of safety supplies 
 
-The finished product will be deployed using the Angular framework, with ASP.NET serving as our backend, however this repository will be using different backend technologies. The reason for this is comfortability with JavaScript and other front end frameworks.
+The finished product will be deployed using the Angular framework, with ASP.NET serving as our backend, however this repository *will* be using different backend technologies. The reason for this is comfortability with JavaScript and other front end frameworks, and for reasons explained later.
 
 ## Technologies
 This rough draft is using what is known as a MEAN stack, which uses the following technologies:
@@ -28,7 +28,7 @@ As we can see from the diagram above, knowledge of **JavaScript** and **Angular2
 You don't necessarily need the backend files in order to use the client source code, but if you do, you need the **npm** utility, as you need to download certain NodeJS modules that will aid with the backend side of things. 
 
 As just mentioned, the client code is stored inside the */client/lab-platform/src* folder. For front end development purposes, Angular provdides a development server for you to test out your components and what not, but here I included my NodeJS script that would deploy and serve the front end. 
->The script is super basic and only is there for me. I will continously update this repository, and whatever is done on the backend with the .NET platform, I will be mimicking with Node for my own enhancement and development in my node skills.
+>The script is super basic and **only is there for my own devices**. I will continously update this repository, and whatever is done on the backend with the .NET platform, I will be mimicking with Node for my own enhancement and development in my node skills.
 
 ##  Front End Development
  1. Download Angular 2, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
