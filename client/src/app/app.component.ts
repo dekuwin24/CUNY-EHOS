@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Login Template';
-  loginForm = true;
-  registerForm = false;
-  
+  loginFlag = true;
+  toggleForms(){
+    if (this.loginFlag) {
+      this.loginFlag = false;
+    }
+    else{
+      this.loginFlag = true;
+    }
+  }
 }

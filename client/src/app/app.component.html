@@ -8,11 +8,11 @@
             </div>
           </div>
           <div class="body">
-            <app-login></app-login>
-            <app-register></app-register>
+            <app-login *ngIf="loginFlag"></app-login>
+            <app-register *ngIf="!loginFlag"></app-register>
             <div class="row clearfix">
               <div class="col-md-10 offset-md-1">
-                <p>Not registered? <a class="prompt" href="#" (click)="toggle(form)" >Create an account</a></p>
+                <p>{{loginFlag? "Not registered?": "Registered?"}}<a class="prompt" href="#" (click)="toggleForms()" >{{loginFlag ? " Create an account":" Sign in"}}</a></p>
               </div>
             </div>
           </div>
