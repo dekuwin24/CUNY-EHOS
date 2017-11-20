@@ -1,37 +1,83 @@
-<form>
+<form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit()">
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="text" placeholder="first">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.firstName.errors && registerForm.controls.firstName.dirty), 'has-success': !registerForm.controls.firstName.errors}">
+        <input class="form-control" type="text" placeholder="first" name="firstName" formControlName="firstName">
+        <div *ngIf="registerForm.controls.firstName.errors?.required && registerForm.controls.firstName.dirty" class="form-control-feedback">You must provide a first name.</div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="text" placeholder="last">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.lastName.errors && registerForm.controls.lastName.dirty), 'has-success': !registerForm.controls.lastName.errors}">
+        <input class="form-control" type="text" placeholder="last" name="lastName"  formControlName="lastName">
+        <div *ngIf="registerForm.controls.lastName.errors?.required && registerForm.controls.lastName.dirty" class="form-control-feedback">You must provide a last name.</div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="text" placeholder="phone number">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.email.errors && registerForm.controls.email.dirty), 'has-success': !registerForm.controls.email.errors}">
+        <input class="form-control" type="email" placeholder="email" name="email"  formControlName="email">
+        <div *ngIf="registerForm.controls.email.errors && registerForm.controls.email.dirty" class="form-control-feedback">
+            <div *ngIf="registerForm.controls.email.errors?.required">
+              You must provide an email.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.minlength">
+              Your email must be greater than 5 characters.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.maxlength">
+              Your email must be less than 40 characters.
+            </div>
+            <div *ngIf="registerForm.controls.email.errors?.invalidEmail && (!registerForm.controls.email.errors?.required) && (!registerForm.controls.email.errors?.minlength) && (!registerForm.controls.email.errors?.maxlength)">
+              Invalid email.
+            </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="email" placeholder="email">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty), 'has-success': !registerForm.controls.phoneNumber.errors}">
+        <input class="form-control" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
+        <div *ngIf="registerForm.controls.phoneNumber.errors?.required && registerForm.controls.phoneNumber.dirty" class="form-control-feedback">You must provide a phone number.</div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="password" placeholder="password">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.password.errors && registerForm.controls.password.dirty), 'has-success': !registerForm.controls.password.errors}">
+        <input class="form-control" type="password" placeholder="password" name="password" formControlName="password">
+        <div class="form-control-feedback" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.dirty">
+          <div *ngIf="registerForm.controls.password.errors?.required">
+            You must provide a password.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.minlength">
+            Your password must be greater than 8 characters.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.maxlength">
+            Your password must be less than 40 characters.
+          </div>
+          <div *ngIf="registerForm.controls.password.errors?.invalidPassword && (!registerForm.controls.password.errors?.required) && (!registerForm.controls.password.errors?.minlength) && (!registerForm.controls.password.errors?.maxlength)">
+            Password must have at least a lowercase letter, uppercase letter, and a number.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <input class="form-control" type="password" placeholder="confirm password">
+      <div class="form-group" [ngClass]="{'has-danger': (registerForm.errors && registerForm.controls.confirmPassword.dirty), 'has-success': (!registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty)}">
+        <input class="form-control" type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
+        <div class="form-control-feedback" *ngIf="registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty">
+          Passwords do not match!
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <a class="waves-effect waves-light btn">CREATE</a>
+      <button pButton [disabled]="!registerForm.valid" type="submit" label="Register" class="ui-button"></button>
     </div>
   </div>
 </form>

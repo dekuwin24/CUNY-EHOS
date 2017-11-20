@@ -1,21 +1,22 @@
-<form>
+<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
   <div class="row">
       <div class="col-md-10 offset-md-1">
-        <div class="form-group">
-          <input class="form-control" type="text" placeholder="email">
+        <div class="form-group" [ngClass]="{'has-danger': (loginForm.controls.email.errors && loginForm.controls.email.dirty), 'has-success': !loginForm.controls.email.errors}">
+          <input class="form-control" type="text" placeholder="email" name="email" formControlName="email">
+          <div *ngIf="loginForm.controls.email.errors?.invalid && loginForm.controls.email.dirty" class="form-control-feedback">Sorry, that email is invalid. Try another?</div>
         </div>
       </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <div class="form-group">
-        <input class="form-control" type="password" placeholder="password">
+      <div class="form-group" [ngClass]="{'has-danger': (loginForm.controls.password.errors && loginForm.controls.password.dirty), 'has-success': !loginForm.controls.password.errors}">
+        <input class="form-control" type="password" placeholder="password" name="password" formControlName="password">
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <a class="waves-effect waves-light btn">LOG IN</a>
+      <button pButton type="submit" label="Sign in"  class="ui-button"></button>
     </div>
   </div>
 </form>
