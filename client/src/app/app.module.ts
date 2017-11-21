@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -11,8 +11,8 @@ import { LabOperatorDashboardComponent } from './lab-operator-dashboard/lab-oper
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedPrimeNgModule } from './shared-primeng.module';
-
-
+import { AuthService } from './services/auth.service';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -27,12 +27,15 @@ import { SharedPrimeNgModule } from './shared-primeng.module';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedPrimeNgModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TextMaskModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

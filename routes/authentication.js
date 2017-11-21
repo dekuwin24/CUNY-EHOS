@@ -7,10 +7,7 @@ module.exports = (router) => {
   // request.body.user, request.body.email, request.body.password
 
   router.post('/register', (request, response) =>{
-    if (!request.body.user) {
-      response.json({success: false, message: 'Username error'});
-    }
-    else if (!request.body.email) {
+    if (!request.body.email) {
       response.json({success: false, message: 'Email error'});
     }
     else if (!request.body.password) {

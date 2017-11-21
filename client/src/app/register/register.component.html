@@ -39,8 +39,8 @@
   <div class="row">
     <div class="col-md-10 offset-md-1">
       <div class="form-group" [ngClass]="{'has-danger': (registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty), 'has-success': !registerForm.controls.phoneNumber.errors}">
-        <input class="form-control" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
-        <div *ngIf="registerForm.controls.phoneNumber.errors?.required && registerForm.controls.phoneNumber.dirty" class="form-control-feedback">You must provide a phone number.</div>
+        <input [textMask]="{mask: mask}" class="form-control" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
+        <div *ngIf="registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty" class="form-control-feedback">You must provide a valid phone number.</div>
       </div>
     </div>
   </div>

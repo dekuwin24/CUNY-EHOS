@@ -42,6 +42,7 @@ const emailValidator = [
     message: 'Must be a valid e-mail'
   }
 ];
+
 // Validate Function to check password length
 let isPasswordLength = (password) => {
   // Check if password exists
@@ -87,6 +88,7 @@ const passwordValidator = [
 const userSchema = new Schema(
   {
     email: {type: String, required: true, unique: true, lowercase: true, validate: emailValidator},
+    phoneNumber: {type: String, required: true}
     password: {type: String, required: true, validate: passwordValidator},
     privilage: {type: Number, required: true}
   }

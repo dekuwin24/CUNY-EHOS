@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // Importing this module to be able to use text-mask library
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,8 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   // Declare a registerForm with datatype of FormGroup
   registerForm: FormGroup;
+  // Using TextMask Module to format the phone number field
+  public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   // Inside constructor, instantiate FormBuilder class
-  constructor( private formBuilder: FormBuilder ) {
+  constructor( private formBuilder: FormBuilder, private authService: AuthService) {
     this.createForm();
   }
   // Have method that will create the register form entities
@@ -24,7 +28,10 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(40),
         this.isValidEmail
       ])],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', Validators.compose([
+        Validators.required,
+        this.isValidPhoneNumber
+      ])],
       password: ['', Validators.compose([
         Validators.required,
         Validators.minLength(8),
@@ -38,7 +45,17 @@ export class RegisterComponent implements OnInit {
     );
   }
   onRegisterFormSubmit(){
-    console.log(this.registerForm);
+    // Let's create a user object to send
+    const user = {
+      firstName: this.registerForm.get('firstName').value,
+      lastName: this.registerForm.get('lastName').value,
+      email: this.registerForm.get('email').value,
+      phoneNumber: this.registerForm.get('phoneNumber').value,
+      password: this.registerForm.get('password').value
+
+    }
+    // Let's call authService method we created to send the obj to the backend
+    this.authService.registerUser(user);
   }
   // A validator function that uses a regular expression to see if the email entered is a valid format
   isValidEmail(formControl) {
@@ -47,7 +64,7 @@ export class RegisterComponent implements OnInit {
         return null; // Valid email format!
     }
     else {
-      return { 'invalidEmail': true }
+      return { invalidEmail: true }
     }
   }
   // A validator function that uses a regular expression to check for valid password
@@ -58,7 +75,22 @@ export class RegisterComponent implements OnInit {
         return null;
     }
     else{
-      return { 'invalidPassword': true }
+      return { invalidPassword: true }
+    }
+  }
+  isValidPhoneNumber(formControl) {
+    // Needs to be a phone number, mask will help with part of the format but we still must check
+    /*
+    All digits as 0 is not allowed.
+    The area code cannot be the same digit,
+    The 1st and 4th digit cannot be 0 or 1.
+    */
+    const regExp = new RegExp(/(?:^|\D)\(([2-9])(?:\d(?!\1)\d|(?!\1)\d\d)\)\s*[2-9]\d{2}-\d{4}/);
+    if (regExp.test(formControl.value)) {
+        return null;
+    }
+    else{
+      return { invalidPhoneNumber: true }
     }
   }
   isMatchingPasswords(password,confirmPassword){
