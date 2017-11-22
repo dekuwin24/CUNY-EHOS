@@ -1,4 +1,5 @@
-# CCNY Chemistry Lab Platform
+# EHOS Assist
+Steven Barrios Emmmanuella D. I. Kogda Xiaohang Zou Boris Kalmatsky
 
 This project is to provide a portal designed to facilitate a variety of safety-related services at CCNY laboratories.
 This includes but is not limited to: 
@@ -33,7 +34,7 @@ As just mentioned, the client code is stored inside the */client/lab-platform/sr
 That is to say that the front end can be worked on without ever disturbing the backend. So, if you want the server.js file to work, you need to download [NodeJS](https://nodejs.org/en/). *Technically*, Node.js and the NPM utility (which comes with Node) are not needed to make Angular2 work. However, it can help you be more productive/efficient, from the developing stage, all the way to the deployment stage. Okay thats enough of an advertisement!
 
 ##  Front End Development
- 1. Download Angular 2, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
+ 1. Download Angular 5, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
  2. Clone this repository, then navigate to it through your terminal/console. You should be somewhere that looks like: ` ~/../ccny-chem-lab-platform/`. Navigate to the actual Angular project: `cd client`. Then we can start our development server provided by Angular:
    `ng serve`.
 
