@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
-import {ButtonModule,StepsModule,InputMaskModule} from 'primeng/primeng';
+import {ButtonModule,StepsModule,InputMaskModule, DialogModule } from 'primeng/primeng';
 @NgModule({
   declarations: [
   ],
   imports: [
     ButtonModule,
     StepsModule,
-    InputMaskModule
+    InputMaskModule,
+    DialogModule
   ],
   exports: [
     ButtonModule,
     StepsModule,
-    InputMaskModule
+    InputMaskModule,
+    DialogModule
   ],
 
 })

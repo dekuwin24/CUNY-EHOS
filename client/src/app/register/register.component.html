@@ -77,7 +77,14 @@
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <button pButton [disabled]="!registerForm.valid" type="submit" label="Register" class="ui-button"></button>
+      <button pButton [disabled]="!registerForm.valid" type="submit" label="Register" class="ui-button" (click)="showDialog()"></button>
     </div>
   </div>
+  <p-dialog header="" [(visible)]="display" modal="modal" width="500" [responsive]="true">
+    <p>
+    </p>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="display=false" label="Ok"></button>
+    </p-footer>
+  </p-dialog>
 </form>

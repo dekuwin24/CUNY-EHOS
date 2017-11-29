@@ -80,7 +80,7 @@ const passwordValidator = [
   // Second password validator
   {
     validator: validPassword,
-    message: 'Must have at least one uppercase, lowercase, special character, and number'
+    message: 'Must have at least one uppercase, lowercase, and a number'
   }
 ];
 
@@ -88,7 +88,7 @@ const passwordValidator = [
 const userSchema = new Schema(
   {
     email: {type: String, required: true, unique: true, lowercase: true, validate: emailValidator},
-    phoneNumber: {type: String, required: true}
+    phoneNumber: {type: String, required: true},
     password: {type: String, required: true, validate: passwordValidator},
     privilage: {type: Number, required: true}
   }

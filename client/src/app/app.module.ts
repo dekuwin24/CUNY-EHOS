@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SharedPrimeNgModule } from './shared-primeng.module';
 import { AuthService } from './services/auth.service';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     LabOperatorDashboardComponent,
     HomeComponent,
     NavbarComponent,
+    DashboardComponent,
 
   ],
   imports: [

@@ -8,6 +8,14 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  // Our Dialog upon submission
+  display: boolean = false;
+  title: String;
+  dialogBody: String;
+  
+  showDialog() {
+    this.display = true;
+  }
   // Declare a registerForm with datatype of FormGroup
   registerForm: FormGroup;
   // Using TextMask Module to format the phone number field
@@ -55,7 +63,11 @@ export class RegisterComponent implements OnInit {
 
     }
     // Let's call authService method we created to send the obj to the backend
-    this.authService.registerUser(user);
+    this.authService.registerUser(user).subscribe(response => {
+      // Response should already be in JSON format
+      console.log(response);
+
+    });
   }
   // A validator function that uses a regular expression to see if the email entered is a valid format
   isValidEmail(formControl) {
@@ -103,6 +115,7 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
+
   ngOnInit(
 
   ) {

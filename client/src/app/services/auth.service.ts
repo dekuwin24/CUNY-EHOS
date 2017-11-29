@@ -10,7 +10,7 @@ export class AuthService {
 
   // Function that will submit a post request for the backend to handle
   registerUser(user) {
-    return this.http.post(this.domain + "/authentication/register",user).subscribe(response => {console.log(response)});
+    return this.http.post(this.domain + "/authentication/register",user);
   }
 
 }

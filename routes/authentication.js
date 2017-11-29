@@ -16,6 +16,7 @@ module.exports = (router) => {
     else{
       let user = new User({
         email: request.body.email,
+        phoneNumber: request.body.phoneNumber,
         password: request.body.password,
         privilage: 1
       });

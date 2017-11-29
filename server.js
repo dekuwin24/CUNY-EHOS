@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 // Connect to our front end now
-app.use(express.static(__dirname + '/client/dist/')); // Allow access to the dist folder, where the index file is stored
+// app.use(express.static(__dirname + '/client/dist/')); // Allow access to the dist folder, where the index file is stored
 app.use('/authentication', authentication);
 // We configure our route so that we always redirect to our server page
 app.get('*', (request,response,next) =>{
