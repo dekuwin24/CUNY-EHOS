@@ -12,5 +12,11 @@ export class AuthService {
   registerUser(user) {
     return this.http.post(this.domain + "/authentication/register",user);
   }
+  loginUser(user) {
+    return this.http.post(this.domain + "/authentication/login",user);
+  }
+  checkEmail(email) {
+    return this.http.get(this.domain + "/authentication/checkEmail/" + email);
+  }
 
 }

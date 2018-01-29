@@ -1,22 +1,18 @@
 <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
   <div class="row">
       <div class="col-md-10 offset-md-1">
-        <div class="form-group">
           <input class="form-control" type="text" placeholder="email" name="email" formControlName="email">
           <!-- <div *ngIf="loginForm.controls.email.errors?.invalid && loginForm.controls.email.dirty" class="form-control-feedback">Sorry, that email is not in our records. Try another?</div> -->
-        </div>
       </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <div class="form-group">
         <input class="form-control" type="password" placeholder="password" name="password" formControlName="password">
-      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <button pButton type="submit" label="Sign in"  class="ui-button"></button>
+      <button type="submit" class="btn btn-primary">Sign in</button>
     </div>
   </div>
 </form>

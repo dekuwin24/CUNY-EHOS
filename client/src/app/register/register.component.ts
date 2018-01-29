@@ -10,9 +10,9 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
   // Our Dialog upon submission
   display: boolean = false;
-  title: String;
+  dialogTitle: String;
   dialogBody: String;
-  
+  emailTaken: boolean = false;
   showDialog() {
     this.display = true;
   }
@@ -23,6 +23,16 @@ export class RegisterComponent implements OnInit {
   // Inside constructor, instantiate FormBuilder class
   constructor( private formBuilder: FormBuilder, private authService: AuthService) {
     this.createForm();
+  }
+  isEmailAvailable() {
+    this.authService.checkEmail(this.registerForm.get('email').value).subscribe(response => {
+      if (!response){
+        this.emailTaken = true;
+      }
+      else {
+        this.emailTaken = false;
+      }
+    });
   }
   // Have method that will create the register form entities
   // Inside the formBuilder class, we have a method group, which will attach our form validation requirements
@@ -66,7 +76,8 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(user).subscribe(response => {
       // Response should already be in JSON format
       console.log(response);
-
+      this.dialogTitle = "Success!"
+      // this.dialogBody = response.message;
     });
   }
   // A validator function that uses a regular expression to see if the email entered is a valid format

@@ -116,7 +116,7 @@ userSchema.pre('save', function(next){
 
   });
 });
-userSchema.methods.checkPassword =  (password) => {
+userSchema.methods.checkPassword =  function(password) {
   return bcrypt.compareSync(password, this.password); // true or false
 };
 // Let's immediately export the schema
