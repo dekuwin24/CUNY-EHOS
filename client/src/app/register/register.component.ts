@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms'; // Importing this module to be able to use text-mask library
 import { AuthService } from '../services/auth.service';
+import {Observable} from 'rxjs/Rx';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,34 +14,23 @@ export class RegisterComponent implements OnInit {
   display: boolean = false;
   dialogTitle: String;
   dialogBody: String;
-  emailTaken: boolean = false;
-  showDialog() {
-    this.display = true;
-  }
+  isEmailTaken: boolean = false;
   // Declare a registerForm with datatype of FormGroup
   registerForm: FormGroup;
   // Using TextMask Module to format the phone number field
   public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   // Inside constructor, instantiate FormBuilder class
-  constructor( private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor( private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.createForm();
   }
-  isEmailAvailable() {
-    this.authService.checkEmail(this.registerForm.get('email').value).subscribe(response => {
-      if (!response){
-        this.emailTaken = true;
-      }
-      else {
-        this.emailTaken = false;
-      }
-    });
-  }
+
   // Have method that will create the register form entities
   // Inside the formBuilder class, we have a method group, which will attach our form validation requirements
   createForm(){
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      jobTitle: ['', Validators.required],
       email: ['', Validators.compose([
         Validators.required,
         Validators.minLength(5),
@@ -68,17 +59,37 @@ export class RegisterComponent implements OnInit {
       firstName: this.registerForm.get('firstName').value,
       lastName: this.registerForm.get('lastName').value,
       email: this.registerForm.get('email').value,
+      role: this.registerForm.get('jobTitle').value,
       phoneNumber: this.registerForm.get('phoneNumber').value,
-      password: this.registerForm.get('password').value
-
+      password: this.registerForm.get('password').value,
+      needsApproval: true
     }
     // Let's call authService method we created to send the obj to the backend
     this.authService.registerUser(user).subscribe(response => {
       // Response should already be in JSON format
-      console.log(response);
-      this.dialogTitle = "Success!"
-      // this.dialogBody = response.message;
+      if (!response.success) {
+          this.dialogTitle = "Failed!";
+          this.dialogBody = response.message;
+      }
+      else{
+        console.log(response.message);
+        this.dialogTitle = "Success!";
+        this.dialogBody = "You have registered! A confirmation email will be sent to you by someone at the EHOS department.";
+      }
     });
+    this.display = true;
+  }
+  isEmailAvailable () {
+    this.authService.checkEmail(this.registerForm.get('email').value).subscribe(
+      response => {
+        if (!response.success){
+          this.isEmailTaken = true;
+        }
+        else {
+          this.isEmailTaken = false;
+        }
+      }
+    );
   }
   // A validator function that uses a regular expression to see if the email entered is a valid format
   isValidEmail(formControl) {
@@ -126,7 +137,16 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
+  showDialog() {
+    this.display = true;
+  }
+  closeDialog() {
+    this.display = false;
+    if (this.dialogTitle === "Success!") {
+      this.registerForm.reset();
+    }
 
+  }
   ngOnInit(
 
   ) {

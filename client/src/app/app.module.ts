@@ -14,7 +14,8 @@ import { SharedPrimeNgModule } from './shared-primeng.module';
 import { AuthService } from './services/auth.service';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HomeComponent,
     NavbarComponent,
     DashboardComponent,
+    EhosDashboardComponent,
 
   ],
   imports: [
@@ -33,7 +35,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     SharedPrimeNgModule,
     ReactiveFormsModule,
-    TextMaskModule
+    TextMaskModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService

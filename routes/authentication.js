@@ -32,10 +32,13 @@ module.exports = (router) => {
     }
     else{
       let user = new User({
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
         email: request.body.email,
         phoneNumber: request.body.phoneNumber,
         password: request.body.password,
-        privilage: 1
+        privilege: request.body.role,
+        needsApproval: true
       });
       user.save((error) =>{
         if (error) {
@@ -64,6 +67,7 @@ module.exports = (router) => {
   });
   // Our post request to log into the app
   router.post('/login', (request,response) => {
+    console.log(request);
     User.findOne({email: request.body.email.toLowerCase()}, (err, user) => {
       if (err) {
         response.json({ success: false, message: err });
@@ -80,7 +84,7 @@ module.exports = (router) => {
           else {
             // We can start our client session
             var session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h'});
-            response.json({ success: true, message: "Works!", token:session});
+            response.json({ success: true, message: "Works!", token:session, privilege: user.privilege});
           }
         }
       }

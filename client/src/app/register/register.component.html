@@ -17,13 +17,13 @@
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.email.errors && registerForm.controls.email.dirty), 'has-success': !registerForm.controls.email.errors}">
+      <div [ngClass]="{'has-danger': ((registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty), 'has-success': !registerForm.controls.email.errors}">
         <input class="form-control" type="email" placeholder="email" name="email"  formControlName="email" (blur) ="isEmailAvailable()">
-        <div *ngIf="registerForm.controls.email.errors && registerForm.controls.email.dirty" class="form-control-feedback">
+        <div *ngIf="(registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty" class="form-control-feedback">
             <div *ngIf="registerForm.controls.email.errors?.required">
               You must provide an email.
             </div>
-            <div *ngIf="takenEmail">
+            <div *ngIf="isEmailTaken">
               This email is already in the system.
             </div>
             <div *ngIf="registerForm.controls.email.errors?.minlength">
@@ -36,6 +36,18 @@
               Invalid email.
             </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <div [ngClass]="{'has-danger': (registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty), 'has-success': !registerForm.controls.jobTitle.errors}">
+        <select class="form-control"  name="jobTitle" formControlName="jobTitle">
+          <option value="" disabled selected>job title</option>
+          <option value="1">EHOS</option>
+          <option value="2">Lab Operator</option>
+        </select>
+        <div *ngIf="registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty" class="form-control-feedback">You must select your job title.</div>
       </div>
     </div>
   </div>
@@ -80,13 +92,13 @@
   </div>
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary" (click)="showDialog()">Register</button>
+      <button [disabled]="!registerForm.valid || isEmailTaken" type="submit" class="btn btn-primary" (click)="showDialog()">Register</button>
     </div>
   </div>
-  <p-dialog header="{{dialogTitle}}" [(visible)]="display" modal="modal" width="500" [responsive]="true">
+  <p-dialog header="{{dialogTitle}}" [(visible)]="display">
     <p>{{dialogBody}}</p>
     <p-footer>
-        <button type="button" class="btn btn-primary" (click)="display=false">Ok</button>
+    <button type="button" pButton (click)="closeDialog()" label="Okay"></button>
     </p-footer>
   </p-dialog>
 </form>
