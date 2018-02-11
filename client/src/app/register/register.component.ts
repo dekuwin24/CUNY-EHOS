@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms'; // Importing this module to be able to use text-mask library
 import { AuthService } from '../services/auth.service';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',

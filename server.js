@@ -10,6 +10,7 @@ const mongoose = require('mongoose'); // Node module to help us with the MongoDB
 const config = require('./config/database');
 const path = require('path'); // Needed for routing
 const authentication = require('./routes/authentication')(router);
+const ehos = require('./routes/ehos')(router);
 const bodyParser = require('body-parser'); // node plugin to help parse response body
 mongoose.Promise = global.Promise; // Config declaration for mongoose
 // Our method that attempts to create a connection to our database
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 // Connect to our front end now
 // app.use(express.static(__dirname + '/client/dist/')); // Allow access to the dist folder, where the index file is stored
 app.use('/authentication', authentication);
+app.use('/ehos', ehos);
 // We configure our route so that we always redirect to our server page
 app.get('*', (request,response,next) =>{
   response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here

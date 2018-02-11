@@ -23,5 +23,7 @@ export class AuthService {
   checkEmail(email): Observable<any> {
     return this.http.get(this.domain + "/authentication/checkEmail/" + email);
   }
-
+  getRegistrations(): Observable<any> {
+    return this.http.get(this.domain + '/ehos/getRegistrations');
+  }
 }

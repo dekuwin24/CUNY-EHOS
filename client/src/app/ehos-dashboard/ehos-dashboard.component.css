@@ -1,0 +1,15 @@
+/* Styling our dashboard for our EHOS so that it has an administrative feel to it. */
+#view-container {
+    padding: 30px 15px 0 15px;
+    min-height: 568px;
+}
+/* The main container for rendering a view onto our app. */
+@media(min-width:768px) {
+    #view-container {
+        position: inherit;
+        margin-left: 250px;
+        padding: 30px 30px 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+/* We will have a sidebar component that will be injected into this components HTML code */

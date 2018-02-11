@@ -1,3 +1,31 @@
-<p>
-  ehos-dashboard works!
-</p>
+<app-navbar></app-navbar>
+<div class="view-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="block-header">
+          <h3>EHOS Dashboard</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-outline-primary mb-2">
+          <div class="card-header bg-primary">
+            Registrations
+          </div>
+          <div class="card-block">
+            <div class="list-group">
+              <a href="#" class="list-group-item" *ngFor="let user of registrations">
+                {{user.firstName}}
+              <i class="fa fa-user fa-fw"></i>
+                  <span class="pull-right text-muted small"><em>Confirm</em>
+                  </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
