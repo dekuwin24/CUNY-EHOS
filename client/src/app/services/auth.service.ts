@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/toPromise';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,5 +26,21 @@ export class AuthService {
   }
   getRegistrations(): Observable<any> {
     return this.http.get(this.domain + '/ehos/getRegistrations');
+  }
+  // approveUser(user): Observable<any> {
+  //   return this.http.post(this.domain + '/ehos/setAccount', user);
+  // }
+  approveUser(user) {
+    let promise = new Promise((resolve,reject) => {
+       this.http.post(this.domain + '/ehos/setAccount', user).toPromise()
+       .then(
+         res => { // Success
+           resolve();
+        },
+        msg => { // Error
+          reject(msg);
+        });
+    });
+    return promise;
   }
 }

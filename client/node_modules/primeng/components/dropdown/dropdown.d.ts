@@ -35,6 +35,9 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     resetFilterOnHide: boolean;
     dropdownIcon: string;
     optionLabel: string;
+    autoDisplayFirst: boolean;
+    group: boolean;
+    emptyFilterMessage: string;
     onChange: EventEmitter<any>;
     onFocus: EventEmitter<any>;
     onBlur: EventEmitter<any>;
@@ -46,6 +49,8 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     editableInputViewChild: ElementRef;
     templates: QueryList<any>;
     itemTemplate: TemplateRef<any>;
+    groupTemplate: TemplateRef<any>;
+    selectedItemTemplate: TemplateRef<any>;
     selectedOption: any;
     _options: any[];
     value: any;
@@ -54,6 +59,7 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     optionsToDisplay: any[];
     hover: boolean;
     focus: boolean;
+    filled: boolean;
     panelVisible: boolean;
     shown: boolean;
     documentClickListener: any;
@@ -95,13 +101,15 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     onInputFocus(event: any): void;
     onInputBlur(event: any): void;
     onKeydown(event: any): void;
-    findOptionIndex(val: any, opts: SelectItem[]): number;
-    findOption(val: any, opts: SelectItem[]): SelectItem;
+    findOptionIndex(val: any, opts: any[]): number;
+    findOptionGroupIndex(val: any, opts: any[]): any;
+    findOption(val: any, opts: any[]): SelectItem;
     onFilter(event: any): void;
     activateFilter(): void;
     applyFocus(): void;
     bindDocumentClickListener(): void;
     unbindDocumentClickListener(): void;
+    updateFilledState(): void;
     ngOnDestroy(): void;
 }
 export declare class DropdownModule {

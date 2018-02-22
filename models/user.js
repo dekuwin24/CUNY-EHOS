@@ -87,13 +87,16 @@ const passwordValidator = [
 // Our schema for each user inside the Users table
 const userSchema = new Schema(
   {
-    firstName:{type: String, required: true},
-    lastName:{type: String, required: true},
+    first:{type: String, required: true},
+    last:{type: String, required: true},
     email: {type: String, required: true, unique: true, lowercase: true, validate: emailValidator},
-    phoneNumber: {type: String, required: true},
+    phone: {type: String, required: true},
     password: {type: String, required: true, validate: passwordValidator},
+    department: {type: String, required: true},
+    building: {type: String, required: true},
+    room: {type: String, required:true},
     privilege: {type: Number, required: true},
-    needsApproval: {type: Boolean, required: true}
+    approved: {type: Boolean, required: true}
   }
 );
 

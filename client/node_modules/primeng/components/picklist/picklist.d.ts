@@ -11,6 +11,8 @@ export declare class PickList implements AfterViewChecked, AfterContentInit {
     targetHeader: string;
     responsive: boolean;
     filterBy: string;
+    showSourceFilter: boolean;
+    showTargetFilter: boolean;
     metaKeySelection: boolean;
     dragdrop: boolean;
     dragdropScope: string;
@@ -33,6 +35,8 @@ export declare class PickList implements AfterViewChecked, AfterContentInit {
     onTargetSelect: EventEmitter<any>;
     listViewSourceChild: ElementRef;
     listViewTargetChild: ElementRef;
+    sourceFilterViewChild: ElementRef;
+    targetFilterViewChild: ElementRef;
     templates: QueryList<any>;
     itemTemplate: TemplateRef<any>;
     visibleOptionsSource: any[];
@@ -86,6 +90,7 @@ export declare class PickList implements AfterViewChecked, AfterContentInit {
     insert(fromIndex: any, fromList: any, toIndex: any, toList: any, callback: any): void;
     onListMouseMove(event: MouseEvent, listType: number): void;
     onListDragLeave(): void;
+    resetFilter(): void;
 }
 export declare class PickListModule {
 }

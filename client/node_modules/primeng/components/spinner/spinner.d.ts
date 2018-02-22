@@ -46,7 +46,7 @@ export declare class Spinner implements OnInit, ControlValueAccessor {
     onDownButtonMouseleave(event: Event): void;
     onInputKeydown(event: KeyboardEvent): void;
     onInputKeyPress(event: KeyboardEvent): void;
-    onInputKeyup(event: Event): void;
+    onInputKeyup(event: KeyboardEvent): void;
     onInputBlur(event: any): void;
     onInputFocus(event: any): void;
     parseValue(val: string): number;

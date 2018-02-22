@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // Importing this module to be abl
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
+import 'rxjs/add/operator/toPromise';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -37,6 +38,9 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(40),
         this.isValidEmail
       ])],
+      department: ['', Validators.required],
+      building: ['', Validators.required],
+      room: ['', Validators.required],
       phoneNumber: ['', Validators.compose([
         Validators.required,
         this.isValidPhoneNumber
@@ -60,12 +64,17 @@ export class RegisterComponent implements OnInit {
       lastName: this.registerForm.get('lastName').value,
       email: this.registerForm.get('email').value,
       role: this.registerForm.get('jobTitle').value,
+      department: this.registerForm.get('department').value,
+      building: this.registerForm.get('building').value,
+      room: this.registerForm.get('room').value,
       phoneNumber: this.registerForm.get('phoneNumber').value,
       password: this.registerForm.get('password').value,
       needsApproval: true
     }
-    // Let's call authService method we created to send the obj to the backend
-    this.authService.registerUser(user).subscribe(response => {
+    // Let's call authService.registerUser method we created to send the obj to the backend
+    // We will handle this request as a promise the rxjs repo has a way to convert an Observable to a Promise via toPromise...
+    // A promise is a js object that represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
+    this.authService.registerUser(user).toPromise().then(response => {
       // Response should already be in JSON format
       if (!response.success) {
           this.dialogTitle = "Failed!";
@@ -76,8 +85,9 @@ export class RegisterComponent implements OnInit {
         this.dialogTitle = "Success!";
         this.dialogBody = "You have registered! A confirmation email will be sent to you by someone at the EHOS department.";
       }
+      this.display = true;
     });
-    this.display = true;
+
   }
   isEmailAvailable () {
     this.authService.checkEmail(this.registerForm.get('email').value).subscribe(

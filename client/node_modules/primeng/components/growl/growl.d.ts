@@ -8,7 +8,6 @@ export declare class Growl implements AfterViewInit, DoCheck, OnDestroy {
     domHandler: DomHandler;
     differs: IterableDiffers;
     messageService: MessageService;
-    sticky: boolean;
     life: number;
     style: any;
     styleClass: string;
@@ -20,6 +19,7 @@ export declare class Growl implements AfterViewInit, DoCheck, OnDestroy {
     onClose: EventEmitter<any>;
     valueChange: EventEmitter<Message[]>;
     containerViewChild: ElementRef;
+    _sticky: boolean;
     _value: Message[];
     timeout: any;
     preventRerender: boolean;
@@ -29,6 +29,7 @@ export declare class Growl implements AfterViewInit, DoCheck, OnDestroy {
     constructor(el: ElementRef, domHandler: DomHandler, differs: IterableDiffers, messageService: MessageService);
     ngAfterViewInit(): void;
     value: Message[];
+    sticky: boolean;
     ngDoCheck(): void;
     handleValueChange(): void;
     initTimeout(): void;

@@ -32,13 +32,16 @@ module.exports = (router) => {
     }
     else{
       let user = new User({
-        firstName: request.body.firstName,
-        lastName: request.body.lastName,
+        first: request.body.firstName,
+        last: request.body.lastName,
         email: request.body.email,
-        phoneNumber: request.body.phoneNumber,
+        phone: request.body.phoneNumber,
+        department: request.body.department,
+        building: request.body.building,
+        room: request.body.room,
         password: request.body.password,
         privilege: request.body.role,
-        needsApproval: true
+        approved: false
       });
       user.save((error) =>{
         if (error) {
@@ -74,17 +77,22 @@ module.exports = (router) => {
       }
       else {
         if (!user) {
-          response.json({ success: false, message: "Email was not found." });
+          response.json({ success: false, message: "Email was not found. Try another?" });
         }
         else{
-          // Now lets check for the password to be right
-          if (!user.checkPassword(request.body.password)) {
-            response.json({ success: false, message: "Incorrect password!"});
+          if (!user.approved) {
+            response.json({ success: false, message: "Your account has not been approved by EHOS. A confirmation email will be sent to you by someone at the EHOS department upon approval." });
           }
           else {
-            // We can start our client session
-            var session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h'});
-            response.json({ success: true, message: "Works!", token:session, privilege: user.privilege});
+            // Now lets check for the password to be right
+            if (!user.checkPassword(request.body.password)) {
+              response.json({ success: false, message: "Incorrect password!"});
+            }
+            else {
+              // We can start our client session
+              var session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h'});
+              response.json({ success: true, message: "Works!", token:session, privilege: user.privilege});
+            }
           }
         }
       }

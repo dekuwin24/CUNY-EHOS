@@ -5,6 +5,7 @@ export declare class Fieldset implements BlockableUI {
     legend: string;
     toggleable: boolean;
     collapsed: boolean;
+    collapsedChange: EventEmitter<any>;
     onBeforeToggle: EventEmitter<any>;
     onAfterToggle: EventEmitter<any>;
     style: any;

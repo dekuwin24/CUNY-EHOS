@@ -19,6 +19,7 @@ export declare class MultiSelect implements OnInit, AfterViewInit, AfterContentI
     inputId: string;
     disabled: boolean;
     filter: boolean;
+    filterPlaceHolder: string;
     overlayVisible: boolean;
     tabindex: number;
     appendTo: any;
@@ -44,6 +45,7 @@ export declare class MultiSelect implements OnInit, AfterViewInit, AfterContentI
     onModelTouched: Function;
     valuesAsString: string;
     focus: boolean;
+    filled: boolean;
     documentClickListener: any;
     container: HTMLDivElement;
     panel: HTMLDivElement;
@@ -62,6 +64,7 @@ export declare class MultiSelect implements OnInit, AfterViewInit, AfterContentI
     ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
     writeValue(value: any): void;
+    updateFilledState(): void;
     registerOnChange(fn: Function): void;
     registerOnTouched(fn: Function): void;
     setDisabledState(val: boolean): void;

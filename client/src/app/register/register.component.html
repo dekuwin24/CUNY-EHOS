@@ -1,25 +1,21 @@
+<h5 class="card-title text-center font-bold col-blue-grey" style="font-weight: 700;">SIGN UP</h5>
 <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit()">
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.firstName.errors && registerForm.controls.firstName.dirty), 'has-success': !registerForm.controls.firstName.errors}">
-        <input class="form-control" type="text" placeholder="first" name="firstName" formControlName="firstName">
-        <div *ngIf="registerForm.controls.firstName.errors?.required && registerForm.controls.firstName.dirty" class="form-control-feedback">You must provide a first name.</div>
-      </div>
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.firstName.errors && registerForm.controls.firstName.dirty), 'is-valid': !registerForm.controls.firstName.errors}" type="text" placeholder="first" name="firstName" formControlName="firstName">
+        <div *ngIf="registerForm.controls.firstName.errors?.required && registerForm.controls.firstName.dirty" class="invalid-feedback">You must provide a first name.</div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.lastName.errors && registerForm.controls.lastName.dirty), 'has-success': !registerForm.controls.lastName.errors}">
-        <input class="form-control" type="text" placeholder="last" name="lastName"  formControlName="lastName">
-        <div *ngIf="registerForm.controls.lastName.errors?.required && registerForm.controls.lastName.dirty" class="form-control-feedback">You must provide a last name.</div>
-      </div>
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.lastName.errors && registerForm.controls.lastName.dirty), 'is-valid': !registerForm.controls.lastName.errors}" type="text" placeholder="last" name="lastName"  formControlName="lastName">
+        <div *ngIf="registerForm.controls.lastName.errors?.required && registerForm.controls.lastName.dirty" class="invalid-feedback">You must provide a last name.</div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': ((registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty), 'has-success': !registerForm.controls.email.errors}">
-        <input class="form-control" type="email" placeholder="email" name="email"  formControlName="email" (blur) ="isEmailAvailable()">
-        <div *ngIf="(registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty" class="form-control-feedback">
+        <input class="form-control" [ngClass]="{'is-invalid': ((registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty), 'is-valid': !registerForm.controls.email.errors}" type="email" placeholder="email" name="email"  formControlName="email" (blur) ="isEmailAvailable()">
+        <div *ngIf="(registerForm.controls.email.errors || isEmailTaken) && registerForm.controls.email.dirty" class="invalid-feedback">
             <div *ngIf="registerForm.controls.email.errors?.required">
               You must provide an email.
             </div>
@@ -36,34 +32,58 @@
               Invalid email.
             </div>
         </div>
-      </div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty), 'has-success': !registerForm.controls.jobTitle.errors}">
-        <select class="form-control"  name="jobTitle" formControlName="jobTitle">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.building.errors && registerForm.controls.building.dirty), 'is-valid': !registerForm.controls.building.errors}" name="building" formControlName="building">
+          <option value="" disabled selected>building</option>
+          <option value="NAC">NAC</option>
+          <option value="SHP">Shephard Hall</option>
+          <option value="MSK">Marshak</option>
+        </select>
+        <div *ngIf="registerForm.controls.building.errors && registerForm.controls.building.dirty" class="invalid-feedback">You must select your building location.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.department.errors && registerForm.controls.department.dirty), 'is-valid': !registerForm.controls.department.errors}" name="department" formControlName="department">
+          <option value="" disabled selected>department</option>
+          <option value="BIO">Biology</option>
+          <option value="CHE">Chemical Engineering</option>
+          <option value="CHEM">Chemistry</option>
+          <option value="EE">Electrical Engineering</option>
+          <option value="PHYS">Physics</option>
+        </select>
+        <div *ngIf="registerForm.controls.department.errors && registerForm.controls.department.dirty" class="invalid-feedback">You must select a department.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.room.errors && registerForm.controls.room.dirty), 'is-valid': !registerForm.controls.room.errors}" type="text" placeholder="room" name="room" formControlName="room">
+        <div *ngIf="registerForm.controls.room.errors?.required && registerForm.controls.room.dirty" class="invalid-feedback">You must provide a room number.</div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-10 offset-md-1">
+        <select class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty), 'is-valid': !registerForm.controls.jobTitle.errors}" name="jobTitle" formControlName="jobTitle">
           <option value="" disabled selected>job title</option>
           <option value="1">EHOS</option>
           <option value="2">Lab Operator</option>
         </select>
-        <div *ngIf="registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty" class="form-control-feedback">You must select your job title.</div>
-      </div>
+        <div *ngIf="registerForm.controls.jobTitle.errors && registerForm.controls.jobTitle.dirty" class="invalid-feedback">You must select your job title.</div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty), 'has-success': !registerForm.controls.phoneNumber.errors}">
-        <input [textMask]="{mask: mask}" class="form-control" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
-        <div *ngIf="registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty" class="form-control-feedback">You must provide a valid phone number.</div>
-      </div>
+        <input [textMask]="{mask: mask}" class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty), 'is-valid': !registerForm.controls.phoneNumber.errors}" type="text" placeholder="phone number" name="phoneNumber"  formControlName="phoneNumber">
+        <div *ngIf="registerForm.controls.phoneNumber.errors && registerForm.controls.phoneNumber.dirty" class="invalid-feedback">You must provide a valid phone number.</div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.controls.password.errors && registerForm.controls.password.dirty), 'has-success': !registerForm.controls.password.errors}">
-        <input class="form-control" type="password" placeholder="password" name="password" formControlName="password">
-        <div class="form-control-feedback" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.dirty">
+        <input class="form-control" [ngClass]="{'is-invalid': (registerForm.controls.password.errors && registerForm.controls.password.dirty), 'is-valid': !registerForm.controls.password.errors}" type="password" placeholder="password" name="password" formControlName="password">
+        <div class="invalid-feedback" *ngIf="registerForm.controls.password.errors && registerForm.controls.password.dirty">
           <div *ngIf="registerForm.controls.password.errors?.required">
             You must provide a password.
           </div>
@@ -77,28 +97,24 @@
             Password must have at least a lowercase letter, uppercase letter, and a number.
           </div>
         </div>
-      </div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
-      <div [ngClass]="{'has-danger': (registerForm.errors && registerForm.controls.confirmPassword.dirty), 'has-success': (!registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty)}">
-        <input class="form-control" type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
-        <div class="form-control-feedback" *ngIf="registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty">
+        <input class="form-control"  [ngClass]="{'is-invalid': (registerForm.errors && registerForm.controls.confirmPassword.dirty), 'is-valid': (!registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty)}" type="password" placeholder="confirm password" name="confirmPassword" formControlName="confirmPassword">
+        <div class="invalid-feedback" *ngIf="registerForm.errors?.passwordsNoMatch && registerForm.controls.confirmPassword.dirty">
           Passwords do not match!
         </div>
-      </div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-group row">
     <div class="col-md-10 offset-md-1">
       <button [disabled]="!registerForm.valid || isEmailTaken" type="submit" class="btn btn-primary" (click)="showDialog()">Register</button>
     </div>
   </div>
-  <p-dialog header="{{dialogTitle}}" [(visible)]="display">
+  <p-sidebar [(visible)]="display" position="bottom" [baseZIndex]="10000" (onHide)="closeDialog()">
+    <h1 style="font-weight:normal">{{dialogTitle}}</h1>
     <p>{{dialogBody}}</p>
-    <p-footer>
-    <button type="button" pButton (click)="closeDialog()" label="Okay"></button>
-    </p-footer>
-  </p-dialog>
+    <button type="button" (click)="closeDialog()" class="btn btn-primary">Okay</button>
+  </p-sidebar>
 </form>
