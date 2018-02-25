@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs/Rx';
 import {Message} from 'primeng/components/common/api';
@@ -16,15 +16,22 @@ export class EhosDashboardComponent implements OnInit {
   display: Boolean = false;
   loading: Boolean = false;
   msgs: Message[] = [];
+  @ViewChild('email') email: ElementRef;
+  @ViewChild('phone') phone: ElementRef;
+  @ViewChild('role') role: ElementRef;
+  @ViewChild('department') department: ElementRef;
+  @ViewChild('building') building: ElementRef;
+  @ViewChild('room') room: ElementRef;
+
   constructor(private authService: AuthService, private messageService: MessageService) { }
 
   showDialog(i) {
-    document.getElementById("email").value = this.registrations[i].email;
-    document.getElementById("phone").value = this.registrations[i].phone;
-    document.getElementById("role").value = this.registrations[i].privilege == 1 ? "EHOS" : "Lab Operator";
-    document.getElementById("department").value = this.registrations[i].department;
-    document.getElementById("building").value = this.registrations[i].building;
-    document.getElementById("room").value = this.registrations[i].room;
+    this.email.nativeElement.value = this.registrations[i].email;
+    this.phone.nativeElement.value = this.registrations[i].phone;
+    this.role.nativeElement.value = this.registrations[i].privilege == 1 ? "EHOS" : "Lab Operator";
+    this.department.nativeElement.value= this.registrations[i].department;
+    this.building.nativeElement.value = this.registrations[i].building;
+    this.room.nativeElement.value = this.registrations[i].room;
     this.display = true;
   }
   closeConfirmDialog(i) {
@@ -35,7 +42,8 @@ export class EhosDashboardComponent implements OnInit {
     // this.registrations.splice(i,1);
     // });
     this.loading = true;
-    this.authService.approveUser({email: document.getElementById("email").value, approve: true})
+    // For this we are using a promise, that way we can easily get a preloader/spinner to show while the request is being sent
+    this.authService.approveUser({email: this.email.nativeElement.value, approve: true})
     .then( (response) => {
       this.loading = false;
       this.display = false;
