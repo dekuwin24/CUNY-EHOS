@@ -13,9 +13,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SharedPrimeNgModule } from './shared-primeng.module';
 import { AuthService } from './services/auth.service';
 import { TextMaskModule } from 'angular2-text-mask';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.component';
+import { RegistrationsComponent } from './registrations/registrations.component';
+import { PickupRequestsComponent } from './pickup-requests/pickup-requests.component';
+import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,8 +27,10 @@ import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.componen
     LabOperatorDashboardComponent,
     HomeComponent,
     NavbarComponent,
-    DashboardComponent,
     EhosDashboardComponent,
+    RegistrationsComponent,
+    PickupRequestsComponent,
+    EhosQuickViewComponent,
 
   ],
   imports: [

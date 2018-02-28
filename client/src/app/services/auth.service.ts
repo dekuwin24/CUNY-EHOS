@@ -27,9 +27,6 @@ export class AuthService {
   getRegistrations(): Observable<any> {
     return this.http.get(this.domain + '/ehos/getRegistrations');
   }
-  // approveUser(user): Observable<any> {
-  //   return this.http.post(this.domain + '/ehos/setAccount', user);
-  // }
   approveUser(user) {
     let promise = new Promise((resolve,reject) => {
        this.http.post(this.domain + '/ehos/setAccount', user).toPromise()

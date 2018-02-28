@@ -34,7 +34,4 @@ nav a {
 .nav-item:hover {
   background-color: #E9E9E9;
 }
-/* Registration lists */
-.list-group-item-action:focus, .list-group-item-action:hover {
-  background-color: #E9E9E9;
-}
+

@@ -214,3 +214,15 @@ img {
 
 .col-white {
   color: #ffffff !important; }
+
+  .card.info-box {
+    border-radius: 0% !important;
+    border: 0;
+    background-color: #fff !important;
+    background-clip: border-box;
+    text-align: left;
+    text-shadow: none; 
+  }
+  i.icon{
+    font-size: 3rem;
+  }
