@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs/Rx';
-import {Message} from 'primeng/components/common/api';
-import {MessageService} from 'primeng/components/common/messageservice';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-registrations',
@@ -15,6 +15,7 @@ export class RegistrationsComponent implements OnInit {
   registrations = [];
   display: Boolean = false;
   loading: Boolean = false;
+  user: Number;
   msgs: Message[] = [];
   @ViewChild('email') email: ElementRef;
   @ViewChild('phone') phone: ElementRef;
@@ -33,8 +34,9 @@ export class RegistrationsComponent implements OnInit {
     this.building.nativeElement.value = this.registrations[i].building;
     this.room.nativeElement.value = this.registrations[i].room;
     this.display = true;
+    this.user = Number(i); // Save the current user that was selected
   }
-  closeConfirmDialog(i) {
+  closeConfirmDialog() {
     // Observable solution
     // this.authService.approveUser({email: document.getElementById("email").value, approve: true}).subscribe( feedback => {
     // console.log(feedback);
@@ -47,11 +49,11 @@ export class RegistrationsComponent implements OnInit {
     .then( (response) => {
       this.loading = false;
       this.display = false;
-      this.registrations.splice(i, 1);
+      this.registrations.splice(Number(this.user), 1);
       this.messageService.add({severity: 'success', summary: 'Approved!', detail: 'User was approved!'});
     });
   }
-  closeRejectDialog(i) {
+  closeRejectDialog() {
     // Same code as approving a user, except now the approve member is set to false, which will delete record
     this.loading = true;
     // For this we are using a promise, that way we can easily get a preloader/spinner to show while the request is being sent
@@ -59,12 +61,14 @@ export class RegistrationsComponent implements OnInit {
     .then( (response) => {
       this.loading = false;
       this.display = false;
-      this.registrations.splice(i, 1);
+      this.registrations.splice(Number(this.user), 1);
       this.messageService.add({severity: 'danger', summary: 'Denied!', detail: 'User was denied!'});
     });
   }
   ngOnInit() {
+    this.authService.loadToken();
     this.authService.getRegistrations().subscribe( users => {
+      console.log(users);
       if (users.success) {
         const usersArr = users.users; // [{user 1 info},{ user 2 info}]
         for (let index in usersArr) {
@@ -76,10 +80,8 @@ export class RegistrationsComponent implements OnInit {
         }
       }
       else {
-        console.log('no users')
+        // No users
       }
-
-      console.log(this.registrations);
     });
   }
 

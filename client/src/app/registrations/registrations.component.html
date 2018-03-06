@@ -52,7 +52,7 @@
     </div>
   </div>
 </p-sidebar>
-<p-growl [(value)]="msgs"></p-growl>
+<p-growl [(value)]="msgs" [sticky]="true"></p-growl>
 <div class="row mt-5" *ngIf="loading">
   <div class="col-6 offset-6 mt-3">
     <p-progressSpinner></p-progressSpinner>

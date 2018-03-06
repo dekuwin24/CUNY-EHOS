@@ -12,13 +12,19 @@ body {
 img {
   max-height: 225px;
 }
-.ui-growl,.ui-growl-item{
-  background-color: #663399 !important;
-  color: #FFF !important;
+.ui-state-highlight {
+  border-color: #673AB7 !important;
+  background: #673AB7 !important;
+  color: #FFFFFF;
 }
 .btn {
   color: #fff;
   width: 100%;
+}
+.ui-sidebar .ui-sidebar-close:hover {
+  border-color: #663399 !important;
+  background: none !important;
+  color: #663399 !important;
 }
 /* MATERIAL COLOR PALLETTE*/
 

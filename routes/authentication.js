@@ -70,7 +70,7 @@ module.exports = (router) => {
   });
   // Our post request to log into the app
   router.post('/login', (request,response) => {
-    console.log(request);
+    console.log("Login request\n" + request);
     User.findOne({email: request.body.email.toLowerCase()}, (err, user) => {
       if (err) {
         response.json({ success: false, message: err });
@@ -90,13 +90,37 @@ module.exports = (router) => {
             }
             else {
               // We can start our client session
-              var session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h'});
-              response.json({ success: true, message: "Works!", token:session, privilege: user.privilege});
+              const session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h' });
+              response.json({ success: true, message: "Works!", token:session, expires: 86400, privilege: user.privilege});
             }
           }
         }
       }
     });
   });
+  // Our middleware is in effect now...
+  // Middleware
+        // Middleware to intercept any HTTP request on the ehos api endpoint with a header that has a name of authorization
+        router.use('/ehos',(request, response, next) => {
+          const token = request.headers['authorization'];
+          if (!token) {
+            response.status(403).json({success: false, message: "Token was not provided"});
+          }
+          else {      
+            jwt.verify(token,dbConfig.secret, (err, valid) =>{
+              console.log(valid);
+
+              if (err) {
+                response.status(403).json({success: false, message: "Token error: " + err});
+              }
+              else {
+                // Token is valud and passed
+                request.decoded = valid;
+                next();
+              }
+            });
+          }
+        });
+  
   return router;
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -12,12 +12,14 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedPrimeNgModule } from './shared-primeng.module';
 import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from "./services/interceptor";
 import { TextMaskModule } from 'angular2-text-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.component';
 import { RegistrationsComponent } from './registrations/registrations.component';
 import { PickupRequestsComponent } from './pickup-requests/pickup-requests.component';
 import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.component';
+import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard } from "./guards/auth.guard";
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,15 @@ import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.compon
     BrowserAnimationsModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    EhosAuthGuard,
+    LabAuthGuard,
+    AnyAuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

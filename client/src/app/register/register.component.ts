@@ -76,7 +76,9 @@ export class RegisterComponent implements OnInit {
     // A promise is a js object that represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
     this.authService.registerUser(user).toPromise().then(response => {
       // Response should already be in JSON format
+      console.log(response);
       if (!response.success) {
+          
           this.dialogTitle = "Failed!";
           this.dialogBody = response.message;
       }
@@ -90,6 +92,9 @@ export class RegisterComponent implements OnInit {
 
   }
   isEmailAvailable () {
+    if (this.registerForm.get('email').value.length < 1) {
+      this.isEmailTaken = false;
+    }
     this.authService.checkEmail(this.registerForm.get('email').value).subscribe(
       response => {
         if (!response.success){

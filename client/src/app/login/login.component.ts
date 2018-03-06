@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.incorrectCredentials = true;
       }
       else {
+        this.authService.setUser(data.token,data.privilege,data.expires); // Store the web token and the role on the browser
         if (data.privilege == 1) {
           this.router.navigate(['/ehos']);
         }

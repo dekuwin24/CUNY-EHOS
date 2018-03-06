@@ -6,6 +6,7 @@ const dbConfig = require('../config/database');
 module.exports = (router) => {
   // Our get request to check if the email that was entered on the front end is already in use.
   router.get('/getRegistrations', (request,response) => {
+    
     User.find({ approved: false },'first last email phone building department room privilege', (err,user) => {
       if (err) {
         // Connection error was found
@@ -29,11 +30,11 @@ module.exports = (router) => {
           response.json({ success: false, message: err });
         }
         else if (!email) {
-          console.log(email);
+          //console.log("Email: " + email);
           response.json({ success: false, message: "Email does not exist" });
         }
         else {
-          response.json({ success: true, message: "Approved!" });
+          response.status(200).json({ success: true, message: "Approved!" });
         }
       });
     }
@@ -47,7 +48,7 @@ module.exports = (router) => {
           response.json({ success: false, message: "Not Found" });
         }
         else {
-          response.json({ success: true, message: "User was deleted" });
+          response.status(200).json({ success: true, message: "User was deleted" });
         }
       });
     }
