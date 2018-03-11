@@ -20,6 +20,8 @@ import { RegistrationsComponent } from './registrations/registrations.component'
 import { PickupRequestsComponent } from './pickup-requests/pickup-requests.component';
 import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.component';
 import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard } from "./guards/auth.guard";
+import { Error401Component } from './error401/error401.component';
+import { LabInspectionsComponent } from './lab-inspections/lab-inspections.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +35,8 @@ import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard } from "./guards/auth.guard";
     RegistrationsComponent,
     PickupRequestsComponent,
     EhosQuickViewComponent,
+    Error401Component,
+    LabInspectionsComponent,
 
   ],
   imports: [

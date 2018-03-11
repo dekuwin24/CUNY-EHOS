@@ -7,13 +7,13 @@ export class AnyAuthGuard implements CanActivate {
     constructor(private user: AuthService, private router: Router){}
 
     canActivate() {
-      if (!this.user.tokenExpired()) {
+      if (!this.user.tokenExpired()) { // Already signed in
         if (this.user.getRole() == 1) {
-          this.router.navigate(['/ehos']);  // Redirect to a forbidden page instead          
+          this.router.navigate(['/ehos']);       
           return true;
         }
         else if (this.user.getRole() == 2){
-          this.router.navigate(['/lab']);  // Redirect to a forbidden page instead
+          this.router.navigate(['/lab']); 
           return true;
         }
       }

@@ -17,8 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
               next: HttpHandler): Observable<HttpEvent<any>> {
         let authService = this.inject.get(AuthService); // Avoid cyclic dependency error
         authService.loadToken();
-        console.log("Loaded!");
-        console.log(authService.jwt);
         
         if (authService.jwt) {
             const cloneHttpReq = req.clone({

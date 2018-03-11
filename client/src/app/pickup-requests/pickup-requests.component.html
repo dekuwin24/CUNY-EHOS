@@ -1,3 +1,22 @@
-<p>
-  pickup-requests works!
-</p>
+<div class="card info-box">
+  <div class="card-body">
+    <table class="table table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Request #</th>
+          <th scope="col">Department</th>
+          <th scope="col">Lab Operator</th>
+          <th scope="col">Requested On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests; index as i">
+          <td>{{request.request_id}}</td>
+          <td>{{request.department}}</td>
+          <td>{{request.operator}}</td>
+          <td>{{request.requested}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
