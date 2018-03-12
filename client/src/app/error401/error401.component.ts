@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-error401',
   templateUrl: './error401.component.html',
   styleUrls: ['./error401.component.css'],
-  encapsulation: ViewEncapsulation.None
+  //encapsulation: ViewEncapsulation.None
 })
 export class Error401Component implements OnInit {
 

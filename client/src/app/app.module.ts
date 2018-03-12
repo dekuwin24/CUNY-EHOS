@@ -22,6 +22,7 @@ import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.compon
 import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard } from "./guards/auth.guard";
 import { Error401Component } from './error401/error401.component';
 import { LabInspectionsComponent } from './lab-inspections/lab-inspections.component';
+import { AboutComponent } from './about/about.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { LabInspectionsComponent } from './lab-inspections/lab-inspections.compo
     EhosQuickViewComponent,
     Error401Component,
     LabInspectionsComponent,
+    AboutComponent,
 
   ],
   imports: [
