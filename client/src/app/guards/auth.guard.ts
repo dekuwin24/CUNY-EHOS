@@ -4,16 +4,18 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class AnyAuthGuard implements CanActivate {
-    constructor(private user: AuthService, private router: Router){}
+    constructor(private user: AuthService, private router: Router ){}
 
     canActivate() {
+      console.log(this.router.url);
+      
       if (!this.user.tokenExpired()) { // Already signed in
         if (this.user.getRole() == 1) {
-          this.router.navigate(['/ehos']);       
+          this.router.navigate(['/ehos']);
           return true;
         }
         else if (this.user.getRole() == 2){
-          this.router.navigate(['/lab']); 
+          this.router.navigate(['/lab']);
           return true;
         }
       }
@@ -57,3 +59,14 @@ export class EhosAuthGuard implements CanActivate {
         return false;
       }
     } 
+    @Injectable()
+    export class ProfileGuard implements CanActivate {
+        constructor(private user: AuthService, private router: Router){}
+    
+        canActivate() {
+          if (!this.user.tokenExpired()) {
+            return true;   
+          }
+          return false;
+        }
+      } 

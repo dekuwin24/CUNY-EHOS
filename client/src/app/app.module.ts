@@ -11,18 +11,20 @@ import { LabOperatorDashboardComponent } from './lab-operator-dashboard/lab-oper
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedPrimeNgModule } from './shared-primeng.module';
-import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from "./services/interceptor";
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 import { TextMaskModule } from 'angular2-text-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.component';
-import { RegistrationsComponent } from './registrations/registrations.component';
 import { PickupRequestsComponent } from './pickup-requests/pickup-requests.component';
 import { EhosQuickViewComponent } from './ehos-quick-view/ehos-quick-view.component';
-import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard } from "./guards/auth.guard";
+import { EhosAuthGuard,LabAuthGuard, AnyAuthGuard, ProfileGuard } from "./guards/auth.guard";
 import { Error401Component } from './error401/error401.component';
 import { LabInspectionsComponent } from './lab-inspections/lab-inspections.component';
 import { AboutComponent } from './about/about.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,12 +35,13 @@ import { AboutComponent } from './about/about.component';
     HomeComponent,
     NavbarComponent,
     EhosDashboardComponent,
-    RegistrationsComponent,
     PickupRequestsComponent,
     EhosQuickViewComponent,
     Error401Component,
     LabInspectionsComponent,
     AboutComponent,
+    ProfileComponent,
+    UsersComponent,
 
   ],
   imports: [
@@ -52,9 +55,11 @@ import { AboutComponent } from './about/about.component';
   ],
   providers: [
     AuthService,
+    UserService,    
     EhosAuthGuard,
     LabAuthGuard,
     AnyAuthGuard,
+    ProfileGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

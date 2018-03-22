@@ -27,9 +27,7 @@ export class AuthService {
   checkEmail(email): Observable<any> {
     return this.http.get(this.domain + "/authentication/checkEmail/" + email);
   }
-  getRegistrations(): Observable<any> {
-    return this.http.get(this.domain + '/ehos/getRegistrations');
-  }
+
   approveUser(user) {
     let promise = new Promise((resolve,reject) => {
        this.http.post(this.domain + '/ehos/setAccount', user).toPromise()
@@ -82,8 +80,6 @@ export class AuthService {
   }
   tokenExpires(token){
     const decoded = jwt_decode(token);
-    console.log(decoded);
-    
     if (decoded.exp === undefined) return null;
 
     const date = new Date(0); 

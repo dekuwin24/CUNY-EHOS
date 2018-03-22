@@ -1,0 +1,78 @@
+<div class="card info-box">
+  <div class="card-body">
+    <h3 class="card-title">Users</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Department</th>
+          <th scope="col" class="text-center">Approved</th>
+          <th scope="col"></th>
+          <th scope="col"></th>            
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; index as i">
+          <td>{{user.last}}, {{user.first}}</td>
+          <td>{{user.department}}</td>
+          <td class="text-center"><div class="badge" [ngClass]="{'badge-primary': user.approved, 'badge-danger': !user.approved}">{{user.approved ? "Yes": "No"}}</div></td>            
+          <td><button type="button" class="btn btn-primary" (click)="openDialog(i)">Details</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p-sidebar [(visible)]="display" position="bottom" [baseZIndex]="10000" styleClass="ui-sidebar-md" (onHide)="approved.reset()">
+    <h2 style="font-weight:normal">{{name != '' ? users[user].first +" "+users[user].last : ""}}</h2>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="email">Email</label>
+        <input type="email" class="form-control form-control-sm" #email readonly>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="phone">Phone Number</label>
+        <input type="tel" class="form-control form-control-sm" #phone readonly>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="phone">Role</label>
+        <input type="text" class="form-control form-control-sm" #role readonly>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="department">Department</label>
+        <input type="text" class="form-control form-control-sm" #department readonly>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="building">Building</label>
+        <input type="text" #building class="form-control form-control-sm" #building readonly>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="room">Room</label>
+        <input type="text" class="form-control form-control-sm" #room readonly>
+      </div>
+      <div class="form-group col-md-2">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="approved" [formControl]="approved" >
+            Approved
+            <i class="input-helper"></i>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <button type="button" (click)="updateProfile(user)" class="btn btn-primary" [disabled]="!approved.dirty">Update</button>
+      </div>
+      <div class="col-4">
+        <button type="button" (click)="approved.reset()" class="btn btn-secondary"  [disabled]="!approved.dirty">Cancel</button>
+      </div>
+    </div>
+  </p-sidebar>
+  <p-growl [(value)]="msgs" [sticky]="true"></p-growl>
+  <div class="row mt-5" *ngIf="loading">
+    <div class="col-6 offset-6 mt-3">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>

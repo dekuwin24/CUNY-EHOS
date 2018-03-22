@@ -70,54 +70,37 @@ module.exports = (router) => {
   });
   // Our post request to log into the app
   router.post('/login', (request,response) => {
-    User.findOne({email: request.body.email.toLowerCase()}, (err, user) => {
-      if (err) {
-        response.status(500).json({ success: false, message: err });
-      }
-      else {
-        if (!user) {
-          response.status(400).json({ success: false, message: "Email was not found. Try another?" });
+    if (!request.body.email || !request.body.password) {
+      response.status(400).json({ success: false, message: "Form was not filled out" });      
+    }
+    else{
+      User.findOne({email: request.body.email.toLowerCase()}, (err, user) => {
+        if (err) {
+          response.status(500).json({ success: false, message: err });
         }
-        else{
-          if (!user.approved) {
-            response.status(401).json({ success: false, message: "Your account has not been approved by EHOS. A confirmation email will be sent to you by someone at the EHOS department upon approval." });
+        else {
+          if (!user) {
+            response.status(400).json({ success: false, message: "Email was not found. Try another?" });
           }
-          else {
-            // Now lets check for the password to be right
-            if (!user.checkPassword(request.body.password)) {
-              response.status(401).json({ success: false, message: "Incorrect password!"});
+          else{
+            if (!user.approved) {
+              response.status(401).json({ success: false, message: "Your account has not been approved by EHOS. A confirmation email will be sent to you by someone at the EHOS department upon approval." });
             }
             else {
-              // We can start our client session
-              const session = jwt.sign({ userId: user._id }, dbConfig.secret, { expiresIn: '24h' });
-              response.status(200).json({ success: true, message: "Works!", token:session, expires: 86400, privilege: user.privilege});
+              // Now lets check for the password to be right
+              if (!user.checkPassword(request.body.password)) {
+                response.status(401).json({ success: false, message: "Incorrect password!"});
+              }
+              else {
+                // We can start our client session
+                const session = jwt.sign({ userId: user._id, privilege: user.privilege }, dbConfig.secret, { expiresIn: 86400 });
+                response.status(200).json({ success: true, message: "Works!", token:session, privilege: user.privilege});
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
   });
-  // Our middleware is in effect now...
-  // Middleware
-        // Middleware to intercept any HTTP request on the ehos api endpoint with a header that has a name of authorization
-        router.use('/ehos',(request, response, next) => {
-          const token = request.headers['authorization'];
-          if (!token) {
-            response.status(401).json({success: false, message: "Token was not provided"});
-          }
-          else {      
-            jwt.verify(token,dbConfig.secret, (err, valid) =>{
-              if (err) {
-                response.status(403).json({success: false, message: "Token error: " + err});
-              }
-              else {
-                // Token is valud and passed
-                request.decoded = valid;
-                next();
-              }
-            });
-          }
-        });
-  
   return router;
 }

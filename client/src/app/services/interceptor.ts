@@ -1,6 +1,7 @@
 import { Injectable,Injector } from "@angular/core";
 import { HttpRequest,HttpHandler,HttpEvent,HttpInterceptor } from '@angular/common/http';
 import { AuthService } from "./auth.service";
+import { UserService } from "./user.service";
 import { Observable } from 'rxjs/Observable';
 
 /* Purpose: Now that we have the JWT saved in the browser, let's keep tracking its journey through the network by appending
@@ -26,8 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
             return next.handle(cloneHttpReq);
         }
         else {
-            console.log('next one...');
-            
+            console.log('next req');
             return next.handle(req);
         }
     }
