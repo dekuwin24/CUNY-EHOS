@@ -70,6 +70,7 @@ export declare class PickList implements AfterViewChecked, AfterContentInit {
     isItemVisible(item: any, listType: number): boolean;
     isVisibleInList(data: any[], item: any, filterValue: string): boolean;
     onItemTouchEnd(event: any): void;
+    private sortByIndexInList(items, list);
     moveUp(listElement: any, list: any, selectedItems: any, callback: any): void;
     moveTop(listElement: any, list: any, selectedItems: any, callback: any): void;
     moveDown(listElement: any, list: any, selectedItems: any, callback: any): void;

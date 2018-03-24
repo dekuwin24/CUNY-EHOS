@@ -48,6 +48,7 @@ export declare class Table implements OnInit, AfterContentInit {
     contextMenuSelection: any;
     contextMenuSelectionChange: EventEmitter<any>;
     dataKey: string;
+    metaKeySelection: boolean;
     rowTrackBy: Function;
     lazy: boolean;
     compareSelectionBy: string;
@@ -89,6 +90,7 @@ export declare class Table implements OnInit, AfterContentInit {
     onContextMenuSelect: EventEmitter<any>;
     onColResize: EventEmitter<any>;
     onColReorder: EventEmitter<any>;
+    onRowReorder: EventEmitter<any>;
     onEditInit: EventEmitter<any>;
     onEditComplete: EventEmitter<any>;
     onEditCancel: EventEmitter<any>;
@@ -122,6 +124,9 @@ export declare class Table implements OnInit, AfterContentInit {
     reorderIconWidth: number;
     reorderIconHeight: number;
     draggedColumn: any;
+    draggedRowIndex: number;
+    droppedRowIndex: number;
+    rowDragging: boolean;
     dropPosition: number;
     editingCell: Element;
     _multiSortMeta: SortMeta[];
@@ -135,6 +140,7 @@ export declare class Table implements OnInit, AfterContentInit {
     rangeRowIndex: number;
     filterTimeout: any;
     initialized: boolean;
+    rowTouched: boolean;
     constructor(el: ElementRef, domHandler: DomHandler, objectUtils: ObjectUtils, zone: NgZone, tableService: TableService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -153,6 +159,7 @@ export declare class Table implements OnInit, AfterContentInit {
     getSortMeta(field: string): SortMeta;
     isSorted(field: string): boolean;
     handleRowClick(event: any): void;
+    handleRowTouchEnd(event: any): void;
     handleRowRightClick(event: any): void;
     selectRange(event: MouseEvent, rowIndex: number): void;
     clearSelectionRange(event: MouseEvent): void;
@@ -192,6 +199,11 @@ export declare class Table implements OnInit, AfterContentInit {
     onColumnDragEnter(event: any, dropHeader: any): void;
     onColumnDragLeave(event: any): void;
     onColumnDrop(event: any, dropColumn: any): void;
+    onRowDragStart(event: any, index: any): void;
+    onRowDragOver(event: any, index: any, rowElement: any): void;
+    onRowDragLeave(event: any, rowElement: any): void;
+    onRowDragEnd(event: any): void;
+    onRowDrop(event: any, rowElement: any): void;
     handleVirtualScroll(event: any): void;
     isEmpty(): boolean;
     ngOnDestroy(): void;
@@ -239,12 +251,14 @@ export declare class SortableColumn implements OnInit, OnDestroy {
     dt: Table;
     domHandler: DomHandler;
     field: string;
+    pSortableColumnDisabled: boolean;
     sorted: boolean;
     subscription: Subscription;
     constructor(dt: Table, domHandler: DomHandler);
     ngOnInit(): void;
     updateSortState(): void;
     onClick(event: MouseEvent): void;
+    isEnabled(): boolean;
     ngOnDestroy(): void;
 }
 export declare class SortIcon implements OnInit, OnDestroy {
@@ -264,34 +278,57 @@ export declare class SelectableRow implements OnInit, OnDestroy {
     tableService: TableService;
     data: any;
     index: number;
+    pSelectableRowDisabled: boolean;
     selected: boolean;
     subscription: Subscription;
     constructor(dt: Table, domHandler: DomHandler, tableService: TableService);
     ngOnInit(): void;
     onClick(event: Event): void;
+    onTouchEnd(event: Event): void;
+    isEnabled(): boolean;
+    ngOnDestroy(): void;
+}
+export declare class SelectableRowDblClick implements OnInit, OnDestroy {
+    dt: Table;
+    domHandler: DomHandler;
+    tableService: TableService;
+    data: any;
+    index: number;
+    pSelectableRowDisabled: boolean;
+    selected: boolean;
+    subscription: Subscription;
+    constructor(dt: Table, domHandler: DomHandler, tableService: TableService);
+    ngOnInit(): void;
+    onClick(event: Event): void;
+    isEnabled(): boolean;
     ngOnDestroy(): void;
 }
 export declare class ContextMenuRow {
     dt: Table;
     tableService: TableService;
     data: any;
+    pContextMenuRowDisabled: boolean;
     selected: boolean;
     subscription: Subscription;
     constructor(dt: Table, tableService: TableService);
     onContextMenu(event: Event): void;
+    isEnabled(): boolean;
     ngOnDestroy(): void;
 }
 export declare class RowToggler {
     dt: Table;
     data: any;
+    pRowTogglerDisabled: boolean;
     constructor(dt: Table);
     onClick(event: Event): void;
+    isEnabled(): boolean;
 }
 export declare class ResizableColumn implements AfterViewInit, OnDestroy {
     dt: Table;
     el: ElementRef;
     domHandler: DomHandler;
     zone: NgZone;
+    pResizableColumnDisabled: boolean;
     resizer: HTMLSpanElement;
     resizerMouseDownListener: any;
     documentMouseMoveListener: any;
@@ -303,6 +340,7 @@ export declare class ResizableColumn implements AfterViewInit, OnDestroy {
     onMouseDown(event: Event): void;
     onDocumentMouseMove(event: Event): void;
     onDocumentMouseUp(event: Event): void;
+    isEnabled(): boolean;
     ngOnDestroy(): void;
 }
 export declare class ReorderableColumn implements AfterViewInit, OnDestroy {
@@ -310,6 +348,7 @@ export declare class ReorderableColumn implements AfterViewInit, OnDestroy {
     el: ElementRef;
     domHandler: DomHandler;
     zone: NgZone;
+    pReorderableColumnDisabled: boolean;
     dragStartListener: any;
     dragOverListener: any;
     dragEnterListener: any;
@@ -325,6 +364,7 @@ export declare class ReorderableColumn implements AfterViewInit, OnDestroy {
     onDragEnter(event: any): void;
     onDragLeave(event: any): void;
     onDrop(event: any): void;
+    isEnabled(): boolean;
     ngOnDestroy(): void;
 }
 export declare class EditableColumn implements AfterViewInit {
@@ -334,6 +374,7 @@ export declare class EditableColumn implements AfterViewInit {
     zone: NgZone;
     data: any;
     field: any;
+    pEditableColumnDisabled: boolean;
     constructor(dt: Table, el: ElementRef, domHandler: DomHandler, zone: NgZone);
     ngAfterViewInit(): void;
     isValid(): boolean;
@@ -345,6 +386,7 @@ export declare class EditableColumn implements AfterViewInit {
     moveToNextCell(event: KeyboardEvent): void;
     findPreviousEditableColumn(cell: Element): any;
     findNextEditableColumn(cell: Element): any;
+    isEnabled(): boolean;
 }
 export declare class CellEditor implements AfterContentInit {
     dt: Table;
@@ -402,6 +444,38 @@ export declare class TableHeaderCheckbox {
     onBlur(): void;
     ngOnDestroy(): void;
     updateCheckedState(): boolean;
+}
+export declare class ReorderableRowHandle implements AfterViewInit {
+    el: ElementRef;
+    domHandler: DomHandler;
+    index: number;
+    constructor(el: ElementRef, domHandler: DomHandler);
+    ngAfterViewInit(): void;
+}
+export declare class ReorderableRow implements AfterViewInit {
+    dt: Table;
+    el: ElementRef;
+    domHandler: DomHandler;
+    zone: NgZone;
+    index: number;
+    pReorderableRowDisabled: boolean;
+    mouseDownListener: any;
+    dragStartListener: any;
+    dragEndListener: any;
+    dragOverListener: any;
+    dragLeaveListener: any;
+    dropListener: any;
+    constructor(dt: Table, el: ElementRef, domHandler: DomHandler, zone: NgZone);
+    ngAfterViewInit(): void;
+    bindEvents(): void;
+    unbindEvents(): void;
+    onMouseDown(event: any): void;
+    onDragStart(event: any): void;
+    onDragEnd(event: any): void;
+    onDragOver(event: any): void;
+    onDragLeave(event: any): void;
+    isEnabled(): boolean;
+    onDrop(event: any): void;
 }
 export declare class TableModule {
 }

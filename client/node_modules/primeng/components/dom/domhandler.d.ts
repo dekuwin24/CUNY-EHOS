@@ -10,6 +10,7 @@ export declare class DomHandler {
     find(element: any, selector: string): any[];
     findSingle(element: any, selector: string): any;
     index(element: any): number;
+    indexWithinGroup(element: any, attributeName: string): number;
     relativePosition(element: any, target: any): void;
     absolutePosition(element: any, target: any): void;
     getHiddenElementOuterHeight(element: any): number;

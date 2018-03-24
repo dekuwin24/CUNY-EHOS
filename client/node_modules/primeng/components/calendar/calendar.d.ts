@@ -65,6 +65,7 @@ export declare class Calendar implements AfterViewInit, AfterViewChecked, OnInit
     onTodayClick: EventEmitter<any>;
     onClearClick: EventEmitter<any>;
     onMonthChange: EventEmitter<any>;
+    onYearChange: EventEmitter<any>;
     templates: QueryList<any>;
     _locale: LocaleSettings;
     tabindex: number;

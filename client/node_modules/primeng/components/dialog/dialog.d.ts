@@ -30,6 +30,9 @@ export declare class Dialog implements AfterViewInit, AfterViewChecked, OnDestro
     blockScroll: boolean;
     autoZIndex: boolean;
     baseZIndex: number;
+    minX: number;
+    minY: number;
+    autoAlign: boolean;
     headerFacet: QueryList<Header>;
     footerFacet: QueryList<Header>;
     containerViewChild: ElementRef;
@@ -41,6 +44,7 @@ export declare class Dialog implements AfterViewInit, AfterViewChecked, OnDestro
     _visible: boolean;
     dragging: boolean;
     documentDragListener: any;
+    documentDragEndListener: any;
     resizing: boolean;
     documentResizeListener: any;
     documentResizeEndListener: any;
@@ -55,6 +59,7 @@ export declare class Dialog implements AfterViewInit, AfterViewChecked, OnDestro
     preventVisibleChangePropagation: boolean;
     executePostDisplayActions: boolean;
     initialized: boolean;
+    currentHeight: number;
     id: string;
     constructor(el: ElementRef, domHandler: DomHandler, renderer: Renderer2, zone: NgZone);
     visible: boolean;
@@ -81,6 +86,8 @@ export declare class Dialog implements AfterViewInit, AfterViewChecked, OnDestro
     unbindGlobalListeners(): void;
     bindDocumentDragListener(): void;
     unbindDocumentDragListener(): void;
+    bindDocumentDragEndListener(): void;
+    unbindDocumentDragEndListener(): void;
     bindDocumentResizeListeners(): void;
     unbindDocumentResizeListeners(): void;
     bindDocumentResponsiveListener(): void;

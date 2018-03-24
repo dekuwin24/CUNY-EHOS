@@ -1,8 +1,10 @@
 import {NgModule} from '@angular/core';
-import {ButtonModule,StepsModule,InputMaskModule, DialogModule } from 'primeng/primeng';
+import {ButtonModule,StepsModule,InputMaskModule,  } from 'primeng/primeng';
 import {SidebarModule} from 'primeng/sidebar';
 import {GrowlModule} from 'primeng/growl';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {AutoCompleteModule, DialogModule,CalendarModule, DropdownModule} from 'primeng/primeng';
+import { ScheduleModule } from 'primeng/components/schedule/schedule';
 @NgModule({
   declarations: [
   ],
@@ -13,7 +15,11 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     DialogModule,
     SidebarModule,
     ProgressSpinnerModule,
-    GrowlModule
+    GrowlModule,
+    AutoCompleteModule, 
+    ScheduleModule, 
+    CalendarModule, 
+    DropdownModule
   ],
   exports: [
     ButtonModule,
@@ -22,7 +28,11 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     DialogModule,
     SidebarModule,
     ProgressSpinnerModule,
-    GrowlModule
+    GrowlModule,
+    AutoCompleteModule, 
+    ScheduleModule, 
+    CalendarModule, 
+    DropdownModule
   ],
 
 })

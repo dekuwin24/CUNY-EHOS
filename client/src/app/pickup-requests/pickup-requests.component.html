@@ -1,22 +1,57 @@
-<div class="card info-box">
-  <div class="card-body">
-    <table class="table table-sm">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Request #</th>
-          <th scope="col">Department</th>
-          <th scope="col">Lab Operator</th>
-          <th scope="col">Requested On</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of requests; index as i">
-          <td>{{request.request_id}}</td>
-          <td>{{request.department}}</td>
-          <td>{{request.operator}}</td>
-          <td>{{request.requested}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<!-- <div class="card info-box">
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Request #</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Lab Operator</th>
+                    <th scope="col">Requested On</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of requests; index as i">
+                    <td>{{request.request_id}}</td>
+                    <td>{{request.department}}</td>
+                    <td>{{request.operator}}</td>
+                    <td>{{request.requested}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+<p-schedule [events]="events" [header]="headerConfig" defaultDate="2018-01-01" [eventLimit]="6" [editable]="true" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+
+<p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
+    <!--  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="vin">Title</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="start">Start</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar id="start" dateFormat="yy-mm-dd" [(ngModel)]="event.start"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="end">End</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar id="end" dateFormat="yy-mm-dd" [(ngModel)]="event.end" defaultDate="2016-01-01" placeholder="Optional"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="allday">All Day</label></div>
+            <div class="ui-grid-col-8">
+                <p-toggleButton [(ngModel)]="event.allDay" [style]="{'width':'150px'}" onLabel="Yes" offLabel="No"></p-toggleButton>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="Save"></button>
+        </div>
+    </footer> -->
+</p-dialog>

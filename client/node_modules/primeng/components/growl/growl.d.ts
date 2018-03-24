@@ -14,6 +14,7 @@ export declare class Growl implements AfterViewInit, DoCheck, OnDestroy {
     immutable: boolean;
     autoZIndex: boolean;
     baseZIndex: number;
+    key: string;
     onClick: EventEmitter<any>;
     onHover: EventEmitter<any>;
     onClose: EventEmitter<any>;

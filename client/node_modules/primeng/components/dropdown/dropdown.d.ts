@@ -37,6 +37,7 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     optionLabel: string;
     autoDisplayFirst: boolean;
     group: boolean;
+    showClear: boolean;
     emptyFilterMessage: string;
     onChange: EventEmitter<any>;
     onFocus: EventEmitter<any>;
@@ -70,6 +71,7 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     initialized: boolean;
     selfClick: boolean;
     itemClick: boolean;
+    clearClick: boolean;
     hoveredItem: any;
     selectedOptionUpdated: boolean;
     filterValue: string;
@@ -103,13 +105,14 @@ export declare class Dropdown implements OnInit, AfterViewInit, AfterContentInit
     onKeydown(event: any): void;
     findOptionIndex(val: any, opts: any[]): number;
     findOptionGroupIndex(val: any, opts: any[]): any;
-    findOption(val: any, opts: any[]): SelectItem;
+    findOption(val: any, opts: any[], inGroup?: boolean): SelectItem;
     onFilter(event: any): void;
     activateFilter(): void;
     applyFocus(): void;
     bindDocumentClickListener(): void;
     unbindDocumentClickListener(): void;
     updateFilledState(): void;
+    clear(event: Event): void;
     ngOnDestroy(): void;
 }
 export declare class DropdownModule {
