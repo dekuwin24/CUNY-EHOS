@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
     const user = {
       firstName: this.registerForm.get('firstName').value,
       lastName: this.registerForm.get('lastName').value,
-      email: this.registerForm.get('email').value,
+      email: this.registerForm.get('email').value.toLowerCase(),
       role: this.registerForm.get('jobTitle').value,
       department: this.registerForm.get('department').value,
       building: this.registerForm.get('building').value,
@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.get('email').value.length < 1) {
       this.isEmailTaken = false;
     }
-    this.authService.checkEmail(this.registerForm.get('email').value).subscribe(
+    this.authService.checkEmail(this.registerForm.get('email').value.toLowerCase()).subscribe(
       response => {
         if (!response.success){
           this.isEmailTaken = true;
@@ -103,6 +103,10 @@ export class RegisterComponent implements OnInit {
         else {
           this.isEmailTaken = false;
         }
+      }
+      ,
+      error => {
+        this.isEmailTaken = true;        
       }
     );
   }

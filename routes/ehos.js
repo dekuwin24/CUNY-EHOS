@@ -5,9 +5,6 @@ const verifyToken = require('./middlewares');
 
 module.exports = (router) => {
   router.get('/users', verifyToken, (request,response) => {
-    console.log("trying to get users");
-    console.log("Token? " + JSON.stringify(request.decoded));
-    
     User.find({ _id: { $ne: request.decoded.userId }}, 'first last email phone building department room privilege approved', (err,user) => {
       if (err) {
         // Connection error was found
@@ -41,7 +38,7 @@ module.exports = (router) => {
     });
   });
 
-  router.get('/users/:id', (request,response) => {
+  router.get('/users/:id', verifyToken,(request,response) => {
     User.find({ _id: request.params.id }, 'first last email phone building department room privilege', (err,user) => {
       if (err) {
         // Connection error was found
@@ -58,7 +55,7 @@ module.exports = (router) => {
     });
   });
 
-  router.patch('/users', (request, response) => {
+  router.patch('/users',verifyToken,(request, response) => {
     User.findOneAndUpdate({email: request.body.email}, request.body.user, (err,email) => {
       if (err) {
         console.log(err);
@@ -72,14 +69,25 @@ module.exports = (router) => {
       }
     });
   });
-  router.delete('/users/:id',(request,response) => {
-    User.findOneAndRemove({email: request.body.email}, (err,email) => {
+  router.put('/users',verifyToken,(request, response) => {
+    User.update({privilege: 2, approved: false},{approved: true}, {multi: true}, (err,accounts)=>{
+      if (err) {
+        response.status(500).json({ success: false, message: err });        
+      }
+      else {
+        response.status(200).json({ success: true, message: "Users were approved!" });        
+      }
+    });
+  });
+
+  router.delete('/users/:email',(request,response) => {
+    User.findOneAndRemove({email: request.params.email}, (err,email) => {
       if (err) {
         console.log(err);
         response.status(500).json({ success: false, message: err });
       }
       else if(!email){
-        response.status(200).json({ success: false, message: "Not Found" });
+        response.status(200).json({ success: false, message: "User not Found" });
       }
       else {
         response.status(200).json({ success: true, message: "User was deleted!" });

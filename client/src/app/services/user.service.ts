@@ -31,4 +31,30 @@ export class UserService {
   patchProfile(user): Observable<any> {
     return this.http.patch(this.domain + '/ehos/users',user);
   }
+  approveLabAccounts(): Promise<any> {
+    let promise = new Promise((resolve,reject) => {
+      this.http.put(this.domain + '/ehos/users',{}).toPromise()
+      .then(
+        res => { // Success
+          resolve(res);
+       },
+       msg => { // Error
+         reject(msg);
+       });
+   });
+   return promise;
+  }
+  deleteUser(user) {
+    let promise = new Promise((resolve,reject) => {
+      this.http.delete(this.domain + '/ehos/users/' + user).toPromise()
+      .then(
+        res => { // Success
+          resolve(res);
+       },
+       msg => { // Error
+         reject(msg);
+       });
+   });
+   return promise;
+  }
 }

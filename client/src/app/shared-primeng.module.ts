@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
-import {ButtonModule,StepsModule,InputMaskModule, DialogModule } from 'primeng/primeng';
+import {ButtonModule,StepsModule,InputMaskModule } from 'primeng/primeng';
+import {DialogModule} from 'primeng/dialog';
 import {SidebarModule} from 'primeng/sidebar';
 import {GrowlModule} from 'primeng/growl';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
@@ -13,7 +14,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     DialogModule,
     SidebarModule,
     ProgressSpinnerModule,
-    GrowlModule
+    GrowlModule,
   ],
   exports: [
     ButtonModule,
@@ -22,7 +23,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     DialogModule,
     SidebarModule,
     ProgressSpinnerModule,
-    GrowlModule
+    GrowlModule,
   ],
 
 })

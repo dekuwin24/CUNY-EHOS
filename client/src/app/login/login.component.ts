@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
       // Response should already be in JSON format
       console.log(data);
       if (!data.success) {
+        console.log("OPEN DIALOG");
+        
         this.message = data.message;
         this.incorrectCredentials = true;
       }
@@ -45,7 +47,12 @@ export class LoginComponent implements OnInit {
         }
 
       }
-    });
+    },
+      err =>{
+        this.message = err.error.message;
+        this.incorrectCredentials = true;
+      }
+    );
   }
 
 
