@@ -1,24 +1,5 @@
-<!-- <div class="card info-box">
-  <div class="card-body">
-    <h5 class="card-title">Lab Requests</h5>
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Request #</th>
-          <th scope="col">Department</th>
-          <th scope="col">Lab Operator</th>
-          <th scope="col">Requested On</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of requests; index as i">
-          <td>{{request.request_id}}</td>
-          <td>{{request.department}}</td>
-          <td>{{request.operator}}</td>
-          <td>{{request.requested}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="row">
+  <div class="col-12">
+    <p-schedule [events]="events" [header]="header"></p-schedule>
   </div>
-</div> -->
-<p-schedule [events]="events"></p-schedule>
+</div>

@@ -12,7 +12,7 @@ import 'fullcalendar';
 })
 export class PickupRequestsComponent implements OnInit {
   events: any[];
-  headerConfig: any;
+  header: any;
   dialogVisible: boolean = false;
   constructor() { }
 
@@ -20,28 +20,28 @@ export class PickupRequestsComponent implements OnInit {
     this.events = [
       {
           "title": "All Day Event",
-          "start": "2016-01-01"
+          "start": "2018-03-28"
       },
       {
           "title": "Long Event",
-          "start": "2016-01-07",
-          "end": "2016-01-10"
+          "start": "2018-03-07",
+          "end": "2018-03-10"
       },
       {
           "title": "Repeating Event",
-          "start": "2016-01-09T16:00:00"
+          "start": "2018-03-09T16:00:00"
       },
       {
           "title": "Repeating Event",
-          "start": "2016-01-16T16:00:00"
+          "start": "2018-03-16T16:00:00"
       },
       {
           "title": "Conference",
-          "start": "2016-01-11",
-          "end": "2016-01-13"
+          "start": "2018-03-11",
+          "end": "2018-03-30"
       }
   ];
-    this.headerConfig = {
+    this.header = {
       left: 'prev,next today',
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
