@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import * as $ from 'jquery';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
