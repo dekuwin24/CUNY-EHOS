@@ -25,7 +25,7 @@
             "../node_modules/fullcalendar/dist/fullcalendar.min.css",
             "../node_modules/fullcalendar-scheduler/dist/scheduler.min.css"
         ],
-        "scripts": ["../node_modules/jquery/dist/jquery.js",
+        "scripts": ["../node_modules/jquery/dist/jquery.min.js",
             "../node_modules/moment/min/moment.min.js",
             "../node_modules/fullcalendar/dist/fullcalendar.js",
             "../node_modules/fullcalendar-scheduler/dist/scheduler.min.js"

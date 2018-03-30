@@ -21,7 +21,7 @@
     </div>
 </div> -->
 
-<p-schedule [events]="events" [header]="headerConfig" defaultDate="2018-01-01" [eventLimit]="6" [editable]="true" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+<p-schedule [events]="events" [header]="headerConfig" defaultDate="2018-01-01" [eventLimit]="6" [editable]="true"></p-schedule>
 
 <p-dialog header="Event Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false">
     <!--  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
@@ -55,3 +55,5 @@
         </div>
     </footer> -->
 </p-dialog>
+<!-- <button type="button" pButton (click)="back(fc)"></button>
+ -->
