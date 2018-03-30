@@ -12,21 +12,23 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { EhosAuthGuard,LabAuthGuard,AnyAuthGuard, ProfileGuard } from "./guards/auth.guard";
 import {AboutComponent} from "./about/about.component";
 import { UsersComponent } from './users/users.component';
+import {WasteRequestComponent} from './waste-request/waste-request.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
   {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'users', component: UsersComponent },      
+      { path: 'users', component: UsersComponent },
       { path: 'pickup-requests', component:  PickupRequestsComponent},
       { path: 'lab-inspections', component:  LabInspectionsComponent},
-      { path: 'dashboard', component:  EhosQuickViewComponent}      
+      { path: 'dashboard', component:  EhosQuickViewComponent}
     ]
   }, // Our path to the EHOS
+  {path:'waste', component:WasteRequestComponent},
   {path:'about', component:AboutComponent},
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},
-  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },  
+  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },
   { path: '**', component: Error404Component } // A path that is not defined
 ];
 
