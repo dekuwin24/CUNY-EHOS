@@ -2,24 +2,12 @@
 
 /* The main container for rendering a view onto our app. */
 
-/* Sidebar */
+/* Static Sidebar */
 nav a {
   color: #435966;
   font-size: 16px;
   margin: 0 0 0 30px;
   display: block;
-}
-.sidebar {
-    background-color: #fff;
-    padding-left: 0;
-    padding-right: 0;
-    position: fixed;
-    top: 62.5px;
-    bottom: 0;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border-right: 1px solid #E9E9E9;
 }
 .nav-item {
   width: 100%;
