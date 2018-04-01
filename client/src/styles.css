@@ -16,8 +16,65 @@ img {
   color: #fff;
   width: 100%;
 }
-/* MATERIAL COLOR PALLETTE*/
+.topbar {
+  background-color: #673AB7;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  padding: 0;
+  height: 70px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9997;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+}
 
+#main-view {
+  margin-left: 300px;
+  padding-top: 80px;
+}
+#lab-view {
+  padding-top: 90px;
+}
+#sidebar {
+  background-color: #fff;
+  padding-left: 0;
+  padding-right: 0;
+  position: fixed;
+  top: 62.5px;
+  bottom: 0;
+  left: 0;
+  height: calc(100% - 70px);
+  width: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid #E9E9E9;
+}
+
+@media screen and (max-width: 64em) {
+  .topbar {
+    text-align: center;
+  }
+  #sidebar {
+    top: 100px;
+    left: -300px;
+    -webkit-transition: left .3s;
+    transition: left .3s;
+    z-index: 9999;
+  }
+  #main-view {
+    margin-left: 0;
+    margin-top: 90px;
+  }
+  #lab-view {
+    padding-top: 110px;    
+  }
+}
+/* MATERIAL COLOR PALLETTE*/
 .bg-red {
   background-color: #F44336 !important;
   color: #fff; }

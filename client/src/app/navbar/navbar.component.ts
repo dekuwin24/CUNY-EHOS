@@ -6,10 +6,9 @@ import { Router } from "@angular/router";
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-
+  sidebarDisplay: Boolean = false;
   constructor( private authService: AuthService, private router: Router ) { }
   logout(){
     this.authService.unsetUser();
