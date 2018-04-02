@@ -27,6 +27,7 @@ import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
+import { WasteRequestComponent } from './waste-request/waste-request.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,7 @@ import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component
     ProfileComponent,
     UsersComponent,
     LabQuickViewComponent,
-
+    WasteRequestComponent
   ],
   imports: [
     BrowserModule,

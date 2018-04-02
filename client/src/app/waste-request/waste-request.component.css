@@ -1,0 +1,13 @@
+.trash {
+  opacity: 0.0;
+}
+.trash:hover {
+  opacity: 0.5;
+}
+.button {
+  color: #dc3545;
+}
+
+.button:hover {
+  color: #fff;
+}

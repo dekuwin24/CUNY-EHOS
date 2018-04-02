@@ -14,6 +14,7 @@ import {AboutComponent} from "./about/about.component";
 import { UsersComponent } from './users/users.component';
 import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
 import { Error401Component } from './error401/error401.component';
+import { WasteRequestComponent } from './waste-request/waste-request.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
@@ -30,7 +31,7 @@ const appRoutes: Routes = [
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'waste-pickup', component: Error401Component },
+      { path: 'waste-pickup', component: WasteRequestComponent },
       { path: 'supply-request', component: Error401Component },                              
       { path: 'home', component: LabQuickViewComponent }
     ]
