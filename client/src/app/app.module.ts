@@ -26,6 +26,7 @@ import { LabInspectionsComponent } from './lab-inspections/lab-inspections.compo
 import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { UsersComponent } from './users/users.component';
     AboutComponent,
     ProfileComponent,
     UsersComponent,
+    LabQuickViewComponent,
 
   ],
   imports: [

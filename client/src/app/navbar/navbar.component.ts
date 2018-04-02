@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  isEhos: Boolean = false;
   sidebarDisplay: Boolean = false;
   constructor( private authService: AuthService, private router: Router ) { }
   logout(){
@@ -15,5 +16,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit() {
+    if (this.authService.getRole()==1) {
+      this.isEhos = true;
+    }
   }
 }

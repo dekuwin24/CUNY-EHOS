@@ -1,4 +1,4 @@
-<a (click)="sidebarDisplay=true;" class="menu-button">
+<a (click)="sidebarDisplay=true;" *ngIf="isEhos" class="menu-button">
     <i class="fa fa-bars"></i>
 </a>
 <div class="logo">
@@ -10,10 +10,10 @@
   <a class="nav-item nav-link" routerLink="/profile">Profile</a>
   <a class="nav-item nav-link" (click)="logout()">Log out</a>
 </ul>
-<p-sidebar [(visible)]="sidebarDisplay" [baseZIndex]="10000">
+<p-sidebar [(visible)]="sidebarDisplay" *ngIf="isEhos" [baseZIndex]="10000">
   <nav class="nav mt-3 sidebar">
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['dashboard']">Dashboard</a>
+      <a class="nav-link" [routerLink]="['home']">Dashboard</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['lab-inspections']">Lab Inspections</a>
