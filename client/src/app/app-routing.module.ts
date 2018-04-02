@@ -12,20 +12,29 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { EhosAuthGuard,LabAuthGuard,AnyAuthGuard, ProfileGuard } from "./guards/auth.guard";
 import {AboutComponent} from "./about/about.component";
 import { UsersComponent } from './users/users.component';
+import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
+import { Error401Component } from './error401/error401.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
   {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },      
-      { path: 'pickup-requests', component:  PickupRequestsComponent},
-      { path: 'lab-inspections', component:  LabInspectionsComponent},
-      { path: 'dashboard', component:  EhosQuickViewComponent}      
+      { path: 'pickup-requests', component: PickupRequestsComponent},
+      { path: 'lab-inspections', component: LabInspectionsComponent},
+      { path: 'home', component:  EhosQuickViewComponent}      
     ]
   }, // Our path to the EHOS
   {path:'about', component:AboutComponent},
-  {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},
+  {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard],
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'waste-pickup', component: Error401Component },
+      { path: 'supply-request', component: Error401Component },                              
+      { path: 'home', component: LabQuickViewComponent }
+    ]
+  },
   { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },  
   { path: '**', component: Error404Component } // A path that is not defined
 ];
