@@ -1,0 +1,64 @@
+<div class="row clearfix">
+  <div class="col-md-12 table-responsive">
+    <div class="card info-box">
+      <div class="card-body">
+        <h3 class="card-title">Waste Pickup Request</h3>
+        <p class="text-muted">Enter details below.</p>
+        <table class="table table-sortable" id="tab_logic">
+          <thead>
+            <tr >
+              <th class="text-center" scope="col">Container Type</th>
+              <th class="text-center"scope="col">Hazard</th>
+              <th class="text-left"scope="col">Quantity</th>
+              <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id='addr0' data-id="0" class="hidden">
+              <td data-name="sel">
+                <div class="form-group">
+                <select class="form-control"  name="sel0">
+                  <option *ngFor="let item of items" >
+                    <span class="badge">{{item.container}}</span>
+                  </option>
+                </select>
+              </div>
+            </td>
+            <td data-name="sel">
+              <div class="form-group ">
+                <select class="form-control "  name="sel0">
+                  <option *ngFor="let item of items" >
+                    <span class="badge">{{item.hazard}}</span>
+                  </option>
+                </select>
+              </div>
+          </td>
+              <td data-name="name">
+                  <input type="text" name='name' placeholder='Enter quantity in Kg' class="form-control"/>
+              </td>
+              <td style="height:100% !important; width:50px;"data-name="del">
+                <button style="height:100% !important; width:50px;"name="del0" class='btn btn-outline-danger button row-remove'>
+                  <i class="fa fw fa-minus"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                <td colspan="5" style="text-align: left;">
+                  <input type="button" id="add_row" class="btn btn-secondary"value="Add Waste" />
+                </td>
+              </tr>
+              <tr>
+              </tr>
+          </tfoot>
+        </table>
+        <div class="row">
+          <div class="col-md-4 col-lg-3 col-xl-2">
+            <button class="btn btn-primary">Send Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

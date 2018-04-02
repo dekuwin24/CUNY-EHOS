@@ -6,15 +6,18 @@ import { Router } from "@angular/router";
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-
+  isEhos: Boolean = false;
+  sidebarDisplay: Boolean = false;
   constructor( private authService: AuthService, private router: Router ) { }
   logout(){
     this.authService.unsetUser();
     this.router.navigate(['/']);
   }
   ngOnInit() {
+    if (this.authService.getRole()==1) {
+      this.isEhos = true;
+    }
   }
 }
