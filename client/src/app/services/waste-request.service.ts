@@ -10,7 +10,7 @@ export class WasteRequestService {
   }
   
 
-  getRequests(): Promise<any>{
+/*   getRequests(): Promise<any>{
   let promise = new Promise((resolve,reject) => {
     this.http.get(this.domain + '/ehos/event').toPromise()
     .then(
@@ -22,7 +22,7 @@ export class WasteRequestService {
      });
  });
  return promise;
-  /* getRequests(): Observable<any>{
+  getRequests(): Observable<any>{
     return this.http.get(this.domain + '/ehos/requests');
   } */
 }
