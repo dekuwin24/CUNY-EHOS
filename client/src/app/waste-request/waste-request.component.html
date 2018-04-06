@@ -10,6 +10,7 @@
               <th class="text-center" scope="col">Container Type</th>
               <th class="text-center"scope="col">Hazard</th>
               <th class="text-left"scope="col">Quantity</th>
+              <th scope="col">Chemicals</th>
               <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;"></th>
             </tr>
           </thead>
@@ -17,24 +18,31 @@
             <tr id='addr0' data-id="0" class="hidden">
               <td data-name="sel">
                 <div class="form-group">
-                <select class="form-control"  name="sel0">
-                  <option *ngFor="let item of items" >
-                    <span class="badge">{{item.container}}</span>
-                  </option>
-                </select>
-              </div>
-            </td>
-            <td data-name="sel">
-              <div class="form-group ">
-                <select class="form-control "  name="sel0">
-                  <option *ngFor="let item of items" >
-                    <span class="badge">{{item.hazard}}</span>
-                  </option>
-                </select>
-              </div>
-          </td>
+                  <select class="form-control"  name="sel0">
+                    <option *ngFor="let item of items" >
+                      <span class="badge">{{item.container}}</span>
+                    </option>
+                  </select>
+                </div>
+              </td>
+              <td data-name="sel">
+                <div class="form-group ">
+                  <select class="form-control "  name="sel0">
+                    <option *ngFor="let item of items" >
+                      <span class="badge">{{item.hazard}}</span>
+                    </option>
+                  </select>
+                </div>
+              </td>
               <td data-name="name">
-                  <input type="text" name='name' placeholder='Enter quantity in Kg' class="form-control"/>
+                <input type="text" name='name' placeholder='Enter quantity in Kg' class="form-control"/>
+              </td>
+              <td>
+                <div formArrayName="chemicals" *ngFor="let chemical of p">
+                  <div [formGroupName]="i">
+
+                  </div>
+                </div>
               </td>
               <td style="height:100% !important; width:50px;"data-name="del">
                 <button style="height:100% !important; width:50px;"name="del0" class='btn btn-outline-danger button row-remove'>

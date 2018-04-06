@@ -15,6 +15,7 @@ import { SharedPrimeNgModule } from './shared-primeng.module';
 import { AuthInterceptor } from "./services/interceptor";
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { WasteManagementService } from './services/waste-management.service';
 import { TextMaskModule } from 'angular2-text-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EhosDashboardComponent } from './ehos-dashboard/ehos-dashboard.component';
@@ -59,7 +60,8 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
   ],
   providers: [
     AuthService,
-    UserService,    
+    UserService,
+    WasteManagementService,    
     EhosAuthGuard,
     LabAuthGuard,
     AnyAuthGuard,
