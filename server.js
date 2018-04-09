@@ -15,7 +15,8 @@ const config = require('./config/database');
 const path = require('path'); // Needed for routing
 const authentication = require('./routes/authentication')(router);
 const ehos = require('./routes/ehos')(router);
-const lab = require('./routes/lab')(authRouter);
+const lab = require('./routes/lab')(router);
+const waste = require('./routes/waste')(router)
 const bodyParser = require('body-parser'); // node plugin to help parse response body
 mongoose.Promise = global.Promise; // Config declaration for mongoose
 // Our method that attempts to create a connection to our database
@@ -26,6 +27,8 @@ mongoose.connect(config.uri, config.options, (err) =>{
   else {
     console.log("connected to db: " + config.db);
   }
+}).catch( (reason) =>{
+  console.log(reason);
 });
 
 /* Our middleware*/
@@ -41,6 +44,7 @@ app.use(express.static(__dirname + '/client/dist/')); // Allow access to the dis
 app.use('/authentication', authentication);
 app.use('/ehos', ehos);
 app.use('/lab', lab);
+app.use('/waste', waste);
 // We configure our route so that we always redirect to our server page
 app.get('*', (request,response,next) =>{
   // response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here

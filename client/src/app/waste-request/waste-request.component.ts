@@ -1,32 +1,89 @@
 import { Component, OnInit } from '@angular/core';
 import { ITEM } from '../mock';
-
+import { WasteManagementService } from "../services/waste-management.service";
+import { UserService } from '../services/user.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-waste-request',
   templateUrl: './waste-request.component.html',
   styleUrls: ['./waste-request.component.css'],
+  providers: [MessageService]  
   //encapsulation: ViewEncapsulation.None
 })
 export class WasteRequestComponent implements OnInit {
-
-  items = ITEM;
-
-    trash:string;
-
-    constructor() {
-      this.trash='/assets/trash.png'
+  wastePickupForm: FormGroup;
+  wasteItems: FormArray;
+  wasteForm: FormGroup;
+  chemicals: FormArray;
+  chemicalForm: FormGroup;
+  loading: Boolean = false;
+  msgs: Message[] = [];
+  
+  constructor(private formBuilder: FormBuilder, private waste: WasteManagementService, private messageService: MessageService) {
+    this.createForm();
+   }
+  createChemical(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', Validators.required],
+      percentFraction: ['', Validators.required]
+    });
   }
-
-
-    loadScript(src){
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        document.getElementsByTagName("body")[0].appendChild(script);
-        script.src = src;
-      }
-    ngOnInit() {
-      this.loadScript('./assets/js/table.js')
+  addChemical(i) {
+    this.chemicals = (this.wasteForm.get('wasteItems') as FormArray).controls[i].get('chemicals') as FormArray;
+    this.chemicals.push(this.createChemical());
+    console.log(this.wasteForm);
+  }
+  createForm() {
+    this.wasteForm = this.formBuilder.group({
+      wasteItems: this.formBuilder.array([ this.createWasteItem() ])
+    });
+    console.log(this.wasteForm);
+  }
+  createWasteItem(): FormGroup {
+    return this.formBuilder.group({
+      containerType: ['', Validators.required],
+      hazardType: ['', Validators.required],
+      quantity: ['', Validators.required],
+      chemicals: this.formBuilder.array([ this.createChemical() ])
+    });
+  }
+  addWasteItem() {
+    this.wasteItems = this.wasteForm.get('wasteItems') as FormArray;
+    this.wasteItems.push(this.createWasteItem());
+  }
+  removeWasteItem(i) {
+    this.wasteItems = <FormArray>this.wasteForm.controls['items'];
+    this.wasteItems.removeAt(Number(i));
+  }
+  // TODO: Send request to post to database
+  createRequest() {
+    this.loading = true;
+    let request = {
+      requester: 'Steven is testing',
+      location: 'Testing',
+      items: this.wasteForm.value
     }
+    
+    this.waste.createRequest(request).then(value => {
+      if (!value.success) {
+        this.messageService.add({severity: 'success', summary: 'ERROR!', detail: 'Look over details and try again.'});                            
+      }
+      else{
+        this.messageService.add({severity: 'success', summary: 'Requested!', detail: 'Waste pickup request was successfully created!'});                            
+      }
+      this.loading = false;
+      this.wasteForm.reset();
+      // Loading done
+    }).catch( reason => {
+      console.log(reason);
+      this.loading = false;
+    });
+  }
+  ngOnInit() {
+
+  }
 
 }
