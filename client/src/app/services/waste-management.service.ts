@@ -6,7 +6,35 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class WasteManagementService {
+  domain = "http://localhost:3000";
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
+  getRequests() : Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(this.domain + '/waste/pickupRequests').toPromise().then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+    return promise
+  }
+  createRequest(request) : Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post(this.domain + '/waste/pickupRequests',request).toPromise()
+      .then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+    return promise;
+  }
 
 }

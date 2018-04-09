@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const dbConfig = require('../config/database');
   
-// // Middleware mounted for any request on the authRouter router
+// // Middleware mounted for any request on the router
 function verifyToken (request, response, next) {
     console.log("Request type: "+ request.method);
     const token = request.headers['authorization'];
