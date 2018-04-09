@@ -90,7 +90,7 @@ module.exports = (router) => {
 
   router.post('/pickupRequests', verifyToken, (request, response) => {
     let waste_request = new Waste({
-      requester: request.body._id, // user id 
+      requester: request.body.requester, // user id - request.body._id 
       location: request.body.location, // Location of lab
       pending: true,
       comments: request.body.comments,

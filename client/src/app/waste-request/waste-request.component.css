@@ -1,13 +1,18 @@
-.trash {
-  opacity: 0.0;
-}
-.trash:hover {
-  opacity: 0.5;
-}
-.button {
+.remove {
   color: #dc3545;
 }
-
-.button:hover {
+.add{
+  color: #28a745;
+}
+button:hover {
   color: #fff;
+}
+.ui-growl {
+  position: fixed;
+  top: 100px !important;
+  right: 20px;
+  width: 20em;
+}
+.ui-growl-item {
+  margin-top: 75px !important;
 }
