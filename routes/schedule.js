@@ -5,18 +5,18 @@ const verifyToken = require('./middlewares');
 const moment = require('moment');
 
 module.exports = (router) => {
-  router.get('/', verifyToken, (request,response) => {
-    Waste.find('request_id requester location pending comments label requested', (err,waste_requests) => {
+  router.get('/requests', verifyToken, (request,response) => {
+    Schedule.find('id start end serviced', (err,schedule) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
       }
       else {
-        if (waste_requests) {
-          response.status(200).json({success: true, requests: waste_requests});
+        if (schedule) {
+          response.status(200).json({success: true, schedule: schedule});
         }
         else {
-          response.status(404).json({success: false, message: "No requests in system."});
+          response.status(404).json({success: false, message: "No scheduled pickups in system."});
         }
       }
     });
@@ -24,39 +24,6 @@ module.exports = (router) => {
 
   });
   
-  router.get('/pickupRequests', verifyToken, (request,response) => {
-    Waste.find('requester location pending comments label requested', (err,waste_requests) => {
-        if (err) {
-          // Connection error was found
-          response.status(500).json({success: false, message: err});
-        }
-        else {
-          if (waste_requests) {
-            response.status(200).json({success: true, requests: waste_requests});
-          }
-          else {
-            response.status(404).json({success: false, message: "No requests in system."});
-          }
-        }
-      });
-  });
-
-  router.get('/pickupRequests/:id', verifyToken,(request,response) => {
-    Waste.find({ _id: request.params.id }, 'request_id requester location pending comments label requested', (err,waste_request) => {
-      if (err) {
-        // Connection error was found
-        response.status(500).json({success: false, message: err});
-      }
-      else {
-        if (waste_request) {
-          response.status(200).json({success: true, request: waste_request});
-        }
-        else {
-          response.status(404).json({success: false, message: "Request not in system."});
-        }
-      }
-    });
-  });
 // TODO: implement later
 //   router.patch('/pickupRequests/:id',verifyToken,(request, response) => {
 //     //The only thing that is able to change is the pending attribute
