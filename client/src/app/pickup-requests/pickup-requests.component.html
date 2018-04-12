@@ -1,5 +1,80 @@
-<div class="row">
-  <div class="col-12">
-    <p-schedule [events]="events" [header]="header"></p-schedule>
+<div class="card">
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col-md-5 col-lg-4">
+          <p class="h3">Requests</p>
+          <p class="text-muted">Sorted by date requested</p>
+      </div>
+      <div class="col-md-4 col-lg-3 offset-md-3 offset-lg-5 justify-content-right">
+        <button class="btn btn-secondary">View Schedule</button>
+      </div>
+    </div>
+    <div *ngFor="let request of requests; let i=index;">
+      <div class="form-group row">
+        <div class="col-12">
+          <div class="info-box">
+              <div class="col-md-4 col-lg-3 icon">
+                <i>{{ request.requested.split(" ")[0] +" " + request.requested.split(" ")[1]}}</i>
+                <i>{{ request.requested.split(" ")[2] }}</i>
+              </div>  
+              <div class="col-md-5 col-lg-5 content">
+                <div class="text">
+                    {{request.requester}}
+                </div>
+                <div class="text">
+                    Location: {{request.location}}
+                </div>
+                <div class="number">
+                  Items:  {{request.items.length}}
+                </div>
+              </div>
+              <div class="col-md-3 col-lg-2 offset-lg-2 center">
+                <button class="btn btn-outline-secondary" (click)="wastePickupDialog(i)">Schedule</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<p-sidebar [(visible)]="dialog" [fullScreen]="true">
+  <div class="container-fluid">
+    <p class="h3">Waste Pickup Details</p>
+    <div class="row">
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="requester">Requested by</label>
+        <input type="text" id="requester" class="form-control">
+      </div>
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="location">Location</label>
+        <input type="text" id="location" class="form-control">
+      </div>
+      <div class="form-group col-md-3 col-lg-3">
+        <label for="requested">Requested</label>
+        <input type="text" id="requested" class="form-control">
+      </div>
+    </div>
+    <p class="h3">Waste Items</p>
+    <div class="form-group row">
+      <div class="col-12">
+          <div *ngFor="let item of requestItems; let i=index;">
+            {{i+1}}
+          </div>
+      </div>
+    </div>
+    <p class="h3">Schedule pickup date.</p>
+    <div class="form-group row">
+      <div class="col-md-4 col-lg-3">
+          <p-calendar [(ngModel)]="date" [showTime]="true" [styleClass]="form-control"></p-calendar>
+      </div>
+      <div class="col-md-3 col-lg-2">
+        <button class="btn btn-primary" [disabled]="!date">Schedule</button>      
+      </div>
+    </div>
+    <div>
+      <div class="col-md-3 col-lg-2">
+        <button class="btn btn-danger">Delete</button>      
+      </div>
+    </div>
+  </div>
+</p-sidebar>

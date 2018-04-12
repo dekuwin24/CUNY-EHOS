@@ -21,8 +21,10 @@ export class WasteRequestComponent implements OnInit {
   chemicalForm: FormGroup;
   loading: Boolean = false;
   msgs: Message[] = [];
+  requester: String;
+  location: String;
   
-  constructor(private formBuilder: FormBuilder, private waste: WasteManagementService, private messageService: MessageService) {
+  constructor(private formBuilder: FormBuilder, private waste: WasteManagementService, private user: UserService, private messageService: MessageService) {
     this.createForm();
    }
   createChemical(): FormGroup {
@@ -36,11 +38,17 @@ export class WasteRequestComponent implements OnInit {
     this.chemicals.push(this.createChemical());
     console.log(this.wasteForm);
   }
+  removeChemical(i,j) {
+    this.chemicals = (this.wasteForm.get('wasteItems') as FormArray).controls[i].get('chemicals') as FormArray;
+    if (this.chemicals.length > 1) {
+      this.chemicals.removeAt(Number(j));
+    }
+  }
   createForm() {
     this.wasteForm = this.formBuilder.group({
       wasteItems: this.formBuilder.array([ this.createWasteItem() ])
     });
-    console.log(this.wasteForm);
+
   }
   createWasteItem(): FormGroup {
     return this.formBuilder.group({
@@ -55,21 +63,23 @@ export class WasteRequestComponent implements OnInit {
     this.wasteItems.push(this.createWasteItem());
   }
   removeWasteItem(i) {
-    this.wasteItems = <FormArray>this.wasteForm.controls['items'];
-    this.wasteItems.removeAt(Number(i));
+    this.wasteItems = <FormArray>this.wasteForm.controls['wasteItems'];
+    if (this.wasteItems.length > 1) {
+      this.wasteItems.removeAt(Number(i));
+    }
   }
-  // TODO: Send request to post to database
+
   createRequest() {
     this.loading = true;
     let request = {
-      requester: 'Steven is testing',
-      location: 'Testing',
-      items: this.wasteForm.value
+      requester: this.requester,
+      location: this.location,
+      items: this.wasteForm.get('wasteItems').value
     }
     
     this.waste.createRequest(request).then(value => {
       if (!value.success) {
-        this.messageService.add({severity: 'success', summary: 'ERROR!', detail: 'Look over details and try again.'});                            
+        this.messageService.add({severity: 'error', summary: 'ERROR!', detail: 'Look over details and try again.'});                            
       }
       else{
         this.messageService.add({severity: 'success', summary: 'Requested!', detail: 'Waste pickup request was successfully created!'});                            
@@ -83,7 +93,13 @@ export class WasteRequestComponent implements OnInit {
     });
   }
   ngOnInit() {
-
+    this.user.getProfile().subscribe(user => {
+      this.requester = user.user.first + " "+  user.user.last; 
+      this.location = user.user.building + ", Room " + user.user.room;
+    }, 
+      error => {
+        console.log(error);
+    });
   }
 
 }

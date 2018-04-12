@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
 // Our schema for each waste pickup request
 const wasteRequestSchema = new Schema(
   {
-    requester:{type: String, required: true}, // ID of lab person
-    location:{type: String, required: true}, // Location of lab
+    id: {type: Number},
+    requester: {type: String, required: true}, // ID of lab person
+    location: {type: String, required: true}, // Location of lab
     pending: {type: Boolean, required: true},
-    requested: {type: Date},
+    requested: {type: String},
     label: {type: String, required: true},
     items: {type : Array, "default" : [], required: true, lowercase: true},
     comments: {type: String}    

@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
+import { PickupSchedulerComponent } from './pickup-scheduler/pickup-scheduler.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,16 +50,18 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
     ProfileComponent,
     UsersComponent,
     LabQuickViewComponent,
-    WasteRequestComponent
+    WasteRequestComponent,
+    PickupSchedulerComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,    
     HttpClientModule,
     AppRoutingModule,
     SharedPrimeNgModule,
     ReactiveFormsModule,
     TextMaskModule,
-    BrowserAnimationsModule
+    FormsModule
   ],
   providers: [
     AuthService,

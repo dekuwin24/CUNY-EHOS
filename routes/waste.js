@@ -2,6 +2,7 @@ const Waste = require('../models/waste');
 const jwt = require('jsonwebtoken');
 const dbConfig = require('../config/database');
 const verifyToken = require('./middlewares');
+const moment = require('moment');
 
 module.exports = (router) => {
   router.get('/', verifyToken, (request,response) => {
@@ -24,7 +25,7 @@ module.exports = (router) => {
   });
   
   router.get('/pickupRequests', verifyToken, (request,response) => {
-    Waste.find('request_id requester location pending comments label requested', (err,waste_requests) => {
+    Waste.find('requester location pending comments label requested', (err,waste_requests) => {
         if (err) {
           // Connection error was found
           response.status(500).json({success: false, message: err});
@@ -94,8 +95,8 @@ module.exports = (router) => {
       location: request.body.location, // Location of lab
       pending: true,
       comments: request.body.comments,
-      requested: Date(),
-      label: 'LABEL FOR ' + String(Date()),
+      requested: moment().format("YYYY-MM-DD"),
+      label: 'LABEL FOR ' + moment().format("YYYY-MM-DD") + ' IS NEEDED',
       items: request.body.items
     });
     waste_request.save((error) => {

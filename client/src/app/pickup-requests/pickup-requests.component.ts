@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
-import 'moment';
-import 'fullcalendar';
-
+import { FormsModule } from '@angular/forms';
+import { WasteManagementService } from '../services/waste-management.service';
+import * as moment from 'moment';
+import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 
 @Component({
   selector: 'app-pickup-requests',
@@ -11,41 +11,26 @@ import 'fullcalendar';
   // encapsulation: ViewEncapsulation.None
 })
 export class PickupRequestsComponent implements OnInit {
-  events: any[];
-  header: any;
-  dialogVisible: boolean = false;
-  constructor() { }
-
-  ngOnInit() {
-    this.events = [
-      {
-          "title": "All Day Event",
-          "start": "2018-03-28"
-      },
-      {
-          "title": "Long Event",
-          "start": "2018-03-07",
-          "end": "2018-03-10"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2018-03-09T16:00:00"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2018-03-16T16:00:00"
-      },
-      {
-          "title": "Conference",
-          "start": "2018-03-11",
-          "end": "2018-03-30"
-      }
-  ];
-    this.header = {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-  };
-  }
+    requests: any[];
+    requestItems: any[];
+    date: Date;
+    dialog: Boolean = false;
+    constructor(private waste: WasteManagementService) {}
+    wastePickupDialog(i){
+        this.dialog = true;
+        this.requestItems = this.requests[Number(i)].items;
+    }
+    
+    ngOnInit() {
+        this.waste.getRequests().then(response => {
+            this.requests = response.requests;
+            this.requests.forEach(element => {
+                element.requested = moment(element.requested).format('MMMM Do YYYY');
+            });
+        }).catch(reason => {
+            console.log(reason);
+            
+        });
+    }
 
 }
