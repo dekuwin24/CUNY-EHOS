@@ -39,5 +39,18 @@ export class WasteManagementService {
   schedulePickup(request): Observable<any> {
     return this.http.post(this.domain + '/schedule/',request)
   }
-
+  getSchedule(): Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(this.domain + '/schedule/requests').toPromise()
+      .then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+    return promise;    
+  }
 }

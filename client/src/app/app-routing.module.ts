@@ -15,6 +15,7 @@ import { UsersComponent } from './users/users.component';
 import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
 import { Error401Component } from './error401/error401.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
+import { PickupSchedulerComponent } from "./pickup-scheduler/pickup-scheduler.component";
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },      
       { path: 'pickup-requests', component: PickupRequestsComponent},
+      { path: 'pickup-schedule', component: PickupSchedulerComponent},
       { path: 'lab-inspections', component: LabInspectionsComponent},
       { path: 'home', component:  EhosQuickViewComponent}      
     ]
