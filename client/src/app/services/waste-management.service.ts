@@ -36,5 +36,8 @@ export class WasteManagementService {
     });
     return promise;
   }
+  schedulePickup(request): Observable<any> {
+    return this.http.post(this.domain + '/schedule/',request)
+  }
 
 }

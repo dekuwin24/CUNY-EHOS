@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
 const scheduleSchema = new Schema(
   {
     id: {type: Number}, // user id  inner join with users table to get first last, lab, department etc...
-    start: {type: Date, required: true}, // ID of lab person
-    end: {type: Date}, // Location of lab
+    start: {type: String, required: true}, // ID of lab person
+    end: {type: String}, // Location of lab
     serviced: {type: Boolean, required: true}, // complete?
   }
 );

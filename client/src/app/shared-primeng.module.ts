@@ -20,7 +20,8 @@ import {MenuItem} from 'primeng/api';                 //api
     AutoCompleteModule, 
     ScheduleModule, 
     CalendarModule, 
-    DropdownModule
+    DropdownModule,
+    AccordionModule
   ],
   exports: [
     ButtonModule,
@@ -33,7 +34,8 @@ import {MenuItem} from 'primeng/api';                 //api
     AutoCompleteModule, 
     ScheduleModule, 
     CalendarModule, 
-    DropdownModule
+    DropdownModule,
+    AccordionModule
   ],
 
 })

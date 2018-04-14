@@ -22,9 +22,9 @@
                     {{request.requester}}
                 </div>
                 <div class="text">
-                    Location: {{request.location}}
+                  Location: {{request.location}}
                 </div>
-                <div class="number">
+                <div class="text">
                   Items:  {{request.items.length}}
                 </div>
               </div>
@@ -43,38 +43,59 @@
     <div class="row">
       <div class="form-group col-md-3 col-lg-3">
         <label for="requester">Requested by</label>
-        <input type="text" id="requester" class="form-control">
+        <input type="text" id="requester" class="form-control" readonly>
       </div>
       <div class="form-group col-md-3 col-lg-3">
         <label for="location">Location</label>
-        <input type="text" id="location" class="form-control">
+        <input type="text" id="location" class="form-control" readonly>
       </div>
       <div class="form-group col-md-3 col-lg-3">
         <label for="requested">Requested</label>
-        <input type="text" id="requested" class="form-control">
+        <input type="text" id="requested" class="form-control" readonly>
       </div>
     </div>
     <p class="h3">Waste Items</p>
     <div class="form-group row">
       <div class="col-12">
-          <div *ngFor="let item of requestItems; let i=index;">
-            {{i+1}}
-          </div>
+          <p-accordion>
+              <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of requestItems; let i=index;">
+                <div class="row">
+                  <div class="form-group col-4">
+                    <label for="container">Container Type</label>
+                    <input type="text" id="container" class="form-control" value="{{item.containerType}}" readonly>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="hazard">Hazard Type</label>
+                    <input type="text" id="hazard" class="form-control" value="{{item.hazardType}}" readonly>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="items">Items</label>
+                    <input type="text" id="items" class="form-control" value="{{requestItems.length}}" readonly>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <!-- List of chemicals here -->
+                  </div>
+                </div>
+              </p-accordionTab>
+          </p-accordion>
       </div>
     </div>
-    <p class="h3">Schedule pickup date.</p>
+    <p class="h3">Schedule pickup date</p>
     <div class="form-group row">
       <div class="col-md-4 col-lg-3">
           <p-calendar [(ngModel)]="date" [showTime]="true" [styleClass]="form-control"></p-calendar>
       </div>
       <div class="col-md-3 col-lg-2">
-        <button class="btn btn-primary" [disabled]="!date">Schedule</button>      
+        <button class="btn btn-primary" [disabled]="!date" (click)="schedulePickup()">Schedule</button>      
       </div>
     </div>
-    <div>
+    <div class="row">
       <div class="col-md-3 col-lg-2">
         <button class="btn btn-danger">Delete</button>      
       </div>
     </div>
   </div>
 </p-sidebar>
+<p-growl [(value)]="msgs" [sticky]="true" [baseZIndex]="11100"></p-growl>
