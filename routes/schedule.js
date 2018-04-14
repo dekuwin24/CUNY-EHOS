@@ -41,7 +41,7 @@ module.exports = (router) => {
 
 
 
-    router.post('/', verifyToken, (request, response) => {
+    /* router.post('/', verifyToken, (request, response) => {
         let schedule_request = new Schedule({
             id: request.body.id, // user id - request.body._id 
             start: moment().format("YYYY-MM-DDTHH:mm:ss"), // Location of lab
@@ -55,6 +55,6 @@ module.exports = (router) => {
                 response.json({ success: true, message: 'Waste request sent!' });
             }
         });
-    });
+    }); */
     return router;
 }
