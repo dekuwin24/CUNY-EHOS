@@ -6,7 +6,7 @@ const moment = require('moment');
 
 module.exports = (router) => {
   router.get('/', verifyToken, (request,response) => {
-    Waste.find('request_id requester location pending comments label requested', (err,waste_requests) => {
+    Waste.find('_id requester location pending comments label requested', (err,waste_requests) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
@@ -59,8 +59,8 @@ module.exports = (router) => {
   });
 
   router.patch('/pickupRequests/:id',verifyToken,(request, response) => {
-    //The only thing that is able to change is the pending attribute
-    Waste.findOneAndUpdate({_id: request.params.id}, request.body.pending, (err,waste_request) => {
+    //The only thing that is able to change is the pending attribute, which relates with schedule assignment
+    Waste.findOneAndUpdate({_id: request.params.id},{pending: request.body.pending}, (err,waste_request) => {
       if (err) {
         console.log(err);
         response.status(500).json({ success: false, message: err });

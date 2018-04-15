@@ -53,7 +53,7 @@ export class WasteRequestComponent implements OnInit {
   createWasteItem(): FormGroup {
     return this.formBuilder.group({
       containerType: ['', Validators.required],
-      hazardType: ['', Validators.required],
+      hazardClass: ['', Validators.required],
       quantity: ['', Validators.required],
       chemicals: this.formBuilder.array([ this.createChemical() ])
     });
@@ -94,7 +94,7 @@ export class WasteRequestComponent implements OnInit {
   }
   ngOnInit() {
     this.user.getProfile().subscribe(user => {
-      this.requester = user.user.first + " "+  user.user.last; 
+      this.requester = user.user._id; 
       this.location = user.user.building + ", Room " + user.user.room;
     }, 
       error => {
