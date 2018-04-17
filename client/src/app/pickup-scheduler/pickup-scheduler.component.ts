@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { WasteManagementService } from '../services/waste-management.service';
 import 'moment';
 import 'fullcalendar';
+import {DialogModule} from 'primeng/dialog';
 @Component({
   selector: 'app-pickup-scheduler',
   templateUrl: './pickup-scheduler.component.html',
@@ -10,6 +11,13 @@ import 'fullcalendar';
 })
 export class PickupSchedulerComponent implements OnInit {
     requests: any[];   
+    event: object={
+        title: "this is example",
+        start: "2018-04-04",
+        user: "hang",
+        email: "zou@gmail.com",
+        department: "CCNY Chemistry"
+    };
     headerConfig: any;
     dialogVisible: boolean = false;
     constructor(private waste: WasteManagementService) { }  
@@ -17,8 +25,9 @@ export class PickupSchedulerComponent implements OnInit {
     getData() {
         this.waste.getSchedule().then(response => {
             console.log(response.schedule);
-            
+            console.log(this.event);
             this.requests = response.schedule;
+            this.requests.push(this.event);
         },
         error => {
             console.log(error);
@@ -26,6 +35,7 @@ export class PickupSchedulerComponent implements OnInit {
         }
         );
     }
+
     eventRender(event,element) {
         element.popover({
             title: "title",
@@ -35,6 +45,12 @@ export class PickupSchedulerComponent implements OnInit {
             container: 'body'
           });
     }
+    oneventclick(calEvent, jsEvent, view) {
+        //alert(calEvent.title);
+        this.dialogVisible = true;
+    }
+
+
     ngOnInit() {
         
         this.headerConfig = {
