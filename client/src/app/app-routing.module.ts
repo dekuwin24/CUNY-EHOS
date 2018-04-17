@@ -25,7 +25,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component:  EhosQuickViewComponent}
     ]
   }, // Our path to the EHOS
-  {path:'waste', component:WasteRequestComponent}, 
+  {path:'waste', component:WasteRequestComponent},
   {path:'about', component:AboutComponent},
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},
   { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },
