@@ -22,6 +22,9 @@ export class WasteManagementService {
     });
     return promise
   }
+  isScheduled(request) {
+    return this.http.patch(this.domain + '/waste/pickupRequests/' + request._id, request);
+  }
   createRequest(request) : Promise<any> {
     let promise = new Promise((resolve, reject) => {
       this.http.post(this.domain + '/waste/pickupRequests',request).toPromise()
@@ -37,7 +40,7 @@ export class WasteManagementService {
     return promise;
   }
   schedulePickup(request): Observable<any> {
-    return this.http.post(this.domain + '/schedule/',request)
+    return this.http.post(this.domain + '/schedule/',request);
   }
   getSchedule(): Promise<any> {
     let promise = new Promise((resolve, reject) => {

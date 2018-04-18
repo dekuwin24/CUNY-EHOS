@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
 const bcrypt = require('bcryptjs');
+autoIncrement.initialize(mongoose.createConnection("mongodb://steve:ccny@ds019028.mlab.com:19028/ccny598_team2"));
+
 /* Let Node see our validator functions */
 // Validate email maxLength
 let isEmailLength = (email) => {
@@ -99,11 +102,11 @@ const userSchema = new Schema(
     approved: {type: Boolean, required: true}
   }
 );
-
+userSchema.plugin(autoIncrement.plugin, 'User');
 // We will encrypt our password with bcryptjs
 userSchema.pre('save', function(next){
   const user = this; // storing this here so i dont lose context of this
-
+  
   // If the password inside userSchema isnt modified, we won't alter the password
   if (!(this.isModified('password'))) {
     console.log('password wasnt modified..');
@@ -119,8 +122,8 @@ userSchema.pre('save', function(next){
       user.password = hash;
       next();
     }
-
   });
+
 });
 userSchema.methods.checkPassword =  function(password) {
   return bcrypt.compareSync(password, this.password); // true or false

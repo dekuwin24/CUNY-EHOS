@@ -28,6 +28,9 @@ export class UserService {
   getProfile(): Observable<any> {
     return this.http.get(this.domain + '/ehos/users/me');
   }
+  getUser(id): Observable<any> {
+    return this.http.get(this.domain + '/ehos/users/' + id);
+  }
   patchProfile(user): Observable<any> {
     return this.http.patch(this.domain + '/ehos/users',user);
   }
