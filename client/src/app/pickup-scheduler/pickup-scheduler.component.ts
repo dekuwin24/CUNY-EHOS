@@ -10,7 +10,8 @@ import {DialogModule} from 'primeng/dialog';
   styleUrls: ['./pickup-scheduler.component.css']
 })
 export class PickupSchedulerComponent implements OnInit {
-    requests: any[];   
+    requests: any[];  
+    all_requests = [];
     event: object={
         title: "this is example",
         start: "2018-04-04",
@@ -31,11 +32,28 @@ export class PickupSchedulerComponent implements OnInit {
         },
         error => {
             console.log(error);
-            
-        }
-        );
+        });
     }
-
+    getToPrint() {
+        this.waste.getSchedule().then(response => {
+          if (response.success) {
+            const requestsArr = response.schedule; 
+            for (let index in requestsArr) {
+              var temp = {};
+              for (let key in requestsArr[index]) {
+                temp[key] = requestsArr[index][key];
+              }
+              this.all_requests.push(temp);
+            }
+          }
+          else {
+            // No requests
+          }
+          this.all_requests.push(event);
+        }).catch( reason => {
+          console.log(reason);
+        });
+    }
     eventRender(event,element) {
         element.popover({
             title: "title",
@@ -52,13 +70,13 @@ export class PickupSchedulerComponent implements OnInit {
 
 
     ngOnInit() {
-        
         this.headerConfig = {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         };
         this.getData();
+        this.getToPrint();
     }
 
 }
