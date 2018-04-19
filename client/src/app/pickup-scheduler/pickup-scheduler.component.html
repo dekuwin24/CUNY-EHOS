@@ -1,5 +1,29 @@
 <div class="row">
     <div class="col-12">
-        <p-schedule [events]="requests" [header]="headerConfig"></p-schedule>
+        <p-schedule [events]="requests" [header]="headerConfig" (onEventClick)="oneventclick($event)"></p-schedule>
     </div>
 </div>
+
+<p-dialog header="Requests Details" [(visible)]="dialogVisible" [width]="700" [height]="400">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="requests">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Scheduled Time</th>
+                    <th scope="col">Lab Manager</th>
+                    <th scope="col">Department</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of all_requests">
+                    <td>{{request.title}}</td>
+                    <td>{{request.start}}</td>
+                    <!-- <td>{{request.privilege == 1 ? "EHOS": "Lab"}}</td>          
+                <td class="text-center"><div class="badge" [ngClass]="{'badge-primary': user.approved, 'badge-danger': !user.approved}">{{user.approved ? "Yes": "No"}}</div></td>           -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</p-dialog>
