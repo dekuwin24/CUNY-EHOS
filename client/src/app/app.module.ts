@@ -27,6 +27,8 @@ import { AboutComponent } from './about/about.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
+import { StorageComponent } from './storage/storage.component';
+import { CorrosiveComponent } from './corrosive/corrosive.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,8 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
     ProfileComponent,
     UsersComponent,
     WasteRequestComponent,
+    StorageComponent,
+    CorrosiveComponent,
 
   ],
   imports: [

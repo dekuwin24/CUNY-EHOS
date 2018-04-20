@@ -13,6 +13,8 @@ import { EhosAuthGuard,LabAuthGuard,AnyAuthGuard, ProfileGuard } from "./guards/
 import {AboutComponent} from "./about/about.component";
 import { UsersComponent } from './users/users.component';
 import {WasteRequestComponent} from './waste-request/waste-request.component';
+import {StorageComponent} from './storage/storage.component';
+import {CorrosiveComponent} from './corrosive/corrosive.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
       { path: 'dashboard', component:  EhosQuickViewComponent}
     ]
   }, // Our path to the EHOS
+  {path:'storage',component:StorageComponent},
+  {path:'corrosive',component:CorrosiveComponent},
   {path:'waste', component:WasteRequestComponent},
   {path:'about', component:AboutComponent},
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},
