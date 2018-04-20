@@ -6,7 +6,7 @@ const moment = require('moment');
 
 module.exports = (router) => {
   router.get('/', verifyToken, (request,response) => {
-    Waste.find('_id requester location pending comments label requested', (err,waste_requests) => {
+    Waste.find('_id userId location pending comments label requested', (err,waste_requests) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
@@ -25,7 +25,7 @@ module.exports = (router) => {
   });
   
   router.get('/pickupRequests', verifyToken, (request,response) => {
-    Waste.find('requester location pending comments label requested', (err,waste_requests) => {
+    Waste.find('_id userId location pending comments label requested', (err,waste_requests) => {
         if (err) {
           // Connection error was found
           response.status(500).json({success: false, message: err});
@@ -42,7 +42,7 @@ module.exports = (router) => {
   });
 
   router.get('/pickupRequests/:id', verifyToken,(request,response) => {
-    Waste.find({ _id: request.params.id }, 'request_id requester location pending comments label requested', (err,waste_request) => {
+    Waste.findOne({ _id: request.params.id }, '_id userId location pending comments label requested items', (err,waste_request) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
@@ -91,7 +91,7 @@ module.exports = (router) => {
 
   router.post('/pickupRequests', verifyToken, (request, response) => {
     let waste_request = new Waste({
-      requester: request.body.requester, // user id - request.body._id 
+      userId: request.body.requester, // user id - request.body._id 
       location: request.body.location, // Location of lab
       pending: true,
       comments: request.body.comments,

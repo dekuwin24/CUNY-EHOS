@@ -25,37 +25,39 @@ module.exports = (router) => {
   });
   
 // TODO: implement later
-//   router.patch('/pickupRequests/:id',verifyToken,(request, response) => {
-//     //The only thing that is able to change is the pending attribute
-//     Waste.findOneAndUpdate({_id: request.params.id}, request.body.pending, (err,waste_request) => {
-//       if (err) {
-//         console.log(err);
-//         response.status(500).json({ success: false, message: err });
-//       }
-//       else if (!waste_request) {
-//         response.status(200).json({ success: false, message: "Request does not exist" });
-//       }
-//       else {
-//         response.status(200).json({ success: true, message: "Patched!" });
-//       }
-//     });
-//   });
+  router.patch('/:id',verifyToken,(request, response) => {
+    //The only thing that is able to change is the pending attribute
+    Schedule.findOneAndUpdate({_id: request.params.id, eventType: request.body.eventType}, {serviced: request.body.serviced}, (err,waste_request) => {
+      if (err) {
+        console.log(err);
+        response.status(500).json({ success: false, message: err });
+      }
+      else if (!waste_request) {
+        response.status(200).json({ success: false, message: "Request does not exist" });
+      }
+      else {
+        response.status(200).json({ success: true, message: "Patched!" });
+      }
+    });
+  });
 
   
 
   router.post('/', verifyToken, (request, response) => {
-    let schedule_request = new Schedule({
-      id: request.body.id, // user id - request.body._id 
+    let schedule = new Schedule({
+      // _id = id is already autoincremented 
+      requestId: request.body.requestId, // user id - request.body._id 
       start: request.body.start, // Location of lab
       end: request.body.end,
+      eventType: request.body.eventType,
       serviced: false
     });
-    schedule_request.save((error) => {
+    schedule.save((error) => {
       if (error) {
         response.json({success: false, message: error});
       }
       else {
-        response.json({success: true, message: 'Waste request sent!'});
+        response.json({success: true, message: 'Event has been scheduled!'});
       }
     });
   });

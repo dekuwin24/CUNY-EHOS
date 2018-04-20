@@ -20,10 +20,26 @@ export class WasteManagementService {
         }
       );
     });
-    return promise
+    return promise;
+  }
+  getRequest(id): Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(this.domain + '/waste/pickupRequests/' + id).toPromise().then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+    return promise;
   }
   isScheduled(request) {
     return this.http.patch(this.domain + '/waste/pickupRequests/' + request._id, request);
+  }
+  isServiced(request) {
+    return this.http.patch(this.domain + '/schedule/' + request._id , request)
   }
   createRequest(request) : Promise<any> {
     let promise = new Promise((resolve, reject) => {

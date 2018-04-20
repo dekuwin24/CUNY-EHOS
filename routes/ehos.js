@@ -5,7 +5,7 @@ const verifyToken = require('./middlewares');
 
 module.exports = (router) => {
   router.get('/users', verifyToken, (request,response) => {
-    User.find({ _id: { $ne: request.decoded.userId }}, '_id first last email phone building department room privilege approved', (err,user) => {
+    User.find({ _id: { $ne: request.decoded.userId }}, 'first last email phone building department room privilege approved', (err,user) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
@@ -22,7 +22,7 @@ module.exports = (router) => {
   });
   
   router.get('/users/me', verifyToken, (request,response) => {
-    User.findOne({ _id: request.decoded.userId }, '_id first last email phone building department room privilege', (err,user) => {
+    User.findOne({ _id: request.decoded.userId }, 'first last email phone building department room privilege', (err,user) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
