@@ -26,7 +26,7 @@ const appRoutes: Routes = [
       { path: 'pickup-requests', component: PickupRequestsComponent},
       { path: 'pickup-schedule', component: PickupSchedulerComponent},
       { path: 'lab-inspections', component: LabInspectionsComponent},
-      { path: 'home', component:  EhosQuickViewComponent}      
+      { path: 'home', component:  PickupSchedulerComponent}      
     ]
   }, // Our path to the EHOS
   {path:'about', component:AboutComponent},

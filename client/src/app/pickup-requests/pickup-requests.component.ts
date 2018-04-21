@@ -38,8 +38,9 @@ export class PickupRequestsComponent implements OnInit {
     schedulePickup() {
         this.dialog = false;
         let pickup = {
-            id: this.requestId, // the pickup request id
+            requestId: this.requestId, // the pickup requester
             start: moment(this.date).format(),
+            eventType: 1,
             serviced: false
         }
         this.waste.schedulePickup(pickup).subscribe(
@@ -68,10 +69,13 @@ export class PickupRequestsComponent implements OnInit {
                 element.requested = moment(element.requested).format('MMMM Do YYYY');
                 });
             }).catch(reason => {
-                console.log(reason);
+                if (reason.status === 403) {
+                  // redirect to login page
+                  console.log("Your session has timed out, returning to login screen");
+                }
         }).then( done =>{
             this.requests.forEach((element,index) => {
-                this.user.getUser(element.requester).subscribe(response => {
+                this.user.getUser(element.userId).subscribe(response => {
                     this.requests[index].name = response.user.first + " " + response.user.last;
                 });
             });

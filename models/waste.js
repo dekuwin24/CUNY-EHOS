@@ -6,7 +6,7 @@ autoIncrement.initialize(mongoose.createConnection("mongodb://steve:ccny@ds01902
 // Our schema for each waste pickup request
 const wasteRequestSchema = new Schema(
   {
-    requester: {type: Number, required: true}, // ID of lab person
+    userId: {type: Number, required: true}, // ID of the requester
     location: {type: String, required: true}, // Location of lab
     pending: {type: Boolean, required: true}, // needs to be scheduled
     requested: {type: String},

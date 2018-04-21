@@ -1,57 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { WasteManagementService } from '../services/waste-management.service';
-import 'moment';
+import * as moment from 'moment';
 import 'fullcalendar';
 import {DialogModule} from 'primeng/dialog';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { FormControl} from '@angular/forms';
+
 @Component({
   selector: 'app-pickup-scheduler',
   templateUrl: './pickup-scheduler.component.html',
   styleUrls: ['./pickup-scheduler.component.css']
 })
 export class PickupSchedulerComponent implements OnInit {
-    requests: any[];  
-    all_requests = [];
-    event: object={
-        title: "this is example",
-        start: "2018-04-04",
-        user: "hang",
-        email: "zou@gmail.com",
-        department: "CCNY Chemistry"
-    };
+    requests: any[];
+    loading: Boolean = false;
+    serviced = new FormControl();
+    selectedRequest: any = {};
     headerConfig: any;
     dialogVisible: boolean = false;
-    constructor(private waste: WasteManagementService) { }  
+    msgs: Message[] = [];
+    
+    constructor(private waste: WasteManagementService, private messageService: MessageService) { }  
     
     getData() {
+        this.loading = true;
+        this.serviced.disable()
         this.waste.getSchedule().then(response => {
             console.log(response.schedule);
-            console.log(this.event);
+            this.loading = false;
             this.requests = response.schedule;
-            this.requests.push(this.event);
         },
         error => {
-            console.log(error);
-        });
-    }
-    getToPrint() {
-        this.waste.getSchedule().then(response => {
-          if (response.success) {
-            const requestsArr = response.schedule; 
-            for (let index in requestsArr) {
-              var temp = {};
-              for (let key in requestsArr[index]) {
-                temp[key] = requestsArr[index][key];
-              }
-              this.all_requests.push(temp);
-            }
-          }
-          else {
-            // No requests
-          }
-          this.all_requests.push(event);
-        }).catch( reason => {
+          console.log(error);
+          this.loading = false;
+        }).catch(reason => {
           console.log(reason);
+          this.loading = false;
         });
     }
     eventRender(event,element) {
@@ -63,11 +49,47 @@ export class PickupSchedulerComponent implements OnInit {
             container: 'body'
           });
     }
-    oneventclick(calEvent, jsEvent, view) {
-        //alert(calEvent.title);
+    oneventclick(e) {
         this.dialogVisible = true;
-    }
+        Object.assign(this.selectedRequest, e.calEvent); // Create immutability on calEvent  
+        this.loading = true;
+        this.waste.getRequest(e.calEvent.requestId).then(data => {
+          this.selectedRequest.requested = moment(this.selectedRequest.start).format("hh:mm a");
+          this.selectedRequest.location = data.request.location; // Later will be inner join
+          this.selectedRequest.requester = data.request.userId; // Later will be inner join
+          this.selectedRequest.items = data.request.items;
+          this.serviced.setValue(this.selectedRequest.serviced);
+          this.loading = false;
+        }).catch( reason => {
 
+        });
+
+    }
+    serviceRequest() {
+      // TODO
+      let request = {
+        _id: this.selectedRequest._id, // scheduled id 
+        id: this.selectedRequest.requestId, // request id 
+        eventType: this.selectedRequest.eventType, 
+        serviced: true
+      }
+      this.waste.isServiced(request).subscribe(data => {
+          this.dialogVisible = false;
+          this.messageService.add({severity: 'success', summary: 'Done!', detail: 'Request was serviced!'});      
+          this.requests = this.requests.filter(request => {
+            request._id != this.selectedRequest._id;
+          });
+          console.log(this.requests);
+           
+        },
+        error => {
+          if (error.status === 403) {
+            // redirect to login page
+            console.log("Your session has timed out, returning to login screen");
+          }
+        }
+      );
+    }
 
     ngOnInit() {
         this.headerConfig = {
@@ -76,7 +98,6 @@ export class PickupSchedulerComponent implements OnInit {
             right: 'month,agendaWeek,agendaDay'
         };
         this.getData();
-        this.getToPrint();
     }
 
 }
