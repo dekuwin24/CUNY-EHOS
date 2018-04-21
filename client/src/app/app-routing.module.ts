@@ -16,6 +16,8 @@ import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component
 import { Error401Component } from './error401/error401.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
 import { PickupSchedulerComponent } from "./pickup-scheduler/pickup-scheduler.component";
+import { StorageComponent } from './storage/storage.component';
+import { CorrosiveComponent } from './corrosive/corrosive.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
@@ -38,6 +40,9 @@ const appRoutes: Routes = [
       { path: 'home', component: LabQuickViewComponent }
     ]
   },
+  {path:'storage', component: StorageComponent},
+  {path:'corrosive', component: CorrosiveComponent},
+  {path:'about', component:AboutComponent},
   { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },  
   { path: '**', component: Error404Component } // A path that is not defined
 ];

@@ -11,7 +11,8 @@ import { FormControl} from '@angular/forms';
 @Component({
   selector: 'app-pickup-scheduler',
   templateUrl: './pickup-scheduler.component.html',
-  styleUrls: ['./pickup-scheduler.component.css']
+  styleUrls: ['./pickup-scheduler.component.css'],
+  providers: [MessageService]
 })
 export class PickupSchedulerComponent implements OnInit {
     requests: any[];
