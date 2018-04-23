@@ -8,13 +8,31 @@
                 <button class="btn btn-secondary" [routerLink]="['../pickup-schedule']">View Schedule</button>
             </div>
         </div>
-        <p class="h3">Schedule pickup date</p>
-        <div class="form-group row">
+        <table class="table" *ngIf="true">
+            <thead>
+                <tr>
+                  <th scope="col">Location</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Inspecter</th>
+                  <th scope='col'>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><p-multiSelect [options]="location" [(ngModel)]="selectedCities2" optionLabel="name"></p-multiSelect></td>
+                <td><p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="12" inputStyleClass="form-control"></p-calendar></td>
+                <td><p-multiSelect [options]="inspectors" [(ngModel)]="inspectors" optionLabel="name" formControlName="Choose An Inspector"></p-multiSelect></td>
+                <td><button class="btn btn-primary" [disabled]="!date" (click)="scheduleInspection()">Inspection</button></td>
+              </tr>
+            </tbody>
+          </table>
+
+        <!-- <div class="form-group row">
             <div class="col-md-4 col-lg-3">
                 <p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="12" inputStyleClass="form-control"></p-calendar>
             </div>
             <div class="col-md-3 col-lg-2">
                 <button class="btn btn-primary" [disabled]="!date" (click)="scheduleInspection()">Inspection</button>
             </div>
-        </div>
+        </div> -->
     </div>

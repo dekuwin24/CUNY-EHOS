@@ -5,7 +5,6 @@ import { AccordionModule } from 'primeng/accordion';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { UserService } from "../services/user.service";
-import {OverlayPanelModule} from 'primeng/overlaypanel';
 @Component({
   selector: 'app-lab-inspections',
   templateUrl: './lab-inspections.component.html',
@@ -21,6 +20,7 @@ export class LabInspectionsComponent implements OnInit {
     constructor(private messageService: MessageService, private user: UserService) { 
 
     }
+    
     scheduleInspection() {
         this.inspection = {
           EhosId: this.inspection, // the pickup requester
@@ -30,11 +30,18 @@ export class LabInspectionsComponent implements OnInit {
       }
     }
     ngOnInit() {
-        this.user.getUsers().then(response => {// get EHOS members
+        this.inspectors = [
+          {label:'New York', value:{id:1, name: 'New York', code: 'NY'}},
+          {label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}},
+          {label:'London', value:{id:3, name: 'London', code: 'LDN'}},
+          {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
+          {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
+        ];
+        /* this.user.getUsers().then(response => {// get EHOS members
             this.inspectors = response;
           }).catch(reason => {
             console.log(reason);
-      });
+      }); */
     }
 }
 
