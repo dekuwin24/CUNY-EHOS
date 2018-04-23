@@ -5,7 +5,7 @@ import {GrowlModule} from 'primeng/growl';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ScheduleModule} from 'primeng/schedule';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';                 //api
+import {MenuItem, SelectItem} from 'primeng/api';                 //api
 import {MultiSelectModule} from 'primeng/multiselect';
 @NgModule({
   declarations: [
