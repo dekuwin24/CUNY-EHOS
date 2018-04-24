@@ -15,8 +15,9 @@ import { SelectItem } from 'primeng/api';
 export class LabInspectionsComponent implements OnInit {
     inspectors: any[];
     inspection: any;
+    InspectionRequire: any[];
     date: Date;
-    Room: Number;
+    Location: any[];
     User: Number;
     constructor(private messageService: MessageService, private user: UserService) { 
 
@@ -38,11 +39,20 @@ export class LabInspectionsComponent implements OnInit {
           {name: 'Inspector4'},
           {name: 'Inspector5'}
       ];
-        /* this.user.getUsers().then(response => {// get EHOS members
+        this.Location = [
+          {lab: "Nac123"},
+          {lab: "MS123"},
+          {lab: "Nac133"},
+          {lab: "Nac121"},
+          {lab: "Nac123"},
+        ]
+        /* 
+          this.user.getUsers().then(response => {// get EHOS members
             this.inspectors = response;
           }).catch(reason => {
             console.log(reason);
-      }); */
+          });
+        */
     }
 }
 

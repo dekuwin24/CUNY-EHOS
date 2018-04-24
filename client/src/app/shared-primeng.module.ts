@@ -6,7 +6,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ScheduleModule} from 'primeng/schedule';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 import {MenuItem, SelectItem} from 'primeng/api';                 //api
-import {MultiSelectModule} from 'primeng/multiselect';
+
 @NgModule({
   declarations: [
   ],
@@ -22,8 +22,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     ScheduleModule, 
     CalendarModule, 
     DropdownModule,
-    AccordionModule,
-    MultiSelectModule
+    AccordionModule
   ],
   exports: [
     ButtonModule,
@@ -37,8 +36,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     ScheduleModule, 
     CalendarModule, 
     DropdownModule,
-    AccordionModule,
-    MultiSelectModule
+    AccordionModule
   ],
 
 })
