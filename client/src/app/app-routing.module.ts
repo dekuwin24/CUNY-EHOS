@@ -16,6 +16,8 @@ import {WasteRequestComponent} from './waste-request/waste-request.component';
 import {StorageComponent} from './storage/storage.component';
 import {CorrosiveComponent} from './corrosive/corrosive.component';
 import { ExplosiveComponent } from './explosive/explosive.component';
+import { FlameLComponent } from './flame-l/flame-l.component';
+
 
 // All our routes are stored in this variable
 const appRoutes: Routes = [
@@ -32,6 +34,7 @@ const appRoutes: Routes = [
   {path:'storage',component:StorageComponent},
   {path:'corrosive',component:CorrosiveComponent},
   {path:'explosive',component:ExplosiveComponent},
+  {path:'flameLiquid',component:FlameLComponent},
   {path:'waste', component:WasteRequestComponent},
   {path:'about', component:AboutComponent},
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},

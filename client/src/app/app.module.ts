@@ -31,6 +31,7 @@ import { StorageComponent } from './storage/storage.component';
 import { CorrosiveComponent } from './corrosive/corrosive.component';
 import { ExplosiveComponent } from './explosive/explosive.component';
 import { StorageService } from './storage.service';
+import { FlameLComponent } from './flame-l/flame-l.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { StorageService } from './storage.service';
     StorageComponent,
     CorrosiveComponent,
     ExplosiveComponent,
+    FlameLComponent,
 
   ],
   imports: [

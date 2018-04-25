@@ -3,15 +3,13 @@ import { Storage } from '../storage';
 import { StorageC } from '../storage';
 import { StorageService } from '../storage.service';
 
-
 @Component({
-  selector: 'app-explosive',
-  templateUrl: './explosive.component.html',
-  styleUrls: ['./explosive.component.css'],
+  selector: 'app-flame-l',
+  templateUrl: './flame-l.component.html',
+  styleUrls: ['./flame-l.component.css'],
   //encapsulation: ViewEncapsulation.None
 })
-export class ExplosiveComponent implements OnInit {
-
+export class FlameLComponent implements OnInit {
 
   selectedData: Storage;
   selectedDataC: StorageC;
@@ -48,7 +46,6 @@ getDataC(): void {
 this.storageService.getDataC()
     .subscribe(datasC => this.datasC = datasC);
 }
-
 
 
 }

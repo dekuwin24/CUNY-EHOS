@@ -7,6 +7,7 @@
       <th scope="col"> Container type </th>
       <th scope="col"> Amount</th>
       <th scope="col"> Unit </th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody *ngFor="let data of datas" [class.selected]="data === selectedData" (click)="onSelect(data)">
@@ -16,7 +17,6 @@
       <td>{{data.containerType}}</td>
       <td>{{data.amount}}</td>
       <td>{{data.unit}}</td>
-
     </tr>
 
     <tr >

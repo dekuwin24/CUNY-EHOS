@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '../storage';
+import { StorageC } from '../storage';
 import { StorageService } from '../storage.service';
-import { HttpClient, HttpHeaders,HttpResponse} from '@angular/common/http';
-
 
 
 @Component({
@@ -12,9 +12,42 @@ import { HttpClient, HttpHeaders,HttpResponse} from '@angular/common/http';
 })
 export class CorrosiveComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
+    selectedData: Storage;
+    selectedDataC: StorageC;
+
+    datas: Storage[];
+    datasC: StorageC[];
+
+    constructor(private storageService: StorageService) { }
+
+
+
+    ngOnInit() {
+      this.getData();
+      this.getDataC();
+
+
+    }
+
+
+
+    onSelect(data: Storage): void {
+      this.selectedData = data;
+    }
+    onSelectC(data1: StorageC): void {
+      this.selectedDataC = data1;
+    }
+
+    getData(): void {
+    this.storageService.getData()
+        .subscribe(datas => this.datas = datas);
   }
+
+  getDataC(): void {
+  this.storageService.getDataC()
+      .subscribe(datasC => this.datasC = datasC);
+  }
+
 
 }
