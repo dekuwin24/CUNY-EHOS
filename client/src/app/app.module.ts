@@ -29,6 +29,10 @@ import { UsersComponent } from './users/users.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
 import { StorageComponent } from './storage/storage.component';
 import { CorrosiveComponent } from './corrosive/corrosive.component';
+import { ExplosiveComponent } from './explosive/explosive.component';
+import { StorageService } from './storage.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +53,7 @@ import { CorrosiveComponent } from './corrosive/corrosive.component';
     WasteRequestComponent,
     StorageComponent,
     CorrosiveComponent,
+    ExplosiveComponent,
 
   ],
   imports: [
@@ -58,15 +63,17 @@ import { CorrosiveComponent } from './corrosive/corrosive.component';
     SharedPrimeNgModule,
     ReactiveFormsModule,
     TextMaskModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
-    UserService,    
+    UserService,
     EhosAuthGuard,
     LabAuthGuard,
     AnyAuthGuard,
     ProfileGuard,
+    StorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

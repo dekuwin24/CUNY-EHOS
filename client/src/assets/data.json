@@ -1,0 +1,5 @@
+[
+  { "storageId":"1","dateCreation":"12/12/2018","containerType":"b1", "amount":"12","unit":"kg"},
+  { "storageId":"2","dateCreation":"12/23/2018","containerType":"b2", "amount":"13","unit":"kg"}
+
+]
