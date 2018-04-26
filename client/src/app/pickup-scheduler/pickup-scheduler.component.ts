@@ -32,6 +32,16 @@ export class PickupSchedulerComponent implements OnInit {
             console.log(response.schedule);
             this.loading = false;
             this.requests = response.schedule;
+            this.requests.forEach((element,index)=>{
+              if (element.eventType === 1){
+                this.requests[index]["color"]="#8A2BE2";
+              }else{
+                this.requests[index]["color"]="#7FFF00";
+              }
+              
+            },err=>{
+              console.log(err);
+            })
         },
         error => {
           console.log(error);
@@ -40,15 +50,6 @@ export class PickupSchedulerComponent implements OnInit {
           console.log(reason);
           this.loading = false;
         });
-    }
-    eventRender(event,element) {
-        element.popover({
-            title: "title",
-            content: 'event.description',
-            trigger: 'hover',
-            placement: 'top',
-            container: 'body'
-          });
     }
     oneventclick(e) {
         this.dialogVisible = true;
