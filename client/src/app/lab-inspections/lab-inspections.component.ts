@@ -6,6 +6,8 @@ import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { UserService } from "../services/user.service";
 import { SelectItem } from 'primeng/api';
+import { WasteManagementService } from '../services/waste-management.service';
+import { log } from 'fullcalendar/src/util';
 @Component({
   selector: 'app-lab-inspections',
   templateUrl: './lab-inspections.component.html',
@@ -15,44 +17,66 @@ import { SelectItem } from 'primeng/api';
 export class LabInspectionsComponent implements OnInit {
     inspectors: any[];
     inspection: any;
-    InspectionRequire: any[];
-    date: Date;
+    inspector: any[];
+    InspectionRequire: any[]; // store inspect request
+    date: Date[];
     Location: any[];
     User: Number;
-    constructor(private messageService: MessageService, private user: UserService) { 
+    constructor(private messageService: MessageService, private user: UserService, private waste: WasteManagementService) { 
 
     }
     
-    scheduleInspection() {
+    scheduleInspection(request) {
         this.inspection = {
-          EhosId: this.inspection, // the pickup requester
-          start: moment(this.date).format(),
+          EhosId: request._id, 
+          start: moment(request.date).format(),
           eventType: 2,
           serviced: false
       }
+      this.waste.schedulePickup(this.inspection).subscribe(res=>{
+        console.log("push request");
+      }, err => {
+        console.log(err);
+      })
     }
     ngOnInit() {
-        this.inspectors = [
-          {name: 'Inspector1'},
-          {name: 'Inspector2'},
-          {name: 'Inspector3'},
-          {name: 'Inspector4'},
-          {name: 'Inspector5'}
-      ];
-        this.Location = [
-          {lab: "Nac123"},
-          {lab: "MS123"},
-          {lab: "Nac133"},
-          {lab: "Nac121"},
-          {lab: "Nac123"},
-        ]
-        /* 
-          this.user.getUsers().then(response => {// get EHOS members
-            this.inspectors = response;
-          }).catch(reason => {
-            console.log(reason);
-          });
-        */
+
+      /*   this.InspectionRequire = [
+            {id: 1, name: "inspect1", location: "Nac 121", requested: "April 30 2018"},
+            {id: 2, name: "inspect2", location: "Nac 1221", requested: "April 27 2018"}
+        ]; */
+        
+        this.user.getUsers().then(response => {// get EHOS members
+          this.inspectors = response.users;
+          
+          this.inspectors.forEach((element, index)=>{
+            this.inspectors[index]["name"] = element.first + ' ' + element.last;
+          })
+          console.log(this.inspectors);
+
+        }).catch(reason => {
+          console.log(reason);
+        });
+
+        this.waste.getRequests().then(response => {
+            this.InspectionRequire = response.requests;
+            this.InspectionRequire.forEach((element) => {
+                element.requested = moment(element.requested).format('MMMM Do YYYY');
+                element['date'] = null;  
+                element['inspector'] = null;
+              });
+            }).catch(reason => {
+                if (reason.status === 403) {
+                  // redirect to login page
+                  console.log("Your session has timed out, returning to login screen");
+                }
+        }).then( done =>{
+            this.InspectionRequire.forEach((element,index) => {
+                this.user.getUser(element.userId).subscribe(response => {
+                    this.InspectionRequire[index].name = response.user.first + " " + response.user.last;
+                });
+            });
+        });
     }
 }
 

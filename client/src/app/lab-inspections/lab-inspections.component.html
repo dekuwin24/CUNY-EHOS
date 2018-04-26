@@ -8,25 +8,31 @@
                 <button class="btn btn-secondary" [routerLink]="['../pickup-schedule']">View Schedule</button>
             </div>
         </div>
-        <table class="table" *ngIf="true">
-            <thead>
-                <tr>
-                    <th scope="col">Location</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Inspecter</th>
-                    <th scope='col'>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let Insrequest of Location; let i=index;">
-                    <td>{{Insrequest.lab}}</td>
-                    <td>
-                        <p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="12" inputStyleClass="form-control"></p-calendar>
-                    </td>
-                    <td>
-                        <p-dropdown [options]="inspectors" [(ngModel)]="inspection" optionLabel="name" placeholder="Select a Inspector"></p-dropdown>
-                    </td>
-                    <td><button class="btn btn-primary" [disabled]="!date" (click)="scheduleInspection()">Inspect</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Requested Time</th>
+                        <th scope="col">Requester</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Inspecter</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let Insrequest of InspectionRequire;let i=index">
+                    <tr *ngIf="Insrequest.pending">
+                        <td>{{Insrequest.requested}}</td>
+                        <td>{{Insrequest.name}}</td>
+                        <td>{{Insrequest.location}}</td>
+                        <td>
+                            <p-calendar [(ngModel)]="Insrequest['date']" [showTime]="true" [hourFormat]="24" inputStyleClass="form-control"></p-calendar>
+                        </td>
+                        <td>
+                            <p-dropdown [options]="inspectors" [(ngModel)]="Insrequest['inspector']" optionLabel="name" placeholder="Select a Inspector"></p-dropdown>
+                        </td>
+                        <td><button class="btn btn-primary" [disabled]="!Insrequest['date'] || !Insrequest['inspector']" (click)="scheduleInspection(Insrequest)">Inspect</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
