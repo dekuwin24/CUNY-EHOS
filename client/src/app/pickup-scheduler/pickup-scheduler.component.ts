@@ -34,7 +34,7 @@ export class PickupSchedulerComponent implements OnInit {
             this.requests = response.schedule;
             this.requests.forEach((element,index)=>{
               if (element.eventType === 1){
-                this.requests[index]["color"]="#8A2BE2";
+                this.requests[index]["color"]="#ff71fe";
               }else{
                 this.requests[index]["color"]="#7FFF00";
               }
