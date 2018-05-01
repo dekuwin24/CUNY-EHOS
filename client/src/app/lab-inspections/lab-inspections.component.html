@@ -1,13 +1,74 @@
 <div class="card">
-  <div class="card-body">
-    <div class="form-group row">
-      <div class="col-md-5 col-lg-4">
-          <p class="h3">Lab Inspections</p>
-          <p class="text-muted">Create on below.</p>
-      </div>
-      <div class="col-md-4 col-lg-3 offset-md-3 offset-lg-5 justify-content-right">
-        <button class="btn btn-secondary" [routerLink]="['../pickup-schedule']">View Schedule</button>
-      </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-5 col-lg-4">
+                <p class="h3">Lab Inspections</p>
+            </div>
+            <div class="col-md-4 col-lg-3 offset-md-3 offset-lg-5 justify-content-right">
+                <button class="btn btn-secondary" [routerLink]="['../pickup-schedule']">View Schedule</button>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Requested Time</th>
+                        <th scope="col">Requester</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Inspecter</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let Insrequest of InspectionRequire;let i=index">
+                    <tr *ngIf="Insrequest.pending">
+                        <td>{{Insrequest.requested}}</td>
+                        <td>{{Insrequest.name}}</td>
+                        <td>{{Insrequest.location}}</td>
+                        <td>
+                            <p-calendar [(ngModel)]="Insrequest['date']" [showTime]="true" [hourFormat]="24" inputStyleClass="form-control"></p-calendar>
+                        </td>
+                        <td>
+                            <p-dropdown [options]="inspectors" [(ngModel)]="Insrequest['inspector']" optionLabel="name" [filterBy]="name" placeholder="Select a Inspector"></p-dropdown>
+                        </td>
+                        <td><button class="btn btn-primary" [disabled]="!Insrequest['date'] || !Insrequest['inspector']" (click)="scheduleInspection(Insrequest)">Inspect</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
+</div>
+
+<div class="card" style="Background: rgba(160, 151, 151, 0.049)">
+    <div class="card-body" style="Background: rgba(234, 255, 230, 0.727)">
+        <div class="form-group row">
+            <div class="col-md-12 col-lg-12">
+                <p class="h3">Lab Inspections Schedule History</p>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Requested Time</th>
+                        <th scope="col">Requester</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Scheduled Date</th>
+                        <th scope="col">Inspector</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of history;let i=index">
+                    <tr>
+                        <td>{{item.requested}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.location}}</td>
+                        <td>{{item.start}}</td>
+                        <td>{{item.inspector}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

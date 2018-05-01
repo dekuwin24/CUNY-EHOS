@@ -20,7 +20,8 @@
     "moment": "^2.22.0",
     "mongojs": "^2.4.1",
     "mongoose": "^4.13.0",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongoose-auto-increment": "^5.0.1",
+    "primeng": "^5.2.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
