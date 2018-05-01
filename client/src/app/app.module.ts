@@ -32,6 +32,14 @@ import { CorrosiveComponent } from './corrosive/corrosive.component';
 import { ExplosiveComponent } from './explosive/explosive.component';
 import { StorageService } from './storage.service';
 import { FlameLComponent } from './flame-l/flame-l.component';
+import { FlamableLComponent } from './flamable-l/flamable-l.component';
+import { FlamableSComponent } from './flamable-s/flamable-s.component';
+import { GasComponent } from './gas/gas.component';
+import { OxidizerComponent } from './oxidizer/oxidizer.component';
+import { RadiationComponent } from './radiation/radiation.component';
+import { ToxicComponent } from './toxic/toxic.component';
+import { MiscellaneousComponent } from './miscellaneous/miscellaneous.component';
+import { HazardComponent } from './hazard/hazard.component';
 
 
 @NgModule({
@@ -56,6 +64,14 @@ import { FlameLComponent } from './flame-l/flame-l.component';
     CorrosiveComponent,
     ExplosiveComponent,
     FlameLComponent,
+    FlamableLComponent,
+    FlamableSComponent,
+    GasComponent,
+    OxidizerComponent,
+    RadiationComponent,
+    ToxicComponent,
+    MiscellaneousComponent,
+    HazardComponent,
 
   ],
   imports: [

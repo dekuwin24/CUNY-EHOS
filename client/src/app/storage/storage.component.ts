@@ -22,15 +22,15 @@ miscellaneous:string;
 
 
 constructor() {
-  this.corrisive='/assets/hazard/corrisive.png'
-  this.explosive='/assets/hazard/explosive.png'
-  this.flamableL='/assets/hazard/flamableL.png'
-  this.flamableS='/assets/hazard/flamableS.png'
-  this.gas='/assets/hazard/gas.png'
-  this.oxidizer='/assets/hazard/oxidizer.png'
-  this.radiation='/assets/hazard/radiation.png'
-  this.toxic='/assets/hazard/toxic.png'
-  this.miscellaneous='/assets/hazard/miscellaneous.png'
+  this.corrisive='/assets/hazard/corrosive1.png'
+  this.explosive='/assets/hazard/explosive1.png'
+  this.flamableL='/assets/hazard/flame.png'
+  this.flamableS='/assets/hazard/flame.png'
+  this.gas='/assets/hazard/gas1.png'
+  this.oxidizer='/assets/hazard/oxidizer1.png'
+  this.radiation='/assets/hazard/radiation1.png'
+  this.toxic='/assets/hazard/toxic1.png'
+  this.miscellaneous='/assets/hazard/miscellaneous1.png'
 }
 
 

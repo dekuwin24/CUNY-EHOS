@@ -16,13 +16,20 @@ import {WasteRequestComponent} from './waste-request/waste-request.component';
 import {StorageComponent} from './storage/storage.component';
 import {CorrosiveComponent} from './corrosive/corrosive.component';
 import { ExplosiveComponent } from './explosive/explosive.component';
-import { FlameLComponent } from './flame-l/flame-l.component';
+import { FlamableLComponent } from './flamable-l/flamable-l.component';
+import { FlamableSComponent } from './flamable-s/flamable-s.component';
+import { GasComponent } from './gas/gas.component';
+import { OxidizerComponent } from './oxidizer/oxidizer.component';
+import { RadiationComponent } from './radiation/radiation.component';
+import { ToxicComponent } from './toxic/toxic.component';
+import { MiscellaneousComponent } from './miscellaneous/miscellaneous.component';
+import { HazardComponent} from './hazard/hazard.component';
 
 
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
-  {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
+  {path: 'ehos', component: EhosDashboardComponent,// canActivate: [EhosAuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
@@ -31,10 +38,22 @@ const appRoutes: Routes = [
       { path: 'dashboard', component:  EhosQuickViewComponent}
     ]
   }, // Our path to the EHOS
-  {path:'storage',component:StorageComponent},
-  {path:'corrosive',component:CorrosiveComponent},
-  {path:'explosive',component:ExplosiveComponent},
-  {path:'flameLiquid',component:FlameLComponent},
+  {path:'storage',component:StorageComponent,
+  children:[
+    { path: '', redirectTo: 'hazard', pathMatch: 'full' },
+    {path: 'hazard',component:HazardComponent},
+    {path:'corrosive',component:CorrosiveComponent},
+    {path:'explosive',component:ExplosiveComponent},
+    {path:'flameLiquid',component:FlamableLComponent},
+    {path:'flameSolid',component:FlamableSComponent},
+    {path:'gas',component:GasComponent},
+    {path:'oxidizer',component:OxidizerComponent},
+    {path:'radiation',component:RadiationComponent},
+    {path:'toxic',component:ToxicComponent},
+    {path:'miscellaneous',component:MiscellaneousComponent},
+
+  ]
+},
   {path:'waste', component:WasteRequestComponent},
   {path:'about', component:AboutComponent},
   {path: 'lab', component: LabOperatorDashboardComponent, canActivate: [LabAuthGuard]},

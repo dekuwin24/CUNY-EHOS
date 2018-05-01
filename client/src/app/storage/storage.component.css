@@ -1,28 +1,55 @@
 body{
   background-color: "#dedede";
 }
+
+
+nav a {
+  color: #435966;
+  font-size: 16px;
+  margin: 0 0 0 30px;
+  display: block;
+}
+.sidebar {
+    background-color: #fff;
+    padding-left: 0;
+    padding-right: 0;
+    position: fixed;
+    top: 62.5px;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #E9E9E9;
+}
+.nav-item {
+  width: 100%;
+  height: 50px;
+  display: block;
+  padding: 15px 0 0 25px;
+  cursor: pointer;
+  border-top: 1px solid #e3e9ea;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.nav-item:hover {
+  background-color: #E9E9E9;
+}
 .classpadding{
   padding-right:10% !important;
 }
 
-.hovereffect {
-width:100%;
-height:100%;
-float:left;
-overflow:hidden;
-position:relative;
-text-align:center;
-cursor:default;
+img.icon{
+  height: 24px;
+  margin-right: -16px;
+  margin-bottom: -6px;
+  vertical-align:text-bottom;
+  padding-right: 10%;
 }
-.hovereffect img {
-display:block;
-position:relative;
--webkit-transition:all .4s linear;
-transition:all .4s linear;
-}
+img.icon1{
+  height:24px;
+  margin-right: -16px;
+  margin-bottom: 5px;
+  vertical-align:text-bottom;
+  padding-right: 10%;
 
-.hovereffect:hover img {
--ms-transform:scale(1.2);
--webkit-transform:scale(1.2);
-transform:scale(1.2);
 }

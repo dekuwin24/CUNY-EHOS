@@ -9,13 +9,14 @@
       <th scope="col"> Unit </th>
     </tr>
   </thead>
-  <tbody *ngFor="let data of datas" [class.selected]="data === selectedData" (click)="onSelect(data)">
+  <tbody *ngFor="let data of datasFl" [class.selected]="data === selectedDataFl" (click)="onSelectFl(data)">
     <tr class="" data-toggle="collapse" id="row1"  [attr.data-target]="'#' + data.id" > <!--data-target=".row1">-->
       <th >{{data.id}}</th>
       <td>{{data.createdAt}}</td>
       <td>{{data.containerType}}</td>
       <td>{{data.amount}}</td>
       <td>{{data.unit}}</td>
+
     </tr>
 
     <tr >
@@ -31,7 +32,7 @@
             <th scope="col">percentage</th>
           </tr>
 </thead>
-<tbody *ngFor="let data1 of datasC" [class.selected]="data1 === selectedDataC" (click)="onSelectC (data1)" class="text-dark">
+<tbody *ngFor="let data1 of datasFl1" [class.selected]="data1 === selectedDataFl1" (click)="onSelectFl1 (data1)" class="text-dark">
   <tr>
     <th style="width: 50%" scope="row">{{data1.id}}</th>
     <td style="width: 50%">{{data1.name}}</td>
