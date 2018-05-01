@@ -58,13 +58,16 @@ export class LabInspectionsComponent implements OnInit {
                 this.history[i]["location"] = res.request.location;
                 this.history[i]["requested"] = res.request.requested;
               },err=>{});
+              this.user.getUser(this.history[i].requestId).subscribe(res=>{
+                //console.log("xxxxxxxxxxxxxxxxxxxxxxxxx", res.user);
+                this.history[i]["name"]= res.user.first+ " "+res.user.last;
+              },err=>{});
             }
             else{
               this.history.splice(i, 1);
               i--;
             }
           };
-          console.log("--------------------------->",this.history);
       },
       error => {
         console.log(error);
