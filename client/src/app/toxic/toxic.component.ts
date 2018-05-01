@@ -32,7 +32,7 @@ export class ToxicComponent implements OnInit {
   onSelectT(data: StorageT): void {
     this.selectedDataT = data;
   }
-  onSelectT1(data1: StorageR1): void {
+  onSelectT1(data1: StorageT1): void {
     this.selectedDataT1 = data1;
   }
 

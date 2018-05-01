@@ -29,7 +29,7 @@ import { HazardComponent} from './hazard/hazard.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
-  {path: 'ehos', component: EhosDashboardComponent,// canActivate: [EhosAuthGuard],
+  {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component:  EhosQuickViewComponent}
     ]
   }, // Our path to the EHOS
-  {path:'storage',component:StorageComponent,
+  {path:'storage',component:StorageComponent,canActivate: [EhosAuthGuard],
   children:[
     { path: '', redirectTo: 'hazard', pathMatch: 'full' },
     {path: 'hazard',component:HazardComponent},
