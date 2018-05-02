@@ -78,9 +78,7 @@ export class PickupSchedulerComponent implements OnInit {
       this.waste.isServiced(request).subscribe(data => {
           this.dialogVisible = false;
           this.messageService.add({severity: 'success', summary: 'Done!', detail: 'Request was serviced!'});      
-          this.requests = this.requests.filter(request => {
-            request._id != this.selectedRequest._id;
-          });
+          this.requests = this.requests.filter(request => request._id != this.selectedRequest._id);
           console.log(this.requests);
            
         },

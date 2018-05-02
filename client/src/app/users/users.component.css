@@ -10,3 +10,6 @@ div.ui-sidebar-md {
 .form-control {
     font-size: 0.75rem !important;
 }
+.card {
+  font-size: .875rem;
+}
