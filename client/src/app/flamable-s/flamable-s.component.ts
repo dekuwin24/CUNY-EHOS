@@ -47,6 +47,20 @@ export class FlamableSComponent implements OnInit {
   this.storageService.getDataFs1()
     .subscribe(datasFs1 => this.datasFs1 = datasFs1);
   }
+  deleteRow(id){
+          for(let i = 0; i < this.datasFs.length; ++i){
+              if (this.datasFs[i].id === id) {
+                  this.datasFs.splice(i,1);
+              }
+          }
+      }
+      deleteRow1(id){
+              for(let i = 0; i < this.datasFs1.length; ++i){
+                  if (this.datasFs1[i].id === id) {
+                      this.datasFs1.splice(i,1);
+                  }
+              }
+          }
 
 
 }

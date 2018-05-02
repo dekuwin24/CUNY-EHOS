@@ -46,5 +46,19 @@ export class ToxicComponent implements OnInit {
     .subscribe(datasT1 => this.datasT1 = datasT1);
   }
 
+  deleteRow(id){
+          for(let i = 0; i < this.datasT.length; ++i){
+              if (this.datasT[i].id === id) {
+                  this.datasT.splice(i,1);
+              }
+          }
+      }
+      deleteRow1(id){
+              for(let i = 0; i < this.datasT1.length; ++i){
+                  if (this.datasT1[i].id === id) {
+                      this.datasT1.splice(i,1);
+                  }
+              }
+          }
 
 }

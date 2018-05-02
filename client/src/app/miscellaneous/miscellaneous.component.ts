@@ -47,4 +47,19 @@ export class MiscellaneousComponent implements OnInit {
         .subscribe(datasM1 => this.datasM1 = datasM1);
       }
 
+      deleteRow(id){
+              for(let i = 0; i < this.datasM.length; ++i){
+                  if (this.datasM[i].id === id) {
+                      this.datasM.splice(i,1);
+                  }
+              }
+          }
+          deleteRow1(id){
+                  for(let i = 0; i < this.datasM1.length; ++i){
+                      if (this.datasM1[i].id === id) {
+                          this.datasM1.splice(i,1);
+                      }
+                  }
+              }
+
 }

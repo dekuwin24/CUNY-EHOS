@@ -7,6 +7,7 @@
       <th scope="col"> Container type </th>
       <th scope="col"> Amount</th>
       <th scope="col"> Unit </th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody *ngFor="let data of datasM" [class.selected]="data === selectedDataM" (click)="onSelectM(data)">
@@ -16,6 +17,7 @@
       <td>{{data.containerType}}</td>
       <td>{{data.amount}}</td>
       <td>{{data.unit}}</td>
+      <td><button class="btn btn-primary" id="remove" (click)="deleteRow(data.id)"> Remove</button></td>
 
     </tr>
 
@@ -30,6 +32,7 @@
             <th scope="col" class="text-uppercase">Chemical</th>
             <th scope="col">name</th>
             <th scope="col">percentage</th>
+            <th scope="col"></th>
           </tr>
 </thead>
 <tbody *ngFor="let data1 of datasM1" [class.selected]="data1 === selectedDataM1" (click)="onSelectM1 (data1)" class="text-dark">
@@ -37,18 +40,13 @@
     <th style="width: 50%" scope="row">{{data1.id}}</th>
     <td style="width: 50%">{{data1.name}}</td>
     <td style="width: 90%">{{data1.percentage}}</td>
+    <td> <button class='btn btn-danger' id="remove" (click)="deleteRow1(data1.id)" >Remove</button> </td>
+
   </tr>
 
 </tbody>
 </table>
       </tr>
 
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
   </tbody>
 </table>

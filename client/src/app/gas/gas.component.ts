@@ -48,4 +48,21 @@ export class GasComponent implements OnInit {
       .subscribe(datasG1 => this.datasG1 = datasG1);
     }
 
+    deleteRow(id){
+            for(let i = 0; i < this.datasG.length; ++i){
+                if (this.datasG[i].id === id) {
+                    this.datasG.splice(i,1);
+                }
+            }
+        }
+        deleteRow1(id){
+                for(let i = 0; i < this.datasG1.length; ++i){
+                    if (this.datasG1[i].id === id) {
+                        this.datasG1.splice(i,1);
+                    }
+                }
+            }
+
+
+
 }

@@ -47,5 +47,19 @@ export class RadiationComponent implements OnInit {
     .subscribe(datasR1 => this.datasR1 = datasR1);
   }
 
+  deleteRow(id){
+          for(let i = 0; i < this.datasR.length; ++i){
+              if (this.datasR[i].id === id) {
+                  this.datasR.splice(i,1);
+              }
+          }
+      }
+      deleteRow1(id){
+              for(let i = 0; i < this.datasR1.length; ++i){
+                  if (this.datasR1[i].id === id) {
+                      this.datasR1.splice(i,1);
+                  }
+              }
+          }
 
 }

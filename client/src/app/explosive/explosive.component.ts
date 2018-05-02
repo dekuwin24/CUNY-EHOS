@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '../storage';
-import { StorageC } from '../storage';
+import { StorageE } from '../storage';
+import { StorageE1 } from '../storage';
 import { StorageService } from '../storage.service';
 
 
@@ -13,42 +13,56 @@ import { StorageService } from '../storage.service';
 export class ExplosiveComponent implements OnInit {
 
 
-  selectedData: Storage;
-  selectedDataC: StorageC;
+  selectedDataE: StorageE;
+  selectedDataE1: StorageE1;
 
-  datas: Storage[];
-  datasC: StorageC[];
+  datasE: StorageE[];
+  datasE1: StorageE1[];
 
   constructor(private storageService: StorageService) { }
 
 
 
   ngOnInit() {
-    this.getData();
-    this.getDataC();
+    this.getDataE();
+    this.getDataE1();
 
 
   }
 
 
 
-  onSelect(data: Storage): void {
-    this.selectedData = data;
+  onSelectE(data: StorageE): void {
+    this.selectedDataE = data;
   }
-  onSelectC(data1: StorageC): void {
-    this.selectedDataC = data1;
+  onSelectE1(data1: StorageE1): void {
+    this.selectedDataE1 = data1;
   }
 
-  getData(): void {
-  this.storageService.getData()
-      .subscribe(datas => this.datas = datas);
+  getDataE(): void {
+  this.storageService.getDataE()
+      .subscribe(datasE => this.datasE = datasE);
 }
 
-getDataC(): void {
-this.storageService.getDataC()
-    .subscribe(datasC => this.datasC = datasC);
+getDataE1(): void {
+this.storageService.getDataE1()
+    .subscribe(datasE1 => this.datasE1 = datasE1);
 }
 
+deleteRow(id){
+        for(let i = 0; i < this.datasE.length; ++i){
+            if (this.datasE[i].id === id) {
+                this.datasE.splice(i,1);
+            }
+        }
+    }
+    deleteRow1(id){
+            for(let i = 0; i < this.datasE1.length; ++i){
+                if (this.datasE1[i].id === id) {
+                    this.datasE1.splice(i,1);
+                }
+            }
+        }
 
 
 }

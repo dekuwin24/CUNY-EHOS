@@ -19,6 +19,8 @@ export class CorrosiveComponent implements OnInit {
     datas: Storage[];
     datasC: StorageC[];
 
+
+
     constructor(private storageService: StorageService) { }
 
 
@@ -48,6 +50,20 @@ export class CorrosiveComponent implements OnInit {
   this.storageService.getDataC()
       .subscribe(datasC => this.datasC = datasC);
   }
+  deleteRow(id){
+          for(let i = 0; i < this.datas.length; ++i){
+              if (this.datas[i].id === id) {
+                  this.datas.splice(i,1);
+              }
+          }
+      }
+      deleteRow1(id){
+              for(let i = 0; i < this.datasC.length; ++i){
+                  if (this.datasC[i].id === id) {
+                      this.datasC.splice(i,1);
+                  }
+              }
+          }
 
 
 }

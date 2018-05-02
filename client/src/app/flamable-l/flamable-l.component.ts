@@ -47,4 +47,20 @@ export class FlamableLComponent implements OnInit {
         .subscribe(datasFl1 => this.datasFl1 = datasFl1);
     }
 
+
+    deleteRow(id){
+            for(let i = 0; i < this.datasFl.length; ++i){
+                if (this.datasFl[i].id === id) {
+                    this.datasFl.splice(i,1);
+                }
+            }
+        }
+        deleteRow1(id){
+                for(let i = 0; i < this.datasFl1.length; ++i){
+                    if (this.datasFl1[i].id === id) {
+                        this.datasFl1.splice(i,1);
+                    }
+                }
+            }
+
 }

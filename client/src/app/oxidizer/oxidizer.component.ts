@@ -48,5 +48,20 @@ export class OxidizerComponent implements OnInit {
     .subscribe(datasO1 => this.datasO1 = datasO1);
   }
 
+  deleteRow(id){
+          for(let i = 0; i < this.datasO.length; ++i){
+              if (this.datasO[i].id === id) {
+                  this.datasO.splice(i,1);
+              }
+          }
+      }
+      deleteRow1(id){
+              for(let i = 0; i < this.datasO1.length; ++i){
+                  if (this.datasO1[i].id === id) {
+                      this.datasO1.splice(i,1);
+                  }
+              }
+          }
+
 
 }
