@@ -39,7 +39,7 @@ module.exports = (router) => {
   });
 
   router.get('/users/:id', verifyToken,(request,response) => {
-    User.find({ _id: request.params.id }, 'first last email phone building department room privilege', (err,user) => {
+    User.findOne({ _id: request.params.id }, 'first last email phone building department room privilege', (err,user) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});

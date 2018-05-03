@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +30,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { LabQuickViewComponent } from './lab-quick-view/lab-quick-view.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
+import { PickupSchedulerComponent } from './pickup-scheduler/pickup-scheduler.component';
+import { StorageComponent } from './storage/storage.component';
+import { CorrosiveComponent } from './corrosive/corrosive.component';
+import { RequestHistoryComponent } from './request-history/request-history.component';
+import { LabInspectionService } from './services/lab-inspection.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,16 +54,21 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
     ProfileComponent,
     UsersComponent,
     LabQuickViewComponent,
-    WasteRequestComponent
+    WasteRequestComponent,
+    PickupSchedulerComponent,
+    StorageComponent,
+    CorrosiveComponent,
+    RequestHistoryComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,    
     HttpClientModule,
     AppRoutingModule,
     SharedPrimeNgModule,
     ReactiveFormsModule,
     TextMaskModule,
-    BrowserAnimationsModule
+    FormsModule
   ],
   providers: [
     AuthService,
@@ -66,6 +78,7 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
     LabAuthGuard,
     AnyAuthGuard,
     ProfileGuard,
+    LabInspectionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -16,7 +16,9 @@ const path = require('path'); // Needed for routing
 const authentication = require('./routes/authentication')(router);
 const ehos = require('./routes/ehos')(router);
 const lab = require('./routes/lab')(router);
-const waste = require('./routes/waste')(router)
+const waste = require('./routes/waste')(router);
+const schedule = require('./routes/schedule')(router);
+const labs = require('./routes/labs')(router);
 const bodyParser = require('body-parser'); // node plugin to help parse response body
 mongoose.Promise = global.Promise; // Config declaration for mongoose
 // Our method that attempts to create a connection to our database
@@ -44,7 +46,10 @@ app.use(express.static(__dirname + '/client/dist/')); // Allow access to the dis
 app.use('/authentication', authentication);
 app.use('/ehos', ehos);
 app.use('/lab', lab);
+app.use('/labs', labs);
 app.use('/waste', waste);
+app.use('/schedule', schedule);
+
 // We configure our route so that we always redirect to our server page
 app.get('*', (request,response,next) =>{
   // response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here

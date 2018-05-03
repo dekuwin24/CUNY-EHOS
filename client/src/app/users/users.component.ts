@@ -111,7 +111,10 @@ export class UsersComponent implements OnInit {
         // No users
       }
     }).catch( reason => {
-      console.log(reason);
+      if (reason.status === 403) {
+        // redirect to login page
+        console.log("Your session has timed out, returning to login screen");
+      }
     });
   }
   deleteUser(user) {

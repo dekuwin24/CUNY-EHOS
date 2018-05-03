@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
-import {ButtonModule,StepsModule,InputMaskModule,AutoCompleteModule, DialogModule,CalendarModule, DropdownModule} from 'primeng/primeng';
+import {ButtonModule,StepsModule,InputMaskModule,AutoCompleteModule, DialogModule,CalendarModule, DropdownModule, } from 'primeng/primeng';
 import {SidebarModule} from 'primeng/sidebar';
 import {GrowlModule} from 'primeng/growl';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ScheduleModule} from 'primeng/schedule';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';                 //api
+import {MenuItem, SelectItem} from 'primeng/api';                 //api
+//import {DataViewModule} from 'primeng/dataview';
+
 @NgModule({
   declarations: [
   ],
@@ -20,7 +22,8 @@ import {MenuItem} from 'primeng/api';                 //api
     AutoCompleteModule, 
     ScheduleModule, 
     CalendarModule, 
-    DropdownModule
+    DropdownModule,
+    AccordionModule
   ],
   exports: [
     ButtonModule,
@@ -33,7 +36,8 @@ import {MenuItem} from 'primeng/api';                 //api
     AutoCompleteModule, 
     ScheduleModule, 
     CalendarModule, 
-    DropdownModule
+    DropdownModule,
+    AccordionModule
   ],
 
 })

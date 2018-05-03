@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service'; 
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  providers: [MessageService]
   // encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
@@ -16,8 +19,9 @@ export class ProfileComponent implements OnInit {
   @ViewChild('first') first: ElementRef;
   @ViewChild('last') last: ElementRef;
   originalEmail: String;
+  msgs: Message[] = [];
   
-  constructor(private user: UserService) { }
+  constructor(private user: UserService, private messageService: MessageService) { }
   getProfile() {
     this.user.getProfile().subscribe((data)=>{
       if (data) {
@@ -47,7 +51,11 @@ export class ProfileComponent implements OnInit {
     }
     this.user.patchProfile(user).subscribe((data) =>{
       console.log(data);
-      
+      if (data.success) {
+        this.messageService.add({severity: 'success', summary: 'Approved!', detail: 'Your information was updated!'});                    
+      }
+    }, error =>{
+      this.messageService.add({severity: 'error', summary: 'ERROR!', detail: 'Something went wrong. Try again later.'});                    
     });
   }
   ngOnInit() {
