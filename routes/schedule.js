@@ -6,7 +6,7 @@ const moment = require('moment');
 
 module.exports = (router) => {
   router.get('/requests', verifyToken, (request,response) => {
-    Schedule.find('id start end serviced', (err,schedule) => {
+    Schedule.find('id start end serviced eventType', (err,schedule) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});

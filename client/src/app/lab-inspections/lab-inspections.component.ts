@@ -7,8 +7,9 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { UserService } from "../services/user.service";
 import { SelectItem } from 'primeng/api';
 import { WasteManagementService } from '../services/waste-management.service';
-import { log } from 'fullcalendar/src/util';
+// import { log } from 'fullcalendar/src/util';
 import { and } from '@angular/router/src/utils/collection';
+import { LabInspectionService } from '../services/lab-inspection.service';
 @Component({
   selector: 'app-lab-inspections',
   templateUrl: './lab-inspections.component.html',
@@ -19,100 +20,66 @@ export class LabInspectionsComponent implements OnInit {
     inspectors: any[];
     //inspection: any;
     history: any[];
-    InspectionRequire: any[]; // store inspect request
-    date: Date[];
+    date: Date;
+    inspector: any;
     Location: any[];
     User: Number;
-    constructor(private messageService: MessageService, private user: UserService, private waste: WasteManagementService) { 
+    msgs: Message[] = [];
+    
+    constructor(private messageService: MessageService, private user: UserService, private waste: WasteManagementService, private insp: LabInspectionService) { 
 
     }
     
-    scheduleInspection(request) {
-        let inspection = {
-          requestId: request._id,
-          start: moment(request.date).format(),
-          eventType: 2,
-          serviced: false
+    scheduleInspection() {
+      let inspection = {
+        inspector: this.inspector._id,
+        lab: this.inspector.department + ", " + this.inspector.building + " Room " + this.inspector.room,
+        requested: moment().format(),
+        requestId: '', 
+        start: moment(this.date).format(), 
+        end: '', 
+        eventType: 2,
+        serviced: false
+      }
+      this.insp.createRequest(inspection).then(ins=>{
+        this.messageService.add({severity: 'success', summary: 'Done!', detail: 'Inspection was created!'});                
+      }).catch(rejected=>{
+        this.messageService.add({severity: 'error', summary: 'ERROR!', detail: 'An error occurred.'});                
+        if (rejected.code == 403) {
+          console.log("redirect");
+          
         }
-        this.waste.schedulePickup(inspection).subscribe(res=>{
-            console.log(request._id);
-            this.waste.isScheduled({_id:request._id, pending:false}).subscribe(valid =>{},error =>{
-              this.messageService.add({severity: 'error', summary: 'ERROR!', detail: 'An error occured: \n' + res.message});                                                                        
-            });
-            request.pending = false; // Update the local array   
-            this.messageService.add({severity: 'success', summary: 'Scheduled!', detail: 'Request has been scheduled! Take a look at the updated schedule to make further updates.'}); 
-          }, err => {
-            
-            console.log(err);
-          })
+      });
+      console.log(inspection);
+      
     }
     getData() {
-      this.waste.getSchedule().then(response => {
-          this.history = response.schedule;
-          for(let i = 0; i<this.history.length; i++){
-            if(this.history[i].eventType === 1 && this.history[i].serviced === true){
-              console.log(this.history[i]);
-              this.history[i].start = moment(this.history[i].start, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm");
-              this.waste.getRequest(this.history[i].requestId).then(res=>{
-                console.log(res);
-                this.history[i]["location"] = res.request.location;
-                this.history[i]["requested"] = res.request.requested;
-              },err=>{});
-              this.user.getUser(this.history[i].requestId).subscribe(res=>{
-                //console.log("xxxxxxxxxxxxxxxxxxxxxxxxx", res.user);
-                this.history[i]["name"]= res.user.first+ " "+res.user.last;
-              },err=>{});
-            }
-            else{
-              this.history.splice(i, 1);
-              i--;
-            }
-          };
-      },
-      error => {
-        console.log(error);
-      });
-  }
-    ngOnInit() {
-        this.user.getUsers().then(response => {// get EHOS members
-          this.inspectors = response.users;
-          this.inspectors.forEach((element, index)=>{
-            if(element.privilege === 1 && element.approved === true){
-              this.inspectors[this.inspectors.indexOf(element)]["name"] = element.first + ' ' + element.last;
-            };            
+      this.insp.getRequests().then(response =>{
+        this.history = response.inspections;
+        this.history.forEach((element) => {
+          element.requested = moment(element.requested).format('MMMM Do YYYY');
           });
-          for(var i = 0; i<this.inspectors.length;i++){
-            if(this.inspectors[i].privilege === 2 || this.inspectors[i].approved === false){
-              this.inspectors.splice(i, 1);
-              i--;
-            }
-          };
-        }).catch(reason => {
-          console.log(reason);
+      }).catch(reason=>{});
+   }
+  ngOnInit() {
+      this.user.getUsers().then(response => {// get EHOS members
+        this.inspectors = response.users;
+        this.inspectors.forEach((element, index)=>{
+          if(element.privilege === 1 && element.approved === true){
+            this.inspectors[this.inspectors.indexOf(element)]["name"] = element.first + ' ' + element.last;
+          };            
         });
-
-        this.waste.getRequests().then(response => {
-            this.InspectionRequire = response.requests;
-            this.InspectionRequire.forEach((element) => {
-                element.requested = moment(element.requested).format('MMMM Do YYYY');
-                element['date'] = null;  
-                element['inspector'] = null;
-              });
-              console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXX----------------->",this.InspectionRequire);
-            }).catch(reason => {
-                if (reason.status === 403) {
-                  // redirect to login page
-                  console.log("Your session has timed out, returning to login screen");
-                }
-        }).then( done =>{
-            this.InspectionRequire.forEach((element,index) => {
-                this.user.getUser(element.userId).subscribe(response => {
-                    this.InspectionRequire[index].name = response.user.first + " " + response.user.last;
-                });
-            });
-        });
-        this.getData();
-    }
+        for(var i = 0; i<this.inspectors.length;i++){
+          if(this.inspectors[i].privilege === 2 || this.inspectors[i].approved === false){
+            this.inspectors.splice(i, 1);
+            i--;
+          }
+        };
+      }).catch(reason => {
+        console.log(reason);
+      });
+      this.getData();
+  }
 }
 
 

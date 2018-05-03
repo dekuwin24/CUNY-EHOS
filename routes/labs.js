@@ -7,17 +7,33 @@ const moment = require('moment');
 
 module.exports = (router) => {
   router.get('/inspections', verifyToken, (request,response) => {
-    Inspection.find('id start end serviced', (err,schedule) => {
+    Inspection.find('inspector lab requested', (err,inspections) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});
       }
       else {
-        if (schedule) {
-          response.status(200).json({success: true, schedule: schedule});
+        if (inspections) {
+          response.status(200).json({success: true, inspections: inspections});
         }
         else {
-          response.status(404).json({success: false, message: "No scheduled pickups in system."});
+          response.status(404).json({success: false, message: "No inspections in system."});
+        }
+      }
+    });
+  });
+  router.get('/inspections/:id', verifyToken, (request,response) => {
+    Inspection.findOne({_id: request.params.id},'inspector lab requested', (err,inspection) => {
+      if (err) {
+        // Connection error was found
+        response.status(500).json({success: false, message: err});
+      }
+      else {
+        if (inspection) {
+          response.status(200).json({success: true, inspection: inspection});
+        }
+        else {
+          response.status(404).json({success: false, message: "Inspection is not in system"});
         }
       }
     });
@@ -42,7 +58,7 @@ module.exports = (router) => {
   router.post('/inspections', verifyToken, (request, response) => {
     let inspection = new Inspection({
       // _id = id is already autoincremented 
-      inspector: request.body.id, // user id - request.body._id 
+      inspector: request.body.inspector, // user id - request.body._id 
       lab: request.body.lab, // Location of lab
       requested: request.body.requested,
     });

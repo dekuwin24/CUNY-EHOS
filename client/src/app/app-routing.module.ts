@@ -18,6 +18,7 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
 import { PickupSchedulerComponent } from "./pickup-scheduler/pickup-scheduler.component";
 import { StorageComponent } from './storage/storage.component';
 import { CorrosiveComponent } from './corrosive/corrosive.component';
+import { RequestHistoryComponent } from './request-history/request-history.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AnyAuthGuard]}, // Our default path i.e. our homepage
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'waste-pickup', component: WasteRequestComponent },
-      { path: 'supply-request', component: Error401Component },                              
+      { path: 'supply-request', component: Error401Component }, 
+      { path: 'history', component: RequestHistoryComponent },                             
       { path: 'home', component: LabQuickViewComponent }
     ]
   },

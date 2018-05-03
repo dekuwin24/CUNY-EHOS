@@ -3,32 +3,32 @@
         <p-schedule [events]="requests" [header]="headerConfig" (onEventClick)="oneventclick($event)"></p-schedule>
     </div>
 </div>
-
 <p-dialog header="Request Details" [(visible)]="dialogVisible" [contentStyle]="{'max-height':'455px', 'min-height':'450px'}" [width]="700" [height]="500">
     <div class="container-fluid" *ngIf="requests">
       <h2 class="card-title">{{selectedRequest.eventType == 1 ? "Waste Pickup" : "Lab Inspection"}}</h2>
-      <table class="table" *ngIf="selectedRequest">
-        <thead>
+      <div *ngIf="selectedRequest.eventType == 1">
+        <table class="table" *ngIf="selectedRequest">
+          <thead>
+              <tr>
+                <th scope="col">Scheduled Time</th>
+                <th scope="col">Lab Manager</th>
+                <th scope="col">Location</th>
+              </tr>
+          </thead>
+          <tbody>
             <tr>
-              <th scope="col">Scheduled Time</th>
-              <th scope="col">Lab Manager</th>
-              <th scope="col">Location</th>
+              <td>{{selectedRequest.requested}}</td>
+              <td>{{selectedRequest.requester}}</td>
+              <td>{{selectedRequest.location}}</td>
             </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{selectedRequest.requested}}</td>
-            <td>{{selectedRequest.requester}}</td>
-            <td>{{selectedRequest.location}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2 class="card-title">Items</h2>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <p-accordion>
-            <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of selectedRequest.items; let i=index;">
-              <div class="container-fluid">
+          </tbody>
+        </table>
+        <h2 class="card-title">Items</h2>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <p-accordion>
+              <p-accordionTab header="Waste {{i+1}}" *ngFor="let item of selectedRequest.items; let i=index;">
+                <div class="container-fluid">
                   <div class="row">
                     <div class="form-group col-4">
                       <label for="container">Container Type</label>
@@ -60,13 +60,34 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
                     </div>
-                  </div>
-              </div>
-            </p-accordionTab>
-        </p-accordion>
-        </div>
-      </div>  
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </div>  
+      </div>
+      <div *ngIf="selectedRequest.eventType == 2">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Requested</th>
+              <th scope="col">Scheduled Time</th>
+              <th scope="col">Inspector</th>
+              <th scope="col">Lab</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{selectedRequest.requested}}</td>
+              <td>{{selectedRequest.start}}</td>
+              <td>{{selectedRequest.requester}}</td>
+              <td>{{selectedRequest.location}}</td>
+            </tr>
+          </tbody>
+          </table>        
+      </div>
       <div class="form-group row">
         <div class="col-sm-2">
           <div class="form-check">

@@ -24,7 +24,7 @@ export class LabInspectionService {
   }
   getRequest(id): Promise<any> {
     let promise = new Promise((resolve, reject) => {
-      this.http.get(this.domain + '/labs/inspections' + id).toPromise().then(
+      this.http.get(this.domain + '/labs/inspections/' + id).toPromise().then(
         (val) => {
           resolve(val);
         },

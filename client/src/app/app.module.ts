@@ -33,6 +33,8 @@ import { WasteRequestComponent } from './waste-request/waste-request.component';
 import { PickupSchedulerComponent } from './pickup-scheduler/pickup-scheduler.component';
 import { StorageComponent } from './storage/storage.component';
 import { CorrosiveComponent } from './corrosive/corrosive.component';
+import { RequestHistoryComponent } from './request-history/request-history.component';
+import { LabInspectionService } from './services/lab-inspection.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { CorrosiveComponent } from './corrosive/corrosive.component';
     WasteRequestComponent,
     PickupSchedulerComponent,
     StorageComponent,
-    CorrosiveComponent
+    CorrosiveComponent,
+    RequestHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ import { CorrosiveComponent } from './corrosive/corrosive.component';
     LabAuthGuard,
     AnyAuthGuard,
     ProfileGuard,
+    LabInspectionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

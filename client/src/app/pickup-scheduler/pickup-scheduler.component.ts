@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import { WasteManagementService } from '../services/waste-management.service';
 import * as moment from 'moment';
 import 'fullcalendar';
@@ -7,6 +7,7 @@ import {DialogModule} from 'primeng/dialog';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { FormControl} from '@angular/forms';
+import { LabInspectionService } from '../services/lab-inspection.service';
 
 @Component({
   selector: 'app-pickup-scheduler',
@@ -23,7 +24,7 @@ export class PickupSchedulerComponent implements OnInit {
     dialogVisible: boolean = false;
     msgs: Message[] = [];
     
-    constructor(private waste: WasteManagementService, private messageService: MessageService) { }  
+    constructor(private waste: WasteManagementService, private messageService: MessageService, private insp: LabInspectionService) { }  
     
     getData() {
         this.loading = true;
@@ -55,16 +56,29 @@ export class PickupSchedulerComponent implements OnInit {
         this.dialogVisible = true;
         Object.assign(this.selectedRequest, e.calEvent); // Create immutability on calEvent  
         this.loading = true;
-        this.waste.getRequest(e.calEvent.requestId).then(data => {
-          this.selectedRequest.requested = moment(this.selectedRequest.start).format("hh:mm a");
-          this.selectedRequest.location = data.request.location; // Later will be inner join
-          this.selectedRequest.requester = data.request.userId; // Later will be inner join
-          this.selectedRequest.items = data.request.items;
-          this.serviced.setValue(this.selectedRequest.serviced);
-          this.loading = false;
-        }).catch( reason => {
+        if (this.selectedRequest.eventType == 1) {
+          this.waste.getRequest(e.calEvent.requestId).then(data => {
+            this.selectedRequest.requested = moment(this.selectedRequest.start).format("hh:mm a");
+            this.selectedRequest.location = data.request.location; // Later will be inner join
+            this.selectedRequest.requester = data.request.userId; // Later will be inner join
+            this.selectedRequest.items = data.request.items;
+            this.serviced.setValue(this.selectedRequest.serviced);
+            this.loading = false;
+          }).catch( reason => {
+  
+          });
+        }
+        else {
+          this.insp.getRequest(e.calEvent.requestId).then( data =>{
+            this.selectedRequest.requested = moment(data.inspection.requested).format("MMMM Do YYYY hh:mm a");
+            this.selectedRequest.start = moment(this.selectedRequest.start).format("hh:mm a")
+            this.selectedRequest.location = data.inspection.lab;
+            this.selectedRequest.requester = data.inspection.inspector;
+            this.loading = false;
+          }).catch(reason =>{
 
-        });
+          });
+        }
 
     }
     serviceRequest() {
