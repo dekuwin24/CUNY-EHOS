@@ -45,6 +45,9 @@ export class PickupSchedulerComponent implements OnInit {
             })
         },
         error => {
+          if (error.status === 403) {
+
+          }
           console.log(error);
           this.loading = false;
         }).catch(reason => {
@@ -74,6 +77,7 @@ export class PickupSchedulerComponent implements OnInit {
             this.selectedRequest.start = moment(this.selectedRequest.start).format("hh:mm a")
             this.selectedRequest.location = data.inspection.lab;
             this.selectedRequest.requester = data.inspection.inspector;
+            this.serviced.setValue(this.selectedRequest.serviced);
             this.loading = false;
           }).catch(reason =>{
 
@@ -92,9 +96,15 @@ export class PickupSchedulerComponent implements OnInit {
       this.waste.isServiced(request).subscribe(data => {
           this.dialogVisible = false;
           this.messageService.add({severity: 'success', summary: 'Done!', detail: 'Request was serviced!'});      
-          this.requests = this.requests.filter(request => request._id != this.selectedRequest._id);
-          console.log(this.requests);
-           
+          var temp = this.requests; // create a copy
+          var temp_index = this.requests.findIndex(el => el._id == this.selectedRequest._id);
+          console.log(temp_index);
+          console.log(temp[temp_index].serviced);
+          temp[temp_index].serviced = true;
+          this.requests = this.requests.filter(request => request._id != this.selectedRequest._id); // remove it from list
+          setTimeout(()=>{
+            return this.requests = temp;
+          }, 3000);
         },
         error => {
           if (error.status === 403) {
