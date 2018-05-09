@@ -25,11 +25,11 @@ const appRoutes: Routes = [
   {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'users', component: UsersComponent },      
+      { path: 'users', component: UsersComponent },
       { path: 'pickup-requests', component: PickupRequestsComponent},
       { path: 'pickup-schedule', component: PickupSchedulerComponent},
       { path: 'lab-inspections', component: LabInspectionsComponent},
-      { path: 'home', component:  PickupSchedulerComponent}      
+      { path: 'home', component:  PickupSchedulerComponent}
     ]
   }, // Our path to the EHOS
   {path:'about', component:AboutComponent},
@@ -37,15 +37,15 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'waste-pickup', component: WasteRequestComponent },
-      { path: 'supply-request', component: Error401Component }, 
-      { path: 'history', component: RequestHistoryComponent },                             
+      { path: 'supply-request', component: Error401Component },
+      { path: 'history', component: RequestHistoryComponent },
       { path: 'home', component: LabQuickViewComponent }
     ]
   },
   {path:'storage', component: StorageComponent},
   {path:'corrosive', component: CorrosiveComponent},
   {path:'about', component:AboutComponent},
-  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },  
+  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },
   { path: '**', component: Error404Component } // A path that is not defined
 ];
 
