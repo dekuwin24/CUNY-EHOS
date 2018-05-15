@@ -99,7 +99,7 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <button class="btn btn-primary" (click)="serviceRequest()" [disabled]="serviced.value">Serviced!</button>
+          <button class="btn btn-primary" (click)="displayService=true" [disabled]="serviced.value">Serviced!</button>
         </div>
       </div>
     </div>
@@ -110,3 +110,18 @@
     <p-progressSpinner></p-progressSpinner>
   </div>
 </div>
+<p-dialog header="Confirm!" [(visible)]="displayService" modal="modal" [responsive]="true" [width]="400" [minWidth]="400">
+  <span class="text-muted">
+      Are you sure you this request was serviced?
+  </span>
+  <p-footer>
+    <div class="row">
+      <div class="col-3 offset-6">
+        <button type="button" class="btn btn-primary" (click)="serviceRequest()">Yes</button>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-secondary" (click)="displayService=false">No</button>
+      </div>
+    </div>
+  </p-footer>
+</p-dialog>

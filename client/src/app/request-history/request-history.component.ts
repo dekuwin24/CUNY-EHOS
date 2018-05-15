@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WasteManagementService } from '../services/waste-management.service';
 import * as moment from 'moment';
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-history',
@@ -13,7 +15,8 @@ export class RequestHistoryComponent implements OnInit {
   requests: any[];
   loading: Boolean = true;
   userId: Number;
-  constructor(private waste: WasteManagementService, private user: UserService) { }
+  constructor(private waste: WasteManagementService, private user: UserService,
+    private auth: AuthService, private router: Router) { }
   
   ngOnInit() {
     // First get user id, then get pickup requests made by user id, then check if each req is serviced
@@ -40,7 +43,8 @@ export class RequestHistoryComponent implements OnInit {
       }).catch(reason=>{});
     }, error =>{
       if (error.status === 403) {
-        console.log('redirect');
+        this.auth.unsetUser();
+        this.router.navigate(['/']);  
         
       } 
     });

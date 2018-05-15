@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Hazard = require('../models/hazard');
 const jwt = require('jsonwebtoken');
 const dbConfig = require('../config/database');
 const verifyToken = require('./middlewares');
@@ -91,6 +92,16 @@ module.exports = (router) => {
       }
       else {
         response.status(200).json({ success: true, message: "User was deleted!" });
+      }
+    });
+  });
+  router.get('/hazardClasses',(request,response) => {
+    Hazard.find({hazardClass: request.params.hazardClass}, (err,hazards) => {
+      if (err) {
+        response.status(500).json({ success: false, message: err });
+      }
+      else {
+        response.status(200).json({ success: true, hazardClasses: hazards});
       }
     });
   });

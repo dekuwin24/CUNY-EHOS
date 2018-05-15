@@ -35,6 +35,7 @@ import { StorageComponent } from './storage/storage.component';
 import { CorrosiveComponent } from './corrosive/corrosive.component';
 import { RequestHistoryComponent } from './request-history/request-history.component';
 import { LabInspectionService } from './services/lab-inspection.service';
+import { StorageListComponent } from './storage-list/storage-list.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { LabInspectionService } from './services/lab-inspection.service';
     PickupSchedulerComponent,
     StorageComponent,
     CorrosiveComponent,
-    RequestHistoryComponent
+    RequestHistoryComponent,
+    StorageListComponent
   ],
   imports: [
     BrowserModule,
