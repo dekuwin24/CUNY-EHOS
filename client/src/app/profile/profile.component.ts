@@ -1,7 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { UserService } from '../services/user.service'; 
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service'; 
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { error } from 'util';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,7 +24,7 @@ export class ProfileComponent implements OnInit {
   originalEmail: String;
   msgs: Message[] = [];
   
-  constructor(private user: UserService, private messageService: MessageService) { }
+  constructor(private user: UserService, private messageService: MessageService, private auth: AuthService, private router: Router) { }
   getProfile() {
     this.user.getProfile().subscribe((data)=>{
       if (data) {
@@ -35,6 +38,11 @@ export class ProfileComponent implements OnInit {
         this.building.nativeElement.value = data.user.building;
         this.room.nativeElement.value = data.user.room;
         
+      }
+    }, error =>{
+      if (error.status == 403) {
+        this.auth.unsetUser();
+        this.router.navigate(['/']);
       }
     });
   }

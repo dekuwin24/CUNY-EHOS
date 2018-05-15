@@ -39,7 +39,13 @@ export class WasteManagementService {
     return this.http.patch(this.domain + '/waste/pickupRequests/' + request._id, request);
   }
   isServiced(request) {
-    return this.http.patch(this.domain + '/schedule/' + request._id , request)
+    return this.http.patch(this.domain + '/schedule/' + request._id , request);
+  }
+  storeWaste(request): Observable<any> {
+    return this.http.post(this.domain + '/storage/' + request.hazardClass, request);
+  }
+  deleteWaste(request): Observable<any> {
+    return this.http.delete(this.domain + '/storage/' + request);
   }
   createRequest(request) : Promise<any> {
     let promise = new Promise((resolve, reject) => {
@@ -72,4 +78,32 @@ export class WasteManagementService {
     });
     return promise;    
   }
+  getHazards(): Promise<any> {
+    let promise = new Promise((resolve,reject)=>{
+      this.http.get(this.domain + '/ehos/hazardClasses').toPromise()
+      .then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+    return promise;
+  }
+  getHazard(hazardClass): Promise<any> {
+    let promise = new Promise((resolve,reject)=>{
+      this.http.get(this.domain + '/storage/' + hazardClass).toPromise()
+      .then(
+        (val) => {
+          resolve(val);
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+  return promise;
+}
 }

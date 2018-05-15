@@ -17,7 +17,6 @@ import { Error401Component } from './error401/error401.component';
 import { WasteRequestComponent } from './waste-request/waste-request.component';
 import { PickupSchedulerComponent } from "./pickup-scheduler/pickup-scheduler.component";
 import { StorageComponent } from './storage/storage.component';
-import { CorrosiveComponent } from './corrosive/corrosive.component';
 import { RequestHistoryComponent } from './request-history/request-history.component';
 // All our routes are stored in this variable
 const appRoutes: Routes = [
@@ -25,11 +24,12 @@ const appRoutes: Routes = [
   {path: 'ehos', component: EhosDashboardComponent, canActivate: [EhosAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'users', component: UsersComponent },      
-      { path: 'pickup-requests', component: PickupRequestsComponent},
-      { path: 'pickup-schedule', component: PickupSchedulerComponent},
-      { path: 'lab-inspections', component: LabInspectionsComponent},
-      { path: 'home', component:  PickupSchedulerComponent}      
+      { path: 'users', component: UsersComponent },
+      { path: 'pickup-requests', component: PickupRequestsComponent },
+      { path: 'pickup-schedule', component: PickupSchedulerComponent },
+      { path: 'lab-inspections', component: LabInspectionsComponent },
+      { path: 'storage', component: StorageComponent },
+      { path: 'home', component:  PickupSchedulerComponent }
     ]
   }, // Our path to the EHOS
   {path:'about', component:AboutComponent},
@@ -37,15 +37,12 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'waste-pickup', component: WasteRequestComponent },
-      { path: 'supply-request', component: Error401Component }, 
-      { path: 'history', component: RequestHistoryComponent },                             
+      { path: 'supply-request', component: Error401Component },
+      { path: 'history', component: RequestHistoryComponent },
       { path: 'home', component: LabQuickViewComponent }
     ]
   },
-  {path:'storage', component: StorageComponent},
-  {path:'corrosive', component: CorrosiveComponent},
-  {path:'about', component:AboutComponent},
-  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },  
+  { path: 'profile', component:  ProfileComponent, canActivate: [ProfileGuard] },
   { path: '**', component: Error404Component } // A path that is not defined
 ];
 

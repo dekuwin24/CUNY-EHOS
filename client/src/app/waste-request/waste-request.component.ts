@@ -5,6 +5,8 @@ import { UserService } from '../services/user.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-waste-request',
@@ -15,6 +17,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 })
 export class WasteRequestComponent implements OnInit {
   wastePickupForm: FormGroup;
+  hazardClasses: any[];
   wasteItems: FormArray;
   wasteForm: FormGroup;
   chemicals: FormArray;
@@ -24,7 +27,9 @@ export class WasteRequestComponent implements OnInit {
   requester: String;
   location: String;
   
-  constructor(private formBuilder: FormBuilder, private waste: WasteManagementService, private user: UserService, private messageService: MessageService) {
+  constructor(private formBuilder: FormBuilder, private waste: WasteManagementService, 
+    private user: UserService, private messageService: MessageService,
+    private auth: AuthService, private router: Router) {
     this.createForm();
    }
   createChemical(): FormGroup {
@@ -44,6 +49,24 @@ export class WasteRequestComponent implements OnInit {
       this.chemicals.removeAt(Number(j));
     }
   }
+  setQty(i) {
+    var wasteItem= (this.wasteForm.get('wasteItems') as FormArray).controls[i];
+    switch (wasteItem.get('hazardClass').value) {
+      case 'Flammable Liquid':
+        wasteItem.get('measuredIn').setValue('ml');
+        break;
+      case 'Gas':
+        wasteItem.get('measuredIn').setValue('ml');
+        break;
+      case 'Oxidizer':
+        wasteItem.get('measuredIn').setValue('ml');
+        break;
+      
+      default:
+        wasteItem.get('measuredIn').setValue('kg');
+        break;
+    }
+  }
   createForm() {
     this.wasteForm = this.formBuilder.group({
       wasteItems: this.formBuilder.array([ this.createWasteItem() ])
@@ -55,6 +78,7 @@ export class WasteRequestComponent implements OnInit {
       containerType: ['', Validators.required],
       hazardClass: ['', Validators.required],
       quantity: ['', Validators.required],
+      measuredIn:[''],
       chemicals: this.formBuilder.array([ this.createChemical() ])
     });
   }
@@ -98,8 +122,14 @@ export class WasteRequestComponent implements OnInit {
       this.location = user.user.building + ", Room " + user.user.room;
     }, 
       error => {
-        console.log(error);
+        if (error.status == 403) {
+          this.auth.unsetUser();
+          this.router.navigate(['/']);  
+        }
     });
+    this.waste.getHazards().then(response =>{
+      this.hazardClasses = response.hazardClasses;
+    })
   }
 
 }

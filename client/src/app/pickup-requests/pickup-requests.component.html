@@ -100,7 +100,7 @@
     <p class="h3">Schedule pickup date</p>
     <div class="form-group row">
       <div class="col-md-4 col-lg-3">
-          <p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="12" inputStyleClass="form-control"></p-calendar>
+          <p-calendar [(ngModel)]="date" [showTime]="true" [hourFormat]="24" inputStyleClass="form-control"></p-calendar>
       </div>
       <div class="col-md-3 col-lg-2">
         <button class="btn btn-primary" [disabled]="!date" (click)="schedulePickup()">Schedule</button>      

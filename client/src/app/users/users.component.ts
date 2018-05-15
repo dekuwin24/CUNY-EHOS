@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -25,11 +26,14 @@ export class UsersComponent implements OnInit {
   msgs: Message[] = [];
   userForm: FormGroup;
   approved = new FormControl();
+  approve = new FormControl();
   name: String = '';
   originalEmail: String = '';
   public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];  
   
-  constructor( private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService, private messageService: MessageService) {
+  constructor( private formBuilder: FormBuilder, private userService: UserService,
+     private authService: AuthService, private messageService: MessageService,
+    private router: Router) {
     this.createForm();
    }
   // Helper functions
@@ -113,7 +117,8 @@ export class UsersComponent implements OnInit {
     }).catch( reason => {
       if (reason.status === 403) {
         // redirect to login page
-        console.log("Your session has timed out, returning to login screen");
+        this.authService.unsetUser();
+        this.router.navigate(['/']);
       }
     });
   }

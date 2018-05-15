@@ -19,13 +19,13 @@ export class AuthService {
 
   // Function that will submit a post request for the backend to handle
   registerUser(user): Observable<any> {
-    return this.http.post(this.domain + "/authentication/register",user);
+    return this.http.post(this.domain + "/auth/register",user);
   }
   loginUser(user): Observable<any> {
-    return this.http.post(this.domain + "/authentication/login",user);
+    return this.http.post(this.domain + "/auth/login",user);
   }
   checkEmail(email): Observable<any> {
-    return this.http.get(this.domain + "/authentication/checkEmail/" + email);
+    return this.http.get(this.domain + "/auth/checkEmail/" + email);
   }
 
   approveUser(user) {

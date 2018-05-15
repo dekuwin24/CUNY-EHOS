@@ -42,7 +42,7 @@ module.exports = (router) => {
   });
 
   router.get('/pickupRequests/:id', verifyToken,(request,response) => {
-    Waste.findOne({ _id: request.params.id }, '_id userId location pending comments label requested items', (err,waste_request) => {
+    Waste.findOne({ _id: request.params.id }, '_id userId location pending comments label requested items quantity measuredIn', (err,waste_request) => {
       if (err) {
         // Connection error was found
         response.status(500).json({success: false, message: err});

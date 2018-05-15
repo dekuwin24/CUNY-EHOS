@@ -2,8 +2,14 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-5"><p class="h2">Users</p></div>
-      <div class="col-sm-5 col-md-5 col-lg-5 offset-sm-1 offset-md-1 offset-lg-2">
-        <button class="btn btn-secondary" (click)="displayLab=true;">Approve All Lab Accounts</button>
+      <div class="col-sm-5 col-md-5 col-lg-4 offset-sm-1 offset-md-1 offset-lg-3">
+        <div class="form-check">
+          <label class="form-check-label">
+            <strong>Approve All Lab Accounts</strong>
+            <input type="checkbox" class="form-check-input" (click)="displayLab=true;" [formControl]="approve">
+            <i class="input-helper"></i>
+          </label>
+        </div>
       </div>
     </div>
     <table class="table">
@@ -139,7 +145,7 @@
           <button type="button" class="btn btn-success" (click)="approveLabAccounts()">Yes</button>
         </div>
         <div class="col-3">
-          <button type="button" class="btn btn-secondary" (click)="displayLab=false;">No</button>
+          <button type="button" class="btn btn-secondary" (click)="displayLab=false; approve.setValue(false);">No</button>
         </div>
       </div>
     </p-footer>

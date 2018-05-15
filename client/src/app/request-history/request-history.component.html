@@ -4,22 +4,18 @@
     <div class="form-group row">
       <div class="col-sm-12">
         <p-accordion>
-          <p-accordionTab header="Date: {{request.requested}}" *ngFor="let request of requests; let i=index;">
+          <p-accordionTab header="Date Requested: {{request.requested}}" *ngFor="let request of requests; let i=index;">
             <div class="container-fluid">
               <div class="form-group row">
                 <div class="col-12">
                   <table class="table">
                     <thead>
                         <tr>
-                          <th scope="col">Requested</th>
-                          <th scope="col">Lab Manager</th>
                           <th scope="col">Location</th>
                         </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{{request.requested}}</td>
-                        <td>{{request.requester}}</td>
                         <td>{{request.location}}</td>
                       </tr>
                     </tbody>
@@ -68,6 +64,19 @@
                       </div>
                     </p-accordionTab>
                   </p-accordion>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-5">
+                  <label for="serviced">Serviced?</label>
+                  <input type="text" class="form-control" id="serviced"  value="{{request.serviced ? 'YES': 'NO'}}" readonly/>
+                </div>
+                <div class="col-md-5">
+                  <label for="start">Service Date</label>
+                  <input type="text" class="form-control" id="start" value="{{request.start ? request.start : 'Not Scheduled'}}" readonly/>
+                </div>  
+                <div class="col=md-5">
+
                 </div>
               </div>  
             </div>
