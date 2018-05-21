@@ -53,7 +53,7 @@ app.use('/schedule', schedule);
 app.use('/storage', storage);
 // We configure our route so that we always redirect to our server page
 app.get('*', (request,response,next) =>{
-  // response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here
+  response.sendFile(path.join(__dirname + '/client/dist/index.html')); // Fully connect our angular app from here
 });
 
 app.listen(3000, ()=>{
