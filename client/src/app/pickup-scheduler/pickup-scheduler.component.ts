@@ -10,6 +10,7 @@ import { FormControl} from '@angular/forms';
 import { LabInspectionService } from '../services/lab-inspection.service';
 import { Router } from '@angular/router';
 import {AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-pickup-scheduler',
   templateUrl: './pickup-scheduler.component.html',
@@ -28,7 +29,7 @@ export class PickupSchedulerComponent implements OnInit {
     
     constructor(private waste: WasteManagementService, private messageService: MessageService, 
       private insp: LabInspectionService, private router: Router, 
-      private user: AuthService) { }  
+      private user: AuthService, private userId: UserService) { }  
     
     getData() {
         this.loading = true;
@@ -67,7 +68,11 @@ export class PickupSchedulerComponent implements OnInit {
           this.waste.getRequest(e.calEvent.requestId).then(data => {
             this.selectedRequest.requested = moment(this.selectedRequest.start).format("hh:mm a");
             this.selectedRequest.location = data.request.location; // Later will be inner join
-            this.selectedRequest.requester = data.request.userId; // Later will be inner join
+            this.userId.getUser(data.request.userId).subscribe(data =>{
+              if (data.success) {
+                this.selectedRequest.requester = data.user.first + " " + data.user.last;
+              }
+            }); 
             this.selectedRequest.items = data.request.items;
             this.serviced.setValue(this.selectedRequest.serviced);
             this.loading = false;
@@ -80,7 +85,11 @@ export class PickupSchedulerComponent implements OnInit {
             this.selectedRequest.requested = moment(data.inspection.requested).format("MMMM Do YYYY hh:mm a");
             this.selectedRequest.start = moment(this.selectedRequest.start).format("hh:mm a")
             this.selectedRequest.location = data.inspection.lab;
-            this.selectedRequest.requester = data.inspection.inspector;
+            this.userId.getUser(data.inspection.inspector).subscribe(data =>{
+              if (data.success) {
+                this.selectedRequest.requester = data.user.first + " " + data.user.last;
+              }
+            });
             this.serviced.setValue(this.selectedRequest.serviced);
             this.loading = false;
           }).catch(reason =>{

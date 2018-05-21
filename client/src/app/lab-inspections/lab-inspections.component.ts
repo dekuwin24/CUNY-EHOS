@@ -58,7 +58,10 @@ export class LabInspectionsComponent implements OnInit {
         this.history = response.inspections;
         this.history.forEach((element) => {
           element.requested = moment(element.requested).format('MMMM Do YYYY');
+          this.user.getUser(element.inspector).subscribe(data=>{
+            element.inspector = data.user.first + " " + data.user.last;
           });
+        });
       }).catch(reason=>{});
    }
   ngOnInit() {

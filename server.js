@@ -4,7 +4,7 @@ MAIN BACKEND SERVER FILE
 
 // Declare our dependencies
 const express = require('express'); // Framework to act as a REST API
-const cors = require('cors')
+// const cors = require('cors')
 const app = express(); // Initialize an express instance
 const verifyToken = require('./api/middlewares');
 const jwt = require('jsonwebtoken');
@@ -36,7 +36,7 @@ mongoose.connect(config.uri, config.options, (err) =>{
 
 /* Our middleware*/
 // Disable CORS for now
-app.use(cors({ origin: 'http://localhost:4200' }));
+// app.use(cors({ origin: 'http://localhost:4200' }));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
