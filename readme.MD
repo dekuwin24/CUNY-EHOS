@@ -29,9 +29,10 @@ As we can see from the diagram above, knowledge of **JavaScript** and **Angular*
 You don't necessarily need the backend Node files in order to use the client source code; everything you need to make the front end side of things work is inside the `../client` folder.
 
 As just mentioned, the client code is stored inside the */client/lab-platform/src* folder. For front end development purposes, Angular provdides a development server for you to test out your components and what not, but here I included my NodeJS script that would deploy and serve the front end.
->The script is super basic and **only is there for my own devices**. I will continuously update this repository, and whatever is done on the backend with the .NET platform, I will be mimicking with Node for my own enhancement and development in my node skills.
+>The script is super basic and **only is there for my own devices**. I will continuously update this repository, and whatever is done on the backend with the .NET platform, I will be mimicking with Node for my own enhancement and development in my node skills. That is to say that the front end can be worked on without ever disturbing the backend. So, if you want the server.js file to work, you need to download [NodeJS](https://nodejs.org/en/). *Technically*, Node.js and the NPM utility (which comes with Node) are not needed to make Angular2 work. However, it can help you be more productive/efficient, from the developing stage, all the way to the deployment stage. Okay thats enough of an advertisement!
+
+
 > UPDATE: The latest commit is the final commit for this repository, unless noted otherwise. 
-That is to say that the front end can be worked on without ever disturbing the backend. So, if you want the server.js file to work, you need to download [NodeJS](https://nodejs.org/en/). *Technically*, Node.js and the NPM utility (which comes with Node) are not needed to make Angular2 work. However, it can help you be more productive/efficient, from the developing stage, all the way to the deployment stage. Okay thats enough of an advertisement!
 
 ##  Front End Development
  1. Download Angular 5, the most efficient way to do this is through the command land interface located [here](https://cli.angular.io/). This interface makes it super easy to create components, directives, services, (i.e. an Angular project). I mean, you can create component, services, etc. manually, but honestly thats a waste of time if you have something that will do it for you.
